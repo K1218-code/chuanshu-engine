@@ -58,7 +58,7 @@ function renderGallery(index) {
 
   // 入口卡片
   $('entry-create').addEventListener('click', () => location.href = '/create.html');
-  $('entry-all').addEventListener('click', () => toast('「全部故事」随部署开放：任选一本盐言故事，AI 现场拆解成游戏'));
+  $('entry-all').addEventListener('click', () => location.href = '/stories.html');
 })();
 
 // 登录态（部署后由 Worker 提供 /api/me；本地静态返回 404/405 时隐藏）

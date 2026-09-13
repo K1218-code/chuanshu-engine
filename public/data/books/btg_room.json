@@ -5,145 +5,716 @@
     "author": "盐言故事",
     "source": "zhihu_yanyan",
     "intro": "讨厌我的年级第一和我被关在一起了。系统提示：不提分就有惩罚——可那行字，只有他看得见。",
-    "chapters_covered": [1, 2, 3, 4],
+    "chapters_covered": [
+      1,
+      2,
+      3,
+      4
+    ],
     "ai_disclaimer": true,
     "rating_hint": "general"
   },
   "canon_rules": [
-    { "id": "r1", "rule": "惩罚的真实内容永远显示为【已打码】；只有李迟游（以及穿成李迟游的玩家）看得见。信息差是全篇悬念核心，结局前不许揭穿", "type": "structure", "source_chapter": 1 },
-    { "id": "r2", "rule": "李迟游嘴硬心软：所有关心必须用嫌弃、借口或「我只是想快点出房间」包装，绝不直说", "type": "character", "source_chapter": 2 },
-    { "id": "r3", "rule": "周希永远以「递台阶」的方式示好，被拒绝后立刻恢复冷淡；他默认宋柠柠不会真的离开", "type": "character", "source_chapter": 3 },
-    { "id": "r4", "rule": "房间规则：睡着进入、可随身携带物品、学到极限出房间、下次睡觉再进；以现实大考为准，不提分触发最终惩罚", "type": "world", "source_chapter": 2 },
-    { "id": "r5", "rule": "喜剧基调：横幅「做，爱做多做」的双关可以点到即止，任何情况下不许写明惩罚的越界内容", "type": "world", "source_chapter": 1 },
-    { "id": "r6", "rule": "宋柠柠胜负心极强：被激将、被看不起时必定发狠学习，这是她所有行动的发动机", "type": "character", "source_chapter": 3 }
+    {
+      "id": "r1",
+      "rule": "惩罚的真实内容永远显示为【已打码】；只有李迟游（以及穿成李迟游的玩家）看得见。信息差是全篇悬念核心，结局前不许揭穿",
+      "type": "structure",
+      "source_chapter": 1
+    },
+    {
+      "id": "r2",
+      "rule": "李迟游嘴硬心软：所有关心必须用嫌弃、借口或「我只是想快点出房间」包装，绝不直说",
+      "type": "character",
+      "source_chapter": 2
+    },
+    {
+      "id": "r3",
+      "rule": "周希永远以「递台阶」的方式示好，被拒绝后立刻恢复冷淡；他默认宋柠柠不会真的离开",
+      "type": "character",
+      "source_chapter": 3
+    },
+    {
+      "id": "r4",
+      "rule": "房间规则：睡着进入、可随身携带物品、学到极限出房间、下次睡觉再进；以现实大考为准，不提分触发最终惩罚",
+      "type": "world",
+      "source_chapter": 2
+    },
+    {
+      "id": "r5",
+      "rule": "喜剧基调：横幅「做，爱做多做」的双关可以点到即止，任何情况下不许写明惩罚的越界内容",
+      "type": "world",
+      "source_chapter": 1
+    },
+    {
+      "id": "r6",
+      "rule": "宋柠柠胜负心极强：被激将、被看不起时必定发狠学习，这是她所有行动的发动机",
+      "type": "character",
+      "source_chapter": 3
+    }
   ],
   "lorebook": [
-    { "keys": ["房间", "传送", "规则"], "content": "「不提分就出不去」的房间：睡着后进入，可随身携带物品，学到极限自动离开，下次入睡再进入。想彻底出去必须提分到目标分数，以现实大考为准；每轮大考不提分就触发最终惩罚。房间里只有两张课桌和成堆的必刷题合订本，墙上挂着红色横幅。", "constant": true, "insertion_order": 1 },
-    { "keys": ["横幅", "做"], "content": "墙上的红色大横幅写着：「做，爱做多做，做到世界尽头。」宋柠柠盯着它顿悟：惩罚是做题。李迟游每次看到它都会微妙地呛咳。", "constant": false, "insertion_order": 10 },
-    { "keys": ["惩罚", "已打码", "那行字"], "content": "系统提示的最终惩罚内容显示为【已打码】。宋柠柠看不见，李迟游看得见却总是别过头。宋柠柠问「惩罚是什么」，他回答「你想都别想」。", "constant": false, "insertion_order": 5 },
-    { "keys": ["周希"], "content": "宋柠柠的青梅竹马。曾约定考同一所大学，一直教她数学。新学期他成绩突飞猛进后变了心：「她是我女朋友，你又不是。」「嗯，现在不想了（考同一所大学）。」他帮温简接水、辅导温简，习惯以示好递台阶的方式拿捏宋柠柠。", "constant": false, "insertion_order": 20 },
-    { "keys": ["温简"], "content": "宋柠柠的前桌，周希的女朋友。成绩进步飞快，周考反超宋柠柠拿第二。安静，几乎不与宋柠柠正面冲突。", "constant": false, "insertion_order": 30 },
-    { "keys": ["错题本", "字迹"], "content": "宋柠柠的错题本上有周希的字迹。李迟游翻开错题本时指尖一顿——他白天在办公室外听到过宋柠柠因「早恋」被数落，猜到了字迹是谁的。", "constant": false, "insertion_order": 40 },
-    { "keys": ["清北班", "保送"], "content": "李迟游所在的重点班。他高二就竞赛保送，证件照「跟要出道一样」。年级第一，帅得极具攻击性，浑身疏离劲，桀骜不驯。", "constant": false, "insertion_order": 50 },
-    { "keys": ["妈妈", "补习班"], "content": "宋柠柠的妈妈加班到十一点才回家，背着六七年前的包，眼睛弯弯地问「柠柠，怎么了？」。宋柠柠因此开不了口要补习班的钱。", "constant": false, "insertion_order": 60 },
-    { "keys": ["清柠味", "牛奶"], "content": "李迟游像刚洗过澡被传送过来时，身上有淡淡的清柠味。后来他常拎着一杯牛奶被原地传送进房间。", "constant": false, "insertion_order": 70 }
+    {
+      "keys": [
+        "房间",
+        "传送",
+        "规则"
+      ],
+      "content": "「不提分就出不去」的房间：睡着后进入，可随身携带物品，学到极限自动离开，下次入睡再进入。想彻底出去必须提分到目标分数，以现实大考为准；每轮大考不提分就触发最终惩罚。房间里只有两张课桌和成堆的必刷题合订本，墙上挂着红色横幅。",
+      "constant": true,
+      "insertion_order": 1
+    },
+    {
+      "keys": [
+        "横幅",
+        "做"
+      ],
+      "content": "墙上的红色大横幅写着：「做，爱做多做，做到世界尽头。」宋柠柠盯着它顿悟：惩罚是做题。李迟游每次看到它都会微妙地呛咳。",
+      "constant": false,
+      "insertion_order": 10
+    },
+    {
+      "keys": [
+        "惩罚",
+        "已打码",
+        "那行字"
+      ],
+      "content": "系统提示的最终惩罚内容显示为【已打码】。宋柠柠看不见，李迟游看得见却总是别过头。宋柠柠问「惩罚是什么」，他回答「你想都别想」。",
+      "constant": false,
+      "insertion_order": 5
+    },
+    {
+      "keys": [
+        "周希"
+      ],
+      "content": "宋柠柠的青梅竹马。曾约定考同一所大学，一直教她数学。新学期他成绩突飞猛进后变了心：「她是我女朋友，你又不是。」「嗯，现在不想了（考同一所大学）。」他帮温简接水、辅导温简，习惯以示好递台阶的方式拿捏宋柠柠。",
+      "constant": false,
+      "insertion_order": 20
+    },
+    {
+      "keys": [
+        "温简"
+      ],
+      "content": "宋柠柠的前桌，周希的女朋友。成绩进步飞快，周考反超宋柠柠拿第二。安静，几乎不与宋柠柠正面冲突。",
+      "constant": false,
+      "insertion_order": 30
+    },
+    {
+      "keys": [
+        "错题本",
+        "字迹"
+      ],
+      "content": "宋柠柠的错题本上有周希的字迹。李迟游翻开错题本时指尖一顿——他白天在办公室外听到过宋柠柠因「早恋」被数落，猜到了字迹是谁的。",
+      "constant": false,
+      "insertion_order": 40
+    },
+    {
+      "keys": [
+        "清北班",
+        "保送"
+      ],
+      "content": "李迟游所在的重点班。他高二就竞赛保送，证件照「跟要出道一样」。年级第一，帅得极具攻击性，浑身疏离劲，桀骜不驯。",
+      "constant": false,
+      "insertion_order": 50
+    },
+    {
+      "keys": [
+        "妈妈",
+        "补习班"
+      ],
+      "content": "宋柠柠的妈妈加班到十一点才回家，背着六七年前的包，眼睛弯弯地问「柠柠，怎么了？」。宋柠柠因此开不了口要补习班的钱。",
+      "constant": false,
+      "insertion_order": 60
+    },
+    {
+      "keys": [
+        "清柠味",
+        "牛奶"
+      ],
+      "content": "李迟游像刚洗过澡被传送过来时，身上有淡淡的清柠味。后来他常拎着一杯牛奶被原地传送进房间。",
+      "constant": false,
+      "insertion_order": 70
+    }
   ],
   "characters": [
     {
-      "id": "snn", "name": "宋柠柠", "role": "lead",
+      "id": "snn",
+      "name": "宋柠柠",
+      "role": "lead",
       "description": "平行班第二，偏科，自制力差，管不住想摸手机的手。稳第二全靠死撑。",
       "appearance": "普通高中生，书包里塞满错题本。",
       "anchor": "死撑的第二名，胜负心一点就着。",
       "mind": "想赢，想证明没有周希我也行；对房间里那个高冷的家伙，从戒备到依赖。",
       "voice": "「哦！我顿悟了，不提分的惩罚是做题吗？」\\n「不要问，问就是我自制力很差。」",
       "first_mes": "要是有个房间，能让学习强制爱我就好了。",
-      "avatar": "柠", "relations": { "周希": "青梅竹马，已被伤过", "李迟游": "被关在一起的人" }
+      "avatar": "柠",
+      "relations": {
+        "周希": "青梅竹马，已被伤过",
+        "李迟游": "被关在一起的人"
+      }
     },
     {
-      "id": "lcy", "name": "李迟游", "role": "lead",
+      "id": "lcy",
+      "name": "李迟游",
+      "role": "lead",
       "description": "清北班年级第一，高二竞赛保送。个子很高，穿黑T恤，碎发湿漉漉，浑身疏离劲。",
       "appearance": "黑T恤，湿发，垂眼讲题时身上有淡淡清柠味。",
       "anchor": "嘴上「不感兴趣」，椅子却一次次拉过来。",
       "mind": "那行字只有我看得见——绝不能让她知道。想快点出房间，所以……只是顺手教她而已。",
       "voice": "「你想都不要想。」\\n「不用谢我，我只是想快点出房间。」",
       "first_mes": "（一脸「你是哪位」的表情看过来）",
-      "avatar": "迟", "relations": { "宋柠柠": "被强制关在一起的人" }
+      "avatar": "迟",
+      "relations": {
+        "宋柠柠": "被强制关在一起的人"
+      }
     },
     {
-      "id": "zx", "name": "周希", "role": "npc",
+      "id": "zx",
+      "name": "周希",
+      "role": "npc",
       "description": "宋柠柠的青梅竹马。教了她多年数学，新学期移情温简后单方面停止辅导。",
       "appearance": "笑起来懒散。",
       "anchor": "他可以不喜欢你，但你不能不喜欢他。",
       "mind": "她闹一阵就会回来的，一直都这样。",
       "voice": "「没人教的感觉，不好受吧？」\\n「她是我女朋友，你又不是。」",
       "first_mes": "「考得挺好。虽然全靠我给你押的题，下次就不行了。」",
-      "avatar": "希", "relations": { "宋柠柠": "习惯她跟在身后", "温简": "现女友" }
+      "avatar": "希",
+      "relations": {
+        "宋柠柠": "习惯她跟在身后",
+        "温简": "现女友"
+      }
     },
     {
-      "id": "wj", "name": "温简", "role": "npc",
+      "id": "wj",
+      "name": "温简",
+      "role": "npc",
       "description": "前桌，周希女友，成绩进步飞快。",
       "appearance": "安静。",
       "anchor": "安静地赢走一切。",
       "mind": "（从不正面交锋）",
       "voice": "「……」",
       "first_mes": "（安静地做着周希给她圈画的题）",
-      "avatar": "简", "relations": { "周希": "男友" }
+      "avatar": "简",
+      "relations": {
+        "周希": "男友"
+      }
     }
   ],
   "player": {
     "identity_cards": [
-      { "id": "ic_snn", "name": "穿成宋柠柠", "desc": "原作视角。看不见惩罚那行字，全靠死撑和胜负心。", "init": {}, "exclusive": [] },
-      { "id": "ic_lcy", "name": "穿成李迟游", "desc": "二周目视角。你看得见那行字——但她是宋柠柠，你说不出口。清醒+2。", "init": { "清醒": 2 }, "exclusive": [] },
-      { "id": "ic_watcher", "name": "穿成路人同学", "desc": "高难度。你没有房间，只能在现实里看着这一切。信心-1。", "init": { "信心": -1 }, "exclusive": [] }
+      {
+        "id": "ic_snn",
+        "name": "穿成宋柠柠",
+        "desc": "原作视角。看不见惩罚那行字，全靠死撑和胜负心。",
+        "init": {},
+        "exclusive": []
+      },
+      {
+        "id": "ic_lcy",
+        "name": "穿成李迟游",
+        "desc": "二周目视角。你看得见那行字——但她是宋柠柠，你说不出口。清醒+2。",
+        "init": {
+          "清醒": 2
+        },
+        "exclusive": []
+      },
+      {
+        "id": "ic_watcher",
+        "name": "穿成路人同学",
+        "desc": "高难度。你没有房间，只能在现实里看着这一切。信心-1。",
+        "init": {
+          "信心": -1
+        },
+        "exclusive": []
+      }
     ],
     "attributes": [
-      { "key": "信心", "name": "信心", "initial": 3, "min": 0, "max": 10, "deathBelow": 1, "bands": [{ "upTo": 2, "label": "自我怀疑", "directive": "对话犹疑，容易退让" }] },
-      { "key": "清醒", "name": "清醒", "initial": 2, "min": 0, "max": 10, "deathBelow": null, "bands": [{ "upTo": 2, "label": "旧习惯未断", "directive": "对周希的台阶仍有惯性期待" }] },
-      { "key": "默契", "name": "默契", "initial": 0, "min": 0, "max": 10, "deathBelow": null, "bands": [] },
-      { "key": "提分", "name": "提分", "initial": 0, "min": 0, "max": 10, "deathBelow": null, "bands": [] }
+      {
+        "key": "信心",
+        "name": "信心",
+        "initial": 3,
+        "min": 0,
+        "max": 10,
+        "deathBelow": 1,
+        "bands": [
+          {
+            "upTo": 2,
+            "label": "自我怀疑",
+            "directive": "对话犹疑，容易退让"
+          }
+        ]
+      },
+      {
+        "key": "清醒",
+        "name": "清醒",
+        "initial": 2,
+        "min": 0,
+        "max": 10,
+        "deathBelow": null,
+        "bands": [
+          {
+            "upTo": 2,
+            "label": "旧习惯未断",
+            "directive": "对周希的台阶仍有惯性期待"
+          }
+        ]
+      },
+      {
+        "key": "默契",
+        "name": "默契",
+        "initial": 0,
+        "min": 0,
+        "max": 10,
+        "deathBelow": null,
+        "bands": []
+      },
+      {
+        "key": "提分",
+        "name": "提分",
+        "initial": 0,
+        "min": 0,
+        "max": 10,
+        "deathBelow": null,
+        "bands": []
+      }
     ]
   },
   "graph": {
     "start": "n0",
     "nodes": [
-      { "id": "n0", "chapter": 1, "who": "narrator", "text": "我自制力很差，许愿学习可以强制爱我。下一秒——「不提分就出不去」的房间。两张课桌，成堆的必刷题，以及那个高二就竞赛保送、帅得极具攻击性的年级第一：李迟游。", "set": {}, "goto": "n1", "canon": true, "keyMoment": false },
-      { "id": "n1", "chapter": 1, "who": "snn", "text": "系统提示，不提分的惩罚是：【已打码】。我问身边人：「你看得见那行字吗？」他看得见，却微妙地偏过了头。", "set": {}, "canon": true, "keyMoment": true,
+      {
+        "id": "n0",
+        "chapter": 1,
+        "who": "narrator",
+        "text": "我自制力很差，许愿学习可以强制爱我。下一秒——「不提分就出不去」的房间。两张课桌，成堆的必刷题，以及那个高二就竞赛保送、帅得极具攻击性的年级第一：李迟游。",
+        "set": {},
+        "goto": "n1",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "n1",
+        "chapter": 1,
+        "who": "snn",
+        "text": "系统提示，不提分的惩罚是：【已打码】。我问身边人：「你看得见那行字吗？」他看得见，却微妙地偏过了头。",
+        "set": {},
+        "canon": true,
+        "keyMoment": true,
         "choices": [
-          { "text": "追问到底：惩罚是什么", "requires": "", "set": { "默契": -1, "清醒": 1 }, "goto": "n2a", "knowledge_patch": { "playerKnown": ["李迟游看得见那行字"] }, "divergence_delta": 0 },
-          { "text": "自我安慰：还好只是做题", "requires": "", "set": { "清醒": 0 }, "goto": "n2b", "knowledge_patch": {}, "divergence_delta": 0 }
-        ] },
-      { "id": "n2a", "chapter": 1, "who": "lcy", "text": "「你想都别想。」他声音很平，「我一定会让你提分。」", "set": {}, "goto": "n3", "canon": true, "keyMoment": false },
-      { "id": "n2b", "chapter": 1, "who": "narrator", "text": "「做题。」他意味深长地扫了我一眼，「嗯」了一声，拉开椅子，不再和我废话。", "set": {}, "goto": "n3", "canon": true, "keyMoment": false },
-      { "id": "n3", "chapter": 1, "who": "narrator", "text": "墙上的红色大横幅：【做，爱做多做，做到世界尽头。】李迟游盯着它莫名呛咳了一声。「哦！」我顿悟，「不提分的惩罚是做题吗？」好题压抑的房间。", "set": {}, "goto": "n4", "canon": true, "keyMoment": false },
-      { "id": "n4", "chapter": 1, "who": "narrator", "text": "他翻了翻我的错题本，指尖一停——上面有别的男生的字迹。白天在教师办公室外，我被抓到「早恋」挨训时，他正事不关己地路过。", "set": {}, "goto": "n5", "canon": true, "keyMoment": false },
-
-      { "id": "n5", "chapter": 2, "who": "narrator", "text": "字是周希写的。青梅竹马，约好考同一所大学，他教了我那么多年。新学期他说：「我女朋友不想让你和我的排名挨得太近。」「她是我女朋友，你又不是。」晚自习我消化了这件事，却消化不了没人教我了。妈妈加班到十一点，我开不了口要补习班。周考，温简反超我拿了第二。", "set": { "清醒": 1 }, "goto": "n6", "canon": true, "keyMoment": false },
-      { "id": "n6", "chapter": 2, "who": "narrator", "text": "班主任找我谈话，数落我一蹶不振。走廊外雷阵雨。李迟游和清北班的男生路过，有人嗤笑了一声。有人问他：「她喜欢谁啊，不好奇吗？」他答得漫不经心：「不感兴趣。」可谁也没想到，当晚，他就和我被关在同一个房间里了。", "set": {}, "goto": "n7", "canon": true, "keyMoment": false },
-      { "id": "n7", "chapter": 2, "who": "snn", "text": "我大致摸清规则：每晚睡着进入，学到极限出房间，下次睡觉再进。想彻底出去，必须提分。明天就是月考。我安慰他：「还好只是做题，做个不停而已。」他宕机了几秒，幽怨地望着我：「不要。」", "set": {}, "goto": "n8", "canon": true, "keyMoment": false },
-      { "id": "n8", "chapter": 2, "who": "narrator", "text": "他抽出一套真题卷让我写。写到大题卡住，我抬头，与他的目光撞个正着。「想问就问。」他拉近椅子，拿了我的小熊碳素笔，在草稿纸上以我能听懂的方式写下结构。他垂眼时，我能闻到他身上淡淡的清柠味。以前周希教我，十句必带一句嫌我笨。可他没有，讲了一遍又一遍。", "set": {}, "canon": true, "keyMoment": true,
+          {
+            "text": "追问到底：惩罚是什么",
+            "requires": "",
+            "set": {
+              "默契": -1,
+              "清醒": 1
+            },
+            "goto": "n2a",
+            "knowledge_patch": {
+              "playerKnown": [
+                "李迟游看得见那行字"
+              ]
+            },
+            "divergence_delta": 0
+          },
+          {
+            "text": "自我安慰：还好只是做题",
+            "requires": "",
+            "set": {
+              "清醒": 0
+            },
+            "goto": "n2b",
+            "knowledge_patch": {},
+            "divergence_delta": 0
+          }
+        ]
+      },
+      {
+        "id": "n2a",
+        "chapter": 1,
+        "who": "lcy",
+        "text": "「你想都别想。」他声音很平，「我一定会让你提分。」",
+        "set": {},
+        "goto": "n3",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "n2b",
+        "chapter": 1,
+        "who": "narrator",
+        "text": "「做题。」他意味深长地扫了我一眼，「嗯」了一声，拉开椅子，不再和我废话。",
+        "set": {},
+        "goto": "n3",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "n3",
+        "chapter": 1,
+        "who": "narrator",
+        "text": "墙上的红色大横幅：【做，爱做多做，做到世界尽头。】李迟游盯着它莫名呛咳了一声。「哦！」我顿悟，「不提分的惩罚是做题吗？」好题压抑的房间。",
+        "set": {},
+        "goto": "n4",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "n4",
+        "chapter": 1,
+        "who": "narrator",
+        "text": "他翻了翻我的错题本，指尖一停——上面有别的男生的字迹。白天在教师办公室外，我被抓到「早恋」挨训时，他正事不关己地路过。",
+        "set": {},
+        "goto": "n5",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "n5",
+        "chapter": 2,
+        "who": "narrator",
+        "text": "字是周希写的。青梅竹马，约好考同一所大学，他教了我那么多年。新学期他说：「我女朋友不想让你和我的排名挨得太近。」「她是我女朋友，你又不是。」晚自习我消化了这件事，却消化不了没人教我了。妈妈加班到十一点，我开不了口要补习班。周考，温简反超我拿了第二。",
+        "set": {
+          "清醒": 1
+        },
+        "goto": "n6",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "n6",
+        "chapter": 2,
+        "who": "narrator",
+        "text": "班主任找我谈话，数落我一蹶不振。走廊外雷阵雨。李迟游和清北班的男生路过，有人嗤笑了一声。有人问他：「她喜欢谁啊，不好奇吗？」他答得漫不经心：「不感兴趣。」可谁也没想到，当晚，他就和我被关在同一个房间里了。",
+        "set": {},
+        "goto": "n7",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "n7",
+        "chapter": 2,
+        "who": "snn",
+        "text": "我大致摸清规则：每晚睡着进入，学到极限出房间，下次睡觉再进。想彻底出去，必须提分。明天就是月考。我安慰他：「还好只是做题，做个不停而已。」他宕机了几秒，幽怨地望着我：「不要。」",
+        "set": {},
+        "goto": "n8",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "n8",
+        "chapter": 2,
+        "who": "narrator",
+        "text": "他抽出一套真题卷让我写。写到大题卡住，我抬头，与他的目光撞个正着。「想问就问。」他拉近椅子，拿了我的小熊碳素笔，在草稿纸上以我能听懂的方式写下结构。他垂眼时，我能闻到他身上淡淡的清柠味。以前周希教我，十句必带一句嫌我笨。可他没有，讲了一遍又一遍。",
+        "set": {},
+        "canon": true,
+        "keyMoment": true,
         "choices": [
-          { "text": "硬着头皮吃透每一道错题", "requires": "", "set": { "提分": 2, "默契": 2 }, "goto": "n9", "knowledge_patch": {}, "divergence_delta": 0 },
-          { "text": "不好意思再问，装懂", "requires": "", "set": { "提分": 0, "信心": -1 }, "goto": "n9b", "knowledge_patch": {}, "divergence_delta": 0 },
-          { "text": "问：你为什么看得见那行字", "requires": "", "set": { "默契": 1, "清醒": 1 }, "goto": "n9c", "knowledge_patch": { "playerKnown": ["他知道得比说出来的多"] }, "divergence_delta": 0.05 }
-        ] },
-
-      { "id": "n9", "chapter": 3, "who": "narrator", "text": "一周后，月考出成绩。我比温简多了两分，重回第二。第一仍是周希——他下次月考年排再靠前些，就能转去清北班了。", "set": { "信心": 1 }, "goto": "n10", "canon": true, "keyMoment": false },
-      { "id": "n9b", "chapter": 3, "who": "narrator", "text": "一周后，月考出成绩。原地踏步，温简又压了我一头。班上同学叽叽喳喳：「没有温简那样的男朋友呗，想考赢就难了。」", "set": { "信心": -1 }, "goto": "n10", "canon": false, "keyMoment": false },
-      { "id": "n9c", "chapter": 3, "who": "lcy", "text": "他的笔尖一顿。「字就是字。」他说得很快，耳根却有点红。然后他把椅子又拉近了半格，像是在转移话题：「这道题，再看一遍。」", "set": {}, "goto": "n9", "canon": false, "keyMoment": false },
-      { "id": "n10", "chapter": 3, "who": "zx", "text": "晚自习下课，周希不冷不热地拦住我：「考得挺好。虽然全靠我给你押的题，下次就不行了。」他懒散一笑：「没人教的感觉，不好受吧？」——这是他一贯递台阶的方式。以前他一示好，我就忍不住凑上去。", "set": {}, "canon": true, "keyMoment": true,
+          {
+            "text": "硬着头皮吃透每一道错题",
+            "requires": "",
+            "set": {
+              "提分": 2,
+              "默契": 2
+            },
+            "goto": "n9",
+            "knowledge_patch": {},
+            "divergence_delta": 0
+          },
+          {
+            "text": "不好意思再问，装懂",
+            "requires": "",
+            "set": {
+              "提分": 0,
+              "信心": -1
+            },
+            "goto": "n9b",
+            "knowledge_patch": {},
+            "divergence_delta": 0
+          },
+          {
+            "text": "问：你为什么看得见那行字",
+            "requires": "",
+            "set": {
+              "默契": 1,
+              "清醒": 1
+            },
+            "goto": "n9c",
+            "knowledge_patch": {
+              "playerKnown": [
+                "他知道得比说出来的多"
+              ]
+            },
+            "divergence_delta": 0.05
+          }
+        ]
+      },
+      {
+        "id": "n9",
+        "chapter": 3,
+        "who": "narrator",
+        "text": "一周后，月考出成绩。我比温简多了两分，重回第二。第一仍是周希——他下次月考年排再靠前些，就能转去清北班了。",
+        "set": {
+          "信心": 1
+        },
+        "goto": "n10",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "n9b",
+        "chapter": 3,
+        "who": "narrator",
+        "text": "一周后，月考出成绩。原地踏步，温简又压了我一头。班上同学叽叽喳喳：「没有温简那样的男朋友呗，想考赢就难了。」",
+        "set": {
+          "信心": -1
+        },
+        "goto": "n10",
+        "canon": false,
+        "keyMoment": false
+      },
+      {
+        "id": "n9c",
+        "chapter": 3,
+        "who": "lcy",
+        "text": "他的笔尖一顿。「字就是字。」他说得很快，耳根却有点红。然后他把椅子又拉近了半格，像是在转移话题：「这道题，再看一遍。」",
+        "set": {},
+        "goto": "n9",
+        "canon": false,
+        "keyMoment": false
+      },
+      {
+        "id": "n10",
+        "chapter": 3,
+        "who": "zx",
+        "text": "晚自习下课，周希不冷不热地拦住我：「考得挺好。虽然全靠我给你押的题，下次就不行了。」他懒散一笑：「没人教的感觉，不好受吧？」——这是他一贯递台阶的方式。以前他一示好，我就忍不住凑上去。",
+        "set": {},
+        "canon": true,
+        "keyMoment": true,
         "choices": [
-          { "text": "接台阶：那你还能教我吗", "requires": "", "set": { "清醒": -2, "信心": 1 }, "goto": "n11a", "knowledge_patch": {}, "divergence_delta": 0 },
-          { "text": "「我自己可以。」转身走", "requires": "", "set": { "清醒": 2, "信心": 1 }, "goto": "n11b", "knowledge_patch": {}, "divergence_delta": 0.1 },
-          { "text": "「考赢你，清北班就是我的」", "requires": "清醒>=4", "set": { "清醒": 1, "提分": 1, "信心": 1 }, "goto": "n11c", "knowledge_patch": {}, "divergence_delta": 0.15 }
-        ] },
-      { "id": "n11a", "chapter": 3, "who": "narrator", "text": "他习惯性地笑笑，答应了。可我看着他帮温简接水的背影，忽然想起那句「她是我女朋友，你又不是」。台阶接住了，人还是往上走——只是这次，走得多慢啊。", "set": { "清醒": -1 }, "goto": "n12", "canon": false, "keyMoment": false },
-      { "id": "n11b", "chapter": 3, "who": "narrator", "text": "他在我背后愣了几秒。当晚，「不提分就出不去」的房间里，李迟游听完我的转述，没说话，只是抽出的卷子莫名多了一沓，讲题讲到了极限——像在替谁出气。", "set": { "默契": 2 }, "goto": "n12", "canon": false, "keyMoment": false },
-      { "id": "n11c", "chapter": 3, "who": "lcy", "text": "房间里，李迟游听完我的宣战，难得地笑出了声。「可以。」他抽出压箱底的真题，纸页翻得哗哗响，「我帮你。反正——」他顿了顿，「我也想快点出去。」", "set": { "默契": 2, "提分": 1 }, "goto": "n12", "canon": false, "keyMoment": false },
-
-      { "id": "n12", "chapter": 4, "who": "narrator", "text": "冲刺的日子开始滚动：现实里发狠学，回家写完作业，在梦里接着学。李迟游拎着杯牛奶就被原地传送过来，日复一日。我的错题本越来越薄，草稿纸越来越厚。", "set": { "提分": 2, "默契": 1 }, "goto": "n13", "canon": true, "keyMoment": false },
-      { "id": "n13", "chapter": 4, "who": "narrator", "text": "最终大考前夜。房间里很静，墙上那行【已打码】的惩罚，第一次闪烁了一下。李迟游盯着它，喉结动了动，握笔的手紧了紧。", "set": {}, "canon": true, "keyMoment": true,
+          {
+            "text": "接台阶：那你还能教我吗",
+            "requires": "",
+            "set": {
+              "清醒": -2,
+              "信心": 1
+            },
+            "goto": "n11a",
+            "knowledge_patch": {},
+            "divergence_delta": 0
+          },
+          {
+            "text": "「我自己可以。」转身走",
+            "requires": "",
+            "set": {
+              "清醒": 2,
+              "信心": 1
+            },
+            "goto": "n11b",
+            "knowledge_patch": {},
+            "divergence_delta": 0.1
+          },
+          {
+            "text": "「考赢你，清北班就是我的」",
+            "requires": "清醒>=4",
+            "set": {
+              "清醒": 1,
+              "提分": 1,
+              "信心": 1
+            },
+            "goto": "n11c",
+            "knowledge_patch": {},
+            "divergence_delta": 0.15
+          }
+        ]
+      },
+      {
+        "id": "n11a",
+        "chapter": 3,
+        "who": "narrator",
+        "text": "他习惯性地笑笑，答应了。可我看着他帮温简接水的背影，忽然想起那句「她是我女朋友，你又不是」。台阶接住了，人还是往上走——只是这次，走得多慢啊。",
+        "set": {
+          "清醒": -1
+        },
+        "goto": "n12",
+        "canon": false,
+        "keyMoment": false
+      },
+      {
+        "id": "n11b",
+        "chapter": 3,
+        "who": "narrator",
+        "text": "他在我背后愣了几秒。当晚，「不提分就出不去」的房间里，李迟游听完我的转述，没说话，只是抽出的卷子莫名多了一沓，讲题讲到了极限——像在替谁出气。",
+        "set": {
+          "默契": 2
+        },
+        "goto": "n12",
+        "canon": false,
+        "keyMoment": false
+      },
+      {
+        "id": "n11c",
+        "chapter": 3,
+        "who": "lcy",
+        "text": "房间里，李迟游听完我的宣战，难得地笑出了声。「可以。」他抽出压箱底的真题，纸页翻得哗哗响，「我帮你。反正——」他顿了顿，「我也想快点出去。」",
+        "set": {
+          "默契": 2,
+          "提分": 1
+        },
+        "goto": "n12",
+        "canon": false,
+        "keyMoment": false
+      },
+      {
+        "id": "n12",
+        "chapter": 4,
+        "who": "narrator",
+        "text": "冲刺的日子开始滚动：现实里发狠学，回家写完作业，在梦里接着学。李迟游拎着杯牛奶就被原地传送过来，日复一日。我的错题本越来越薄，草稿纸越来越厚。",
+        "set": {
+          "提分": 2,
+          "默契": 1
+        },
+        "goto": "n13",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "n13",
+        "chapter": 4,
+        "who": "narrator",
+        "text": "最终大考前夜。房间里很静，墙上那行【已打码】的惩罚，第一次闪烁了一下。李迟游盯着它，喉结动了动，握笔的手紧了紧。",
+        "set": {},
+        "canon": true,
+        "keyMoment": true,
         "choices": [
-          { "text": "按时睡觉，明天稳住发挥", "requires": "", "set": { "信心": 1 }, "goto": "n_gate", "knowledge_patch": {}, "divergence_delta": 0 },
-          { "text": "通宵最后一搏", "requires": "", "set": { "提分": 2, "信心": -1 }, "goto": "n_gate", "knowledge_patch": {}, "divergence_delta": 0 },
-          { "text": "凑近看那行闪动的字", "requires": "默契>=5", "set": { "默契": 1 }, "goto": "n13c", "knowledge_patch": { "playerKnown": ["惩罚真相的一角"] }, "divergence_delta": 0.1 }
-        ] },
-      { "id": "n13c", "chapter": 4, "who": "lcy", "text": "他猛地抬手挡在我眼前，声音有点哑：「别看。」指缝间漏出来的半个字，让我心跳漏了一拍。他别过头去：「……专心做题。」", "set": {}, "goto": "n_gate", "canon": false, "keyMoment": false },
-      { "id": "n_gate", "chapter": 4, "who": "narrator", "text": "大考出分那天，我盯着成绩条，深吸一口气——", "set": {}, "canon": true, "keyMoment": false }
+          {
+            "text": "按时睡觉，明天稳住发挥",
+            "requires": "",
+            "set": {
+              "信心": 1
+            },
+            "goto": "n_gate",
+            "knowledge_patch": {},
+            "divergence_delta": 0
+          },
+          {
+            "text": "通宵最后一搏",
+            "requires": "",
+            "set": {
+              "提分": 2,
+              "信心": -1
+            },
+            "goto": "n_gate",
+            "knowledge_patch": {},
+            "divergence_delta": 0
+          },
+          {
+            "text": "凑近看那行闪动的字",
+            "requires": "默契>=5",
+            "set": {
+              "默契": 1
+            },
+            "goto": "n13c",
+            "knowledge_patch": {
+              "playerKnown": [
+                "惩罚真相的一角"
+              ]
+            },
+            "divergence_delta": 0.1
+          }
+        ]
+      },
+      {
+        "id": "n13c",
+        "chapter": 4,
+        "who": "lcy",
+        "text": "他猛地抬手挡在我眼前，声音有点哑：「别看。」指缝间漏出来的半个字，让我心跳漏了一拍。他别过头去：「……专心做题。」",
+        "set": {},
+        "goto": "n_gate",
+        "canon": false,
+        "keyMoment": false
+      },
+      {
+        "id": "n_gate",
+        "chapter": 4,
+        "who": "narrator",
+        "text": "大考出分那天，我盯着成绩条，深吸一口气——",
+        "set": {},
+        "canon": true,
+        "keyMoment": false
+      }
     ]
   },
   "endings": [
-    { "id": "end_truth", "family": "隐藏", "condition": "默契>=7 & EVT?[n13c]", "title": "看见那行字的人", "tone": "心动·含蓄喜剧", "epilogue": "你考过了目标线。离开房间前的最后一晚，那行【已打码】的字第一次对你亮起。李迟游站在门口，耳根通红，一字一字把它念给你听——原来这个房间，从一开始就在替他保密。", "rarity": 0.08 },
-    { "id": "end_win", "family": "改命", "condition": "提分>=6 & 清醒>=6", "title": "清北班的位置是我的", "tone": "爽·逆袭", "epilogue": "你超过了周希，年级第一行第一次写上你的名字。班主任在办公室笑出了声，周希站在走廊里，第一次没递出台阶。房间消失的那晚，李迟游发来一条消息：「早就说过，你可以。」", "rarity": 0.15 },
-    { "id": "end_zhou", "family": "原作", "condition": "清醒<=1 & EVT?[n11a]", "title": "台阶之上", "tone": "遗憾", "epilogue": "你接过了台阶，成绩慢慢回去了，像什么都没发生过。房间再也没有出现过——它大概也觉得，你不需要它了。只是偶尔深夜刷题卡住时，你会想起那个垂眼讲题的侧影，和一股淡淡的清柠味。", "rarity": 0.1 },
-    { "id": "end_pass", "family": "原作", "condition": "提分>=5", "title": "提分，出房间", "tone": "温暖·原作向", "epilogue": "目标分数达成，房门打开的那一瞬间，成堆的必刷题合订本哗啦啦散成了纸鹤。李迟游把手插进兜里，走在你后面半步：「下学期——」他停了很久，「继续教你，也不是不行。」", "rarity": 0.3 },
-    { "id": "end_normal", "family": "原作", "condition": "", "title": "还差一点", "tone": "平实", "epilogue": "分数涨了，但没到目标线。房间的门没有开，墙上横幅幽幽地闪。李迟游把新的一沓卷子拍在桌上：「继续。」——好吧，谁让你的自制力，确实很差呢。", "rarity": 0.3 },
-    { "id": "end_crash", "family": "死亡", "condition": "信心<1", "title": "撑不住的那晚", "tone": "崩溃线", "epilogue": "信心见底的你在晚自习趴着睡着了。这一次，房间没有把你传送进去——它大概是嫌你，连题都不想做了。（提示：信心归零触发崩溃结局，重开试试不同的选择）", "rarity": 0.07 }
+    {
+      "id": "end_truth",
+      "family": "隐藏",
+      "condition": "默契>=7 & EVT?[n13c]",
+      "title": "看见那行字的人",
+      "tone": "心动·含蓄喜剧",
+      "epilogue": "你考过了目标线。离开房间前的最后一晚，那行【已打码】的字第一次对你亮起。李迟游站在门口，耳根通红，一字一字把它念给你听——原来这个房间，从一开始就在替他保密。",
+      "rarity": 0.08
+    },
+    {
+      "id": "end_win",
+      "family": "改命",
+      "condition": "提分>=6 & 清醒>=6",
+      "title": "清北班的位置是我的",
+      "tone": "爽·逆袭",
+      "epilogue": "你超过了周希，年级第一行第一次写上你的名字。班主任在办公室笑出了声，周希站在走廊里，第一次没递出台阶。房间消失的那晚，李迟游发来一条消息：「早就说过，你可以。」",
+      "rarity": 0.15
+    },
+    {
+      "id": "end_zhou",
+      "family": "原作",
+      "condition": "清醒<=1 & EVT?[n11a]",
+      "title": "台阶之上",
+      "tone": "遗憾",
+      "epilogue": "你接过了台阶，成绩慢慢回去了，像什么都没发生过。房间再也没有出现过——它大概也觉得，你不需要它了。只是偶尔深夜刷题卡住时，你会想起那个垂眼讲题的侧影，和一股淡淡的清柠味。",
+      "rarity": 0.1
+    },
+    {
+      "id": "end_pass",
+      "family": "原作",
+      "condition": "提分>=5",
+      "title": "提分，出房间",
+      "tone": "温暖·原作向",
+      "epilogue": "目标分数达成，房门打开的那一瞬间，成堆的必刷题合订本哗啦啦散成了纸鹤。李迟游把手插进兜里，走在你后面半步：「下学期——」他停了很久，「继续教你，也不是不行。」",
+      "rarity": 0.3
+    },
+    {
+      "id": "end_normal",
+      "family": "原作",
+      "condition": "",
+      "title": "还差一点",
+      "tone": "平实",
+      "epilogue": "分数涨了，但没到目标线。房间的门没有开，墙上横幅幽幽地闪。李迟游把新的一沓卷子拍在桌上：「继续。」——好吧，谁让你的自制力，确实很差呢。",
+      "rarity": 0.3
+    },
+    {
+      "id": "end_crash",
+      "family": "死亡",
+      "condition": "信心<1",
+      "title": "撑不住的那晚",
+      "tone": "崩溃线",
+      "epilogue": "信心见底的你在晚自习趴着睡着了。这一次，房间没有把你传送进去——它大概是嫌你，连题都不想做了。（提示：信心归零触发崩溃结局，重开试试不同的选择）",
+      "rarity": 0.07
+    }
   ],
   "presentation": {
     "ui_style": "classic-vn",
     "bubble_theme": "light",
     "narration_rules": "旁白用叙述体，台词优先引用原文；每个节点≤120字",
     "mind_reading": true,
-    "npc_pool": ["班主任", "同学", "妈妈", "温简"]
+    "npc_pool": [
+      "班主任",
+      "同学",
+      "妈妈",
+      "温简"
+    ],
+    "chapter_names": {
+      "1": "入房",
+      "2": "第一夜",
+      "3": "台阶",
+      "4": "大考"
+    }
   }
 }

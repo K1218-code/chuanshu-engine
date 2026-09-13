@@ -16,25 +16,34 @@ function assertPublicHttpUrl(raw) {
   if (/^169\.254\./.test(host)) throw new Error('拒绝保留地址');
 }
 
-async function requestJson(url, { method = 'GET', headers = {}, body } = {}) {
-  assertPublicHttpUrl(url);
-  const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), 30000);
-  try {
-    const res = await fetch(url, { method, headers, body, signal: controller.signal });
-    const text = await res.text();
-    try { return JSON.parse(text); } catch { throw new Error('上游返回了无法解析的响应'); }
-  } finally { clearTimeout(timer); }
-}
+// ---- 知乎 OAuth（技术文档 §8.2） ----
+// 出站端点全部为字符串字面量，不接受任何请求方传入的 URL（SSRF 防护）
 
 // ---- 健康检查 ----
 app.get('/api/health', (c) => c.json({ ok: true, app: 'chuanshu-engine', ts: Date.now() }));
 
-// ---- 知乎 OAuth（技术文档 §8.2） ----
-function randomHex(bytes, env) {
+function randomHex(bytes) {
   const arr = new Uint8Array(bytes);
   crypto.getRandomValues(arr);
   return [...arr].map((b) => b.toString(16).padStart(2, '0')).join('');
+}
+
+// LLM 通道：URL 来自服务端环境变量配置（可信配置），仍走出站守卫
+async function llmChat(env, messages) {
+  const url = `${env.LLM_BASE_URL.replace(/\/$/, '')}/chat/completions`;
+  assertPublicHttpUrl(url);
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 25000);
+  try {
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${env.LLM_API_KEY}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ model: env.LLM_MODEL, response_format: { type: 'json_object' }, messages }),
+      signal: controller.signal,
+    });
+    const payload = await res.json();
+    return JSON.parse(payload?.choices?.[0]?.message?.content || '{}');
+  } finally { clearTimeout(timer); }
 }
 
 app.get('/auth/zhihu/login', async (c) => {
@@ -70,17 +79,17 @@ app.get('/auth/zhihu/callback', async (c) => {
     redirect_uri: env.ZHIHU_OAUTH_REDIRECT_URI,
     code,
   }).toString();
-  const payload = await requestJson('https://openapi.zhihu.com/access_token', {
+  const payload = await (await fetch('https://openapi.zhihu.com/access_token', {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     body: form,
-  });
+  }).catch(() => null))?.json?.() || {};
   const token = payload?.access_token || payload?.data?.access_token;
   if (!token) return c.redirect('/?oauth=token_failed');
 
   let profile = null;
   try {
-    const p = await requestJson('https://openapi.zhihu.com/user', { headers: { Authorization: `Bearer ${token}` } });
+    const p = await (await fetch('https://openapi.zhihu.com/user', { headers: { Authorization: `Bearer ${token}` } })).json();
     const src = p?.data || p?.Data || p?.user || null;
     if (src && typeof src === 'object') profile = { name: src.name || src.Fullname || src.fullname || null, avatarUrl: src.avatar_url || src.AvatarUrl || null };
   } catch { /* /user 无正式 schema，失败不阻断 */ }
@@ -120,20 +129,10 @@ app.post('/api/gm', async (c) => {
 
   if (env.LLM_API_KEY && env.LLM_BASE_URL && env.LLM_MODEL) {
     try {
-      const payload = await requestJson(`${env.LLM_BASE_URL.replace(/\/$/, '')}/chat/completions`, {
-        method: 'POST',
-        headers: { Authorization: `Bearer ${env.LLM_API_KEY}`, 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          model: env.LLM_MODEL,
-          response_format: { type: 'json_object' },
-          messages: [
-            { role: 'system', content: gmSystemPrompt(state) },
-            { role: 'user', content: `<user_input>${String(userInput || '').slice(0, 500)}</user_input>` },
-          ],
-        }),
-      });
-      const content = payload?.choices?.[0]?.message?.content || '{}';
-      const parsed = JSON.parse(content);
+      const parsed = await llmChat(env, [
+        { role: 'system', content: gmSystemPrompt(state) },
+        { role: 'user', content: `<user_input>${String(userInput || '').slice(0, 500)}</user_input>` },
+      ]);
       const res = c.json({ ok: true, ...parsed });
       c.executionCtx.waitUntil(cache.put(cacheKey, res.clone()));
       return res;
@@ -168,8 +167,76 @@ function degradedReply(state) {
   };
 }
 
-// ---- 造世界 / 选书生成（T3b/T11 接入，先占位） ----
+// ---- 选书现场生成 /api/forge（技术文档 §6.3A）----
+import { STAGES, assembleNovel, sanityCheck } from './forge.js';
+
+app.post('/api/forge', async (c) => {
+  const env = c.env;
+  const { workId } = await c.req.json().catch(() => ({}));
+  if (!/^\d{4,32}$/.test(String(workId || ''))) return c.json({ ok: false, error: { code: 'BAD_ID', message: '无效的故事 ID' } }, 400);
+
+  const cached = await env.SAVE_KV.get(`book:forge:${workId}`);
+  if (cached) return c.json({ ok: true, cached: true, bookId: JSON.parse(cached).meta.id });
+
+  const storyRaw = await fetch(new URL(`/data/stories/${workId}.json`, c.req.url)).then((r) => (r.ok ? r.json() : null)).catch(() => null);
+  if (!storyRaw || !storyRaw.content) return c.json({ ok: false, error: { code: 'NO_STORY', message: '找不到该故事的正文' } }, 404);
+
+  const jobId = crypto.randomUUID().slice(0, 12);
+  await env.SAVE_KV.put(`job:${jobId}`, JSON.stringify({ workId, stage: 0, acc: { chapterSummaries: [] }, story: { work_id: storyRaw.work_id, title: storyRaw.title, author: storyRaw.author, introduction: storyRaw.introduction, content: storyRaw.content } }), { expirationTtl: 3600 });
+  return c.json({ ok: true, jobId });
+});
+
+app.get('/api/forge/status', async (c) => {
+  const env = c.env;
+  const jobId = c.req.query('jobId') || '';
+  if (!/^[a-f0-9-]{6,40}$/.test(jobId)) return c.json({ ok: false, error: { code: 'BAD_JOB' } }, 400);
+  const raw = await env.SAVE_KV.get(`job:${jobId}`);
+  if (!raw) return c.json({ ok: false, error: { code: 'JOB_EXPIRED', message: '任务过期，请重新生成' } }, 404);
+  const job = JSON.parse(raw);
+
+  if (job.error) return c.json({ ok: false, error: { code: 'FORGE_FAILED', message: job.error }, bookId: null });
+
+  if (job.stage >= STAGES.length) {
+    return c.json({ ok: true, done: true, bookId: job.bookId, stage: STAGES.length, progress: 1, label: '完成' });
+  }
+
+  if (!env.LLM_API_KEY || !env.LLM_BASE_URL || !env.LLM_MODEL) {
+    return c.json({ ok: false, error: { code: 'LLM_NOT_CONFIGURED', message: '运行时模型未配置，现场生成不可用（精选书库不受影响）' } });
+  }
+
+  const stage = STAGES[job.stage];
+  try {
+    const patch = await stage.call(env, job.story, job.acc);
+    Object.assign(job.acc, patch);
+    job.stage += 1;
+  } catch (e) {
+    job.retries = (job.retries || 0) + 1;
+    if (job.retries >= 2) { job.error = `阶段 ${stage.id} 失败：${e.message}`; }
+  }
+
+  if (job.stage >= STAGES.length && !job.error) {
+    const novel = assembleNovel(job.story, job.acc);
+    sanityCheck(novel);
+    const bookId = novel.meta.id;
+    await env.SAVE_KV.put(`book:forge:${job.workId}`, JSON.stringify(novel), { expirationTtl: 30 * 24 * 3600 });
+    await env.SAVE_KV.put(`book:${bookId}`, JSON.stringify(novel), { expirationTtl: 30 * 24 * 3600 });
+    job.bookId = bookId;
+  }
+  await env.SAVE_KV.put(`job:${jobId}`, JSON.stringify(job), { expirationTtl: 3600 });
+
+  if (job.error) return c.json({ ok: false, error: { code: 'FORGE_FAILED', message: job.error } });
+  return c.json({ ok: true, done: job.stage >= STAGES.length, bookId: job.bookId || null, stage: job.stage, progress: +(job.stage / STAGES.length).toFixed(2), label: STAGES[Math.min(job.stage, STAGES.length - 1)].label });
+});
+
+app.get('/api/books/:id', async (c) => {
+  const id = (c.req.param('id') || '').replace(/[^a-zA-Z0-9_-]/g, '');
+  if (!id) return c.json({ ok: false }, 400);
+  const raw = await c.env.SAVE_KV.get(`book:${id}`);
+  if (!raw) return c.json({ ok: false, error: { code: 'NOT_FOUND' } }, 404);
+  return c.json(JSON.parse(raw));
+});
+
+// ---- 造世界（彩蛋位：走 forge 管线的精简版，Day2 后半接入） ----
 app.post('/api/world', (c) => c.json({ ok: false, error: { code: 'NOT_IMPLEMENTED', message: '造世界管线随部署开放' } }, 501));
-app.post('/api/forge', (c) => c.json({ ok: false, error: { code: 'NOT_IMPLEMENTED', message: '选书生成管线随部署开放' } }, 501));
 
 export default app;

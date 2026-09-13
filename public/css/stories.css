@@ -1,0 +1,20 @@
+/* 全部故事页 */
+.list { flex: 1; padding: 14px 16px; }
+.story-row { display: flex; align-items: center; gap: 12px; padding: 14px 16px; margin-bottom: 10px; cursor: pointer; }
+.story-row:hover { border-color: var(--zhihu-blue); }
+.story-row .num { width: 26px; color: var(--text-3); font-size: 13px; flex-shrink: 0; text-align: center; }
+.story-row .info { flex: 1; min-width: 0; }
+.story-row h4 { font-size: 15px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.story-row p { color: var(--text-3); font-size: 12px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.story-row .go { color: var(--zhihu-blue); font-size: 12px; font-weight: 600; flex-shrink: 0; }
+.story-row .go.pre { color: var(--ok); }
+
+.overlay { position: fixed; inset: 0; background: rgba(246,246,246,.97); z-index: 50;
+  display: flex; align-items: center; justify-content: center; padding: 24px; }
+.gen-panel { max-width: 420px; width: 100%; text-align: center; background: var(--bg);
+  border: 1px solid var(--border); border-radius: 12px; padding: 28px 22px; }
+.gen-panel h2 { font-family: var(--font-serif); font-size: 20px; margin-bottom: 8px; }
+.gen-panel .sub { color: var(--zhihu-blue); font-size: 14px; margin-bottom: 18px; min-height: 21px; }
+.bar { height: 6px; background: var(--bg-gray); border-radius: 3px; overflow: hidden; }
+.bar .fill { height: 100%; width: 0%; background: var(--zhihu-blue); border-radius: 3px; transition: width .6s; }
+.gen-panel .hint { color: var(--text-3); font-size: 12px; margin: 14px 0 18px; }

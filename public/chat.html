@@ -12,15 +12,20 @@
   <div class="topbar">
     <button class="back" id="btn-back">← 书架</button>
     <span class="title" id="book-title">剧情体验</span>
+    <span class="sub" id="whoami"></span>
   </div>
-  <div class="coming">
-    <div class="big">💬</div>
-    <h2>剧情体验模式建设中</h2>
-    <p>穿成书中人，与原著角色对话——看得见他们的隐藏心声。<br>此模式需要 AI 叙事服务，将随部署上线（开发排期 Day2）。</p>
-    <button class="btn ghost" id="btn-avg">先去玩 AVG 模式 →</button>
+  <div class="statbar im" id="statbar"></div>
+  <div class="chat-stage">
+    <div class="msgs" id="msgs"></div>
+    <div class="quick-choices" id="quick"></div>
+    <div class="input-bar">
+      <input id="input" type="text" maxlength="120" placeholder="说点什么……（回车发送）">
+      <button id="send">发送</button>
+    </div>
   </div>
-  <div class="footer-note">内容由 AI 生成 · 仅供比赛演示</div>
+  <div class="footer-note">AI 生成内容 · 剧情推进按钮沿原作主线 · 自由对话由叙事引擎生成</div>
 </div>
+<div class="mode-badge" id="mode-badge" hidden>本地预置模式</div>
 <script type="module" src="/js/chat.page.js"></script>
 </body>
 </html>
