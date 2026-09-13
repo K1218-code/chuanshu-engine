@@ -10,7 +10,7 @@ const bookId = (/^[a-z0-9_-]{1,64}$/i.test(params.get('book') || '') ? params.ge
 let novel = null, state = null;
 let gmAvailable = null; // null=未探测
 
-$('btn-back').addEventListener('click', () => location.href = '/');
+$('btn-back').addEventListener('click', () => location.href = './index.html');
 $('btn-reset').addEventListener('click', () => { localStorage.removeItem(`cs_chat_${bookId}`); location.reload(); });
 const msgs = $('msgs');
 
@@ -129,7 +129,7 @@ function send() {
 async function freeTalk(text, targetChar) {
   if (gmAvailable !== false) {
     try {
-      const r = await fetch('/api/gm', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+      const r = await fetch('./api/gm', { method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ bookId, state, userInput: text }) });
       if (!r.ok) throw new Error('gm ' + r.status);
       const d = await r.json();
@@ -189,8 +189,8 @@ function recentLog(n) { return [...msgs.querySelectorAll('.bubble')].slice(-n).m
   try {
     const ctrl = new AbortController();
     const timer = setTimeout(() => ctrl.abort(), 8000);
-    let res = await fetch(`/data/books/${bookId}.json`, { signal: ctrl.signal });
-    if (!res.ok) res = await fetch(`/api/books/${bookId}`, { signal: ctrl.signal });
+    let res = await fetch(`./data/books/${bookId}.json`, { signal: ctrl.signal });
+    if (!res.ok) res = await fetch(`./api/books/${bookId}`, { signal: ctrl.signal });
     clearTimeout(timer);
     if (!res.ok) throw new Error('HTTP ' + res.status);
     novel = await res.json();

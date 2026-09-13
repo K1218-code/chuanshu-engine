@@ -24,7 +24,7 @@ function renderGallery(index) {
 }
 
 (async () => {
-  const data = await (await fetch('/data/books.index.json')).json();
+  const data = await (await fetch('./data/books.index.json')).json();
   const list = $('book-list');
   for (const book of data.books) {
     const card = document.createElement('div');
@@ -57,8 +57,8 @@ function renderGallery(index) {
   renderGallery(data.books);
 
   // 入口卡片
-  $('entry-create').addEventListener('click', () => location.href = '/create.html');
-  $('entry-all').addEventListener('click', () => location.href = '/stories.html');
+  $('entry-create').addEventListener('click', () => location.href = './create.html');
+  $('entry-all').addEventListener('click', () => location.href = './stories.html');
 })();
 
 // 登录态（部署后由 Worker 提供 /api/me；本地静态托管无此服务时按钮改为提示）
@@ -70,7 +70,7 @@ loginBtn.addEventListener('click', () => {
 });
 (async () => {
   try {
-    const r = await fetch('/api/me');
+    const r = await fetch('./api/me');
     if (!r.ok) return;
     const me = await r.json();
     loginReady = true;

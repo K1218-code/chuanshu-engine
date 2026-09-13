@@ -4,7 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "start": "node server.mjs",
+    "start": "node server-node.mjs",
+    "start:demo": "node server.mjs",
     "dev": "npx wrangler dev",
     "deploy": "npx wrangler deploy",
     "check": "node --check server.mjs && node --check worker/index.js && node --check public/js/engine.js && node --check public/js/dsl.js",
