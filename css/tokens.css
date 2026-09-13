@@ -1,0 +1,105 @@
+/* 穿书引擎 · 设计变量 —— 壳是知乎（zhihu-light），戏是游戏（im-dark） */
+:root {
+  /* 知乎设计语言（产品面） */
+  --zhihu-blue: #0066FF;
+  --zhihu-blue-deep: #0052CC;
+  --zhihu-blue-weak: #E5F1FF;
+  --bg: #FFFFFF;
+  --bg-gray: #F6F6F6;
+  --text-1: #121212;
+  --text-2: #444444;
+  --text-3: #8590A6;
+  --border: #F0F0F0;
+  --border-strong: #EBEBEB;
+  --danger: #F1403C;
+  --ok: #00A854;
+  --radius-card: 8px;
+  --radius-btn: 6px;
+  --shadow-card: 0 1px 3px rgba(18,18,18,.04);
+  --font-sans: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Segoe UI", sans-serif;
+  --font-serif: "Noto Serif SC", "Source Han Serif SC", "SimSun", serif;
+
+  /* 沉浸对话区（模式①，配色源自《牺牲品》模板设计规范） */
+  --im-bg: #1F2124;
+  --im-bubble: #383A3D;
+  --im-bubble-text: #FFFFFF;
+  --im-time: #8A919A;
+  --im-name: #C8CDD4;
+  --im-loc: #5A6066;
+  --im-narration: #9AA0A6;
+  --im-mind: rgba(229,241,255,0.10);
+  --im-mind-border: rgba(0,102,255,0.45);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+[hidden] { display: none !important; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  font-family: var(--font-sans);
+  background: var(--bg);
+  color: var(--text-1);
+  font-size: 15px;
+  line-height: 1.7;
+}
+#app { max-width: 720px; margin: 0 auto; min-height: 100vh; display: flex; flex-direction: column; }
+
+/* 顶栏（知乎白） */
+.topbar {
+  position: sticky; top: 0; z-index: 20;
+  display: flex; align-items: center; gap: 10px;
+  background: var(--bg); border-bottom: 1px solid var(--border);
+  padding: 12px 16px; min-height: 52px;
+}
+.topbar .back { color: var(--zhihu-blue); text-decoration: none; font-size: 14px; cursor: pointer; background: none; border: none; font-family: inherit; }
+.topbar .title { font-weight: 600; font-size: 16px; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.topbar .sub { color: var(--text-3); font-size: 12px; }
+
+/* 按钮 */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  background: var(--zhihu-blue); color: #fff; border: none;
+  border-radius: var(--radius-btn); padding: 10px 18px;
+  font-size: 14px; font-weight: 600; font-family: inherit; cursor: pointer;
+  transition: background .15s;
+}
+.btn:hover { background: var(--zhihu-blue-deep); }
+.btn:disabled { opacity: .45; cursor: not-allowed; }
+.btn.ghost { background: var(--bg-gray); color: var(--text-1); }
+.btn.ghost:hover { background: var(--border); }
+.btn.block { width: 100%; }
+
+/* 卡片 */
+.card {
+  background: var(--bg); border: 1px solid var(--border);
+  border-radius: var(--radius-card); box-shadow: var(--shadow-card);
+}
+
+/* 标签 */
+.tag {
+  display: inline-block; background: var(--zhihu-blue-weak); color: var(--zhihu-blue);
+  font-size: 12px; border-radius: 4px; padding: 2px 8px; margin-right: 6px;
+}
+.tag.gray { background: var(--bg-gray); color: var(--text-3); }
+
+/* 状态条（属性面板） */
+.statbar {
+  display: flex; gap: 8px; flex-wrap: wrap; padding: 10px 16px;
+  background: var(--bg-gray); border-bottom: 1px solid var(--border);
+  position: sticky; top: 52px; z-index: 10;
+}
+.stat {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: var(--bg); border: 1px solid var(--border);
+  border-radius: 999px; padding: 3px 10px; font-size: 12px; color: var(--text-2);
+}
+.stat b { color: var(--zhihu-blue); font-weight: 700; }
+.stat.danger b { color: var(--danger); }
+
+/* 提示 */
+.toast {
+  position: fixed; left: 50%; bottom: 32px; transform: translateX(-50%);
+  background: rgba(18,18,18,.88); color: #fff; font-size: 13px;
+  border-radius: 6px; padding: 9px 16px; z-index: 99; max-width: 84vw;
+}
+.ai-mark { color: var(--text-3); font-size: 11px; user-select: none; }
+.footer-note { text-align: center; color: var(--text-3); font-size: 12px; padding: 20px 16px 32px; }

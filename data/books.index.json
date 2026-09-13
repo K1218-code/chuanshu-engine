@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "updated": "2026-09-13",
+  "books": [
+    {
+      "id": "btg_room",
+      "title": "不提分就出不去的房间",
+      "cover_label": "提分房间",
+      "author": "盐言故事",
+      "intro": "讨厌我的年级第一和我被关在一起了。系统提示：不提分就有惩罚——可那行字，只有他看得见。",
+      "tags": ["校园", "高概念", "喜剧", "暗恋"],
+      "source": "zhihu_yanyan",
+      "modes": ["chat", "avg"],
+      "endings": 6,
+      "featured": true
+    }
+  ]
+}
