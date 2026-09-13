@@ -12,7 +12,7 @@ const STAGES = [
 
 async function llmJson(env, system, user, maxTokens = 4000) {
   const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), 25000);
+  const timer = setTimeout(() => controller.abort(), 55000);
   try {
     const res = await fetch(`${env.LLM_BASE_URL.replace(/\/$/, '')}/chat/completions`, {
       method: 'POST',
@@ -20,6 +20,7 @@ async function llmJson(env, system, user, maxTokens = 4000) {
       body: JSON.stringify({
         model: env.LLM_MODEL,
         temperature: 0.5,
+        max_tokens: 6000,
         response_format: { type: 'json_object' },
         messages: [
           { role: 'system', content: system },
@@ -60,7 +61,7 @@ async function stageCast(env, story, acc) {
 async function stageGraph(env, story, acc) {
   const r = await llmJson(env,
     `你是AVG剧情图谱生成器。${JSON_ONLY}`,
-    `为这本小说生成20±4个剧情节点。节点：{id:"n0"起,chapter:1-4,who(角色id或narrator),text(≤110字，台词优先引用原文),set:{属性:±1}(仅关键节点),choices(仅在keyMoment节点,2-3个:{text≤18字,requires如"属性>=4"可空,set:{属性:±1或±2},goto})或goto,keyMoment(全篇4个,每章≤2),canon:true}\n规则：start=n0；线性主干+每个keyMoment分叉后汇合；保证4条章节每章≥3节点；结局不写，最后一个节点id为n_gate且无goto。\n章节摘要：${JSON.stringify(acc.chapterSummaries)}\n原文开头：${story.content.slice(0, 1800)}`);
+    `为这本小说生成14-18个剧情节点。节点：{id:"n0"起,chapter:1-4,who(角色id或narrator),text(≤110字，台词优先引用原文),set:{属性:±1}(仅关键节点),choices(仅在keyMoment节点,2-3个:{text≤18字,requires如"属性>=4"可空,set:{属性:±1或±2},goto})或goto,keyMoment(全篇4个,每章≤2),canon:true}\n规则：start=n0；线性主干+每个keyMoment分叉后汇合；保证4条章节每章≥3节点；结局不写，最后一个节点id为n_gate且无goto。\n章节摘要：${JSON.stringify(acc.chapterSummaries)}\n原文开头：${story.content.slice(0, 1800)}`);
   const nodes = (r.nodes || []);
   const attrs = acc.player.attributes.map((a) => a.key);
   for (const n of nodes) { // 属性白名单清洗
@@ -75,8 +76,47 @@ async function stageEndings(env, story, acc) {
   const r = await llmJson(env,
     `你是多结局设计师。${JSON_ONLY}`,
     `为剧情图谱设计6个结局，family必须从["原作","改命","死亡","隐藏"]选（死亡族1个condition写"某属性<1"且该属性有deathBelow；隐藏族1个rarity≤0.1需要EVT?[节点id]条件；无条件兜底1个放最后）。每个：{id:"end_xx",family,title(≤8字),tone(风格),condition(条件DSL,如"威望>=6 & EVT?[n5]"，可为空字符串),epilogue(结局文本60-120字),rarity:0-1}\n可用属性：${acc.player.attributes.map((a) => a.key).join('、')}。节点里存在keyMoment分叉。`);
-  const fams = new Set((r.endings || []).map((e) => e.family));
-  return { endings: (r.endings || []).slice(0, 7), familiesOk: fams.has('死亡') && fams.has('隐藏') };
+  // 宽容提取：模型可能换键名或包装结构
+  const rawList = Array.isArray(r.endings) ? r.endings
+    : Array.isArray(r['结局']) ? r['结局']
+    : (Object.values(r).find(Array.isArray) || []);
+  const endings = rawList.filter((e) => e && typeof e === 'object' && e.title).slice(0, 7);
+  return { endings };
+}
+
+// 后台推进一个阶段（由 /api/forge/status 以 waitUntil 调起；本函数自校验任务状态）
+// 所有网络请求仅访问服务端配置的 LLM_BASE_URL 与平台 KV，不涉及任何用户可控 URL
+export async function advanceJob(env, jobId) {
+  if (!/^[a-f0-9-]{6,40}$/.test(String(jobId))) return;
+  const raw = await env.SAVE_KV.get(`job:${jobId}`);
+  if (!raw) return;
+  let job;
+  try { job = JSON.parse(raw); } catch { return; }
+  if (job.error || job.running || job.stage >= STAGES.length) return;
+  const stage = STAGES[job.stage];
+  try {
+    const fresh = JSON.parse(await env.SAVE_KV.get(`job:${jobId}`) || raw);
+    const patch = await stage.call(env, fresh.story, fresh.acc);
+    Object.assign(fresh.acc, patch);
+    fresh.stage = Math.max(fresh.stage, job.stage + 1);
+    fresh.running = false;
+    if (fresh.stage >= STAGES.length) {
+      const novel = assembleNovel(fresh.story, fresh.acc);
+      sanityCheck(novel);
+      fresh.bookId = novel.meta.id;
+      await env.SAVE_KV.put(`book:forge:${fresh.workId}`, JSON.stringify(novel), { expirationTtl: 30 * 24 * 3600 });
+      await env.SAVE_KV.put(`book:${novel.meta.id}`, JSON.stringify(novel), { expirationTtl: 30 * 24 * 3600 });
+    }
+    await env.SAVE_KV.put(`job:${jobId}`, JSON.stringify(fresh), { expirationTtl: 3600 });
+  } catch (e) {
+    try {
+      const fresh = JSON.parse(await env.SAVE_KV.get(`job:${jobId}`) || raw);
+      fresh.retries = (fresh.retries || 0) + 1;
+      if (fresh.retries >= 2) fresh.error = `阶段 ${stage.id} 失败：${e.message}`;
+      else fresh.running = false; // 允许下次轮询重试
+      await env.SAVE_KV.put(`job:${jobId}`, JSON.stringify(fresh), { expirationTtl: 3600 });
+    } catch { /* KV 写失败则任务自然过期 */ }
+  }
 }
 
 export function assembleNovel(story, acc) {
@@ -128,6 +168,16 @@ export function sanityCheck(novel) {
   }
   if (!(novel.endings || []).some((e) => !e.condition)) {
     novel.endings.push({ id: 'end_fallback', family: '原作', condition: '', title: '故事暂告一段落', tone: '平实', epilogue: '这一世的故事，先讲到这里。', rarity: 0.4 });
+  }
+  // 结局合成器：LLM 产出不足时按属性确定性补齐（保证图鉴收集体验）
+  if ((novel.endings || []).length < 4) {
+    const attrs = novel.player.attributes || [];
+    const has = (id) => (novel.endings || []).some((e) => e.id === id);
+    const hard = attrs.find((a) => a.deathBelow == null);
+    const soft = attrs.find((a) => a.deathBelow != null);
+    if (hard && !has('end_synth_good')) novel.endings.push({ id: 'end_synth_good', family: '改命', condition: `${hard.key}>=6`, title: '逆天改命', tone: '爽·逆袭', epilogue: `你把${hard.name}走到了别人到不了的高度。这一世，剧本由你执笔。`, rarity: 0.2 });
+    if (soft && !has('end_synth_crash')) novel.endings.push({ id: 'end_synth_crash', family: '死亡', condition: `${soft.key}<1`, title: '心死之局', tone: '崩溃线', epilogue: `${soft.name}燃到了尽头，你在故事里提前谢幕。（重开试试别的路）`, rarity: 0.1 });
+    if (!has('end_synth_dark')) novel.endings.push({ id: 'end_synth_dark', family: '隐藏', condition: `${hard ? hard.key : 'X'}>=4 & ${soft ? soft.key : 'X'}<=0`, title: '深渊回响', tone: '隐藏', epilogue: '你以近乎自毁的方式通关了这个世界——没人想到，也没人敢效仿。', rarity: 0.08 });
   }
   return problems;
 }
