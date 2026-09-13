@@ -13,16 +13,16 @@ not_found_handling = "single-page-application"
 # 然后把返回的 id 填到下面
 [[kv_namespaces]]
 binding = "SESSION_KV"
-id = "REPLACE_WITH_SESSION_KV_ID"
+id = "f7304fb341c04f75a7fa10b8f74b3029"
 
 [[kv_namespaces]]
 binding = "SAVE_KV"
-id = "REPLACE_WITH_SAVE_KV_ID"
+id = "d9a081dc65544cc6b048be41ae5e05da"
 
 [vars]
 # 公开配置；密钥走 wrangler secret put
 ZHIHU_OAUTH_APP_ID = "442"
-ZHIHU_OAUTH_REDIRECT_URI = ""
+ZHIHU_OAUTH_REDIRECT_URI = "https://chuanshu-engine.chuanshu-engine.workers.dev/auth/callback"
 LLM_BASE_URL = ""
 LLM_MODEL = ""
 
