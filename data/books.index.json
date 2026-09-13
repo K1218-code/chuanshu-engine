@@ -13,6 +13,18 @@
       "modes": ["chat", "avg"],
       "endings": 6,
       "featured": true
+    },
+    {
+      "id": "ak47_xiuzhen",
+      "title": "我在修真界掏出了AK47",
+      "cover_label": "修真AK47",
+      "author": "风吹过你的心窝",
+      "intro": "系统传送错了世界：我拿着星际军火库，穿成了修真文里灵根受损的炮灰大师姐。万人迷小师妹要抢我用命换来的玉灵芝？",
+      "tags": ["修真", "爽文", "高概念", "打脸"],
+      "source": "zhihu_yanyan",
+      "modes": ["chat", "avg"],
+      "endings": 6,
+      "featured": true
     }
   ]
 }

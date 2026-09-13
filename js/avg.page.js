@@ -40,13 +40,13 @@ function renderStatbar() {
 }
 
 function showChapterBadge(ch) {
-  const chMap = { 1: '入房', 2: '第一夜', 3: '台阶', 4: '大考' };
   const num = Number(ch) || 1;
+  const names = novel?.presentation?.chapter_names || {};
   const badge = $('chapter-badge');
   badge.replaceChildren();
   const b = document.createElement('b');
   b.textContent = `第 ${num} 章`;
-  badge.append(b, document.createTextNode(` · ${chMap[num] || ''}`));
+  badge.append(b, document.createTextNode(` · ${names[String(num)] || ''}`));
   $('chapter-label').textContent = `第${num}章`;
 }
 
@@ -165,7 +165,10 @@ function showIdentityPicker() {
 
 (async () => {
   try {
-    novel = await (await fetch(`/data/books/${bookId}.json`)).json();
+    let res = await fetch(`/data/books/${bookId}.json`);
+    if (!res.ok) res = await fetch(`/api/books/${encodeURIComponent(bookId).replace(/%2F/g, '/')}`); // forge 生成的书存 KV
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    novel = await res.json();
     document.title = `${novel.meta.title} · 穿书引擎`;
     $('book-title').textContent = novel.meta.title;
     const saved = localStorage.getItem(`cs_save_${bookId}`);

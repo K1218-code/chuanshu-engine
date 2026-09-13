@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>穿书引擎 · 全部故事</title>
+<link rel="stylesheet" href="/css/tokens.css">
+<link rel="stylesheet" href="/css/stories.css">
+</head>
+<body>
+<div id="app">
+  <div class="topbar">
+    <button class="back" id="btn-back">← 书架</button>
+    <span class="title">全部故事</span>
+    <span class="sub">选一本 · AI 现场拆解</span>
+  </div>
+  <div class="list" id="list"></div>
+  <div class="footer-note">现场生成需 AI 叙事服务（部署后可用）· 精选书库即点即玩</div>
+</div>
+
+<div class="overlay" id="gen-overlay" hidden>
+  <div class="panel gen-panel">
+    <h2 id="gen-title"></h2>
+    <p class="sub" id="gen-label">正在准备……</p>
+    <div class="bar"><div class="fill" id="gen-fill"></div></div>
+    <p class="hint" id="gen-hint">AI 正在把这本小说拆解成可玩世界，约需 1-3 分钟</p>
+    <button class="btn ghost" id="gen-cancel">取消</button>
+  </div>
+</div>
+<script type="module" src="/js/stories.page.js"></script>
+</body>
+</html>
