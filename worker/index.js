@@ -22,17 +22,10 @@ function assertPublicHttpUrl(raw) {
 // ---- 健康检查 ----
 app.get('/api/health', (c) => c.json({ ok: true, app: 'chuanshu-engine', ts: Date.now() }));
 
-// ---- 静态书（fetch 目标逐点字面量，防 SSRF）+ 动态书（KV）读取 ----
+// ---- 书籍读取：统一 KV（book:{id}，静态书由种子导入，动态书由 forge 生成）----
 async function loadNovel(c, bookId) {
   const id = String(bookId).replace(/[^a-zA-Z0-9_-]/g, '').slice(0, 64);
   if (!id) return null;
-  if (id === 'btg_room') {
-    const res = await c.env.ASSETS.fetch('https://assets.internal/data/books/btg_room.json');
-    if (res.ok) return await res.json();
-  } else if (id === 'ak47_xiuzhen') {
-    const res = await c.env.ASSETS.fetch('https://assets.internal/data/books/ak47_xiuzhen.json');
-    if (res.ok) return await res.json();
-  }
   try {
     const raw = await c.env.SAVE_KV.get(`book:${id}`);
     if (raw) return JSON.parse(raw);
