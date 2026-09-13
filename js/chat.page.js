@@ -187,8 +187,11 @@ function recentLog(n) { return [...msgs.querySelectorAll('.bubble')].slice(-n).m
 // ---- 启动 ----
 (async () => {
   try {
-    let res = await fetch(`/data/books/${bookId}.json`);
-    if (!res.ok) res = await fetch(`/api/books/${bookId}`);
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), 8000);
+    let res = await fetch(`/data/books/${bookId}.json`, { signal: ctrl.signal });
+    if (!res.ok) res = await fetch(`/api/books/${bookId}`, { signal: ctrl.signal });
+    clearTimeout(timer);
     if (!res.ok) throw new Error('HTTP ' + res.status);
     novel = await res.json();
     document.title = `${novel.meta.title} · 剧情体验`;
@@ -211,7 +214,14 @@ function recentLog(n) { return [...msgs.querySelectorAll('.bubble')].slice(-n).m
     renderStatbar(); refreshQuick(); scrollBottom();
     // 探测 gm（一次性，HEAD 便宜探测不行就等首次对话失败降级）
   } catch (e) {
+    const isTimeout = e.name === 'AbortError';
     $('book-title').textContent = '加载失败';
-    addNarration('书籍数据加载失败：' + e.message);
+    const hint = isTimeout ? '书籍数据加载超时（网络不稳定或域名被拦截），请重试' : '书籍数据加载失败：' + e.message;
+    const retry = document.createElement('button');
+    retry.className = 'btn';
+    retry.textContent = '重试';
+    retry.style.cssText = 'margin:12px auto;display:block';
+    retry.addEventListener('click', () => location.reload());
+    msgs.append(el('div', 'narration', hint), retry);
   }
 })();

@@ -98,6 +98,7 @@ function renderNode() {
 }
 
 $('dialog').addEventListener('click', () => {
+  if (!novel || !state) return; // 数据未就绪（加载失败态）不响应
   if (typing) {
     clearInterval(typing); typing = null;
     $('txt').textContent = typingText;
@@ -166,8 +167,11 @@ function showIdentityPicker() {
 
 (async () => {
   try {
-    let res = await fetch(`/data/books/${bookId}.json`);
-    if (!res.ok) res = await fetch(`/api/books/${encodeURIComponent(bookId).replace(/%2F/g, '/')}`); // forge 生成的书存 KV
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), 8000);
+    let res = await fetch(`/data/books/${bookId}.json`, { signal: ctrl.signal });
+    if (!res.ok) { res = await fetch(`/api/books/${encodeURIComponent(bookId).replace(/%2F/g, '/')}`, { signal: ctrl.signal }); }
+    clearTimeout(timer);
     if (!res.ok) throw new Error('HTTP ' + res.status);
     novel = await res.json();
     document.title = `${novel.meta.title} · 穿书引擎`;
@@ -186,6 +190,16 @@ function showIdentityPicker() {
     } else showIdentityPicker();
   } catch (e) {
     $('book-title').textContent = '加载失败';
-    $('txt').textContent = `书籍数据加载失败：${e.message}`;
+    const isTimeout = e.name === 'AbortError';
+    $('txt').textContent = isTimeout
+      ? '书籍数据加载超时（网络不稳定或域名被拦截）。请重试，或回到书架。'
+      : `书籍数据加载失败：${e.message}`;
+    $('next-hint').style.display = 'none';
+    const retry = document.createElement('button');
+    retry.className = 'btn';
+    retry.textContent = '重试';
+    retry.style.marginTop = '10px';
+    retry.addEventListener('click', () => location.reload());
+    $('txt').after(retry);
   }
 })();
