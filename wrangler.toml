@@ -25,6 +25,7 @@ ZHIHU_OAUTH_APP_ID = "442"
 ZHIHU_OAUTH_REDIRECT_URI = "https://chuanshu-engine.chuanshu-engine.workers.dev/auth/callback"
 LLM_BASE_URL = ""
 LLM_MODEL = ""
+LLM_API_KEY = ""
 
 # Secrets（不写入本文件）：
 #   npx wrangler secret put ZHIHU_OAUTH_APP_KEY

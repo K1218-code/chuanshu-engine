@@ -5,3 +5,9 @@ node_modules/
 .mimosa/
 .wrangler/
 .kv-data/
+
+# Tencent Cloud EdgeOne
+.env
+.edgeone/*
+.tef_dist/*
+  
