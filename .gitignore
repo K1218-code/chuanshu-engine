@@ -1,0 +1,6 @@
+.dev.vars
+node_modules/
+*.log
+.DS_Store
+.mimosa/
+.wrangler/

@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "projectName": "穿书引擎",
+  "projectSlug": "穿书引擎",
+  "oauth": {
+    "enabled": true,
+    "appId": "442",
+    "redirectUri": null,
+    "credentialService": "zhihu-hackathon:穿书引擎:08d9c36e1f",
+    "credentialAccount": "oauth-app-key"
+  },
+  "host": "127.0.0.1",
+  "port": 4173
+}
