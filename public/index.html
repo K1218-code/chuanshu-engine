@@ -1,29 +1,50 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="zh-CN">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>穿书引擎 · 知乎 OAuth Hello World</title>
-    <link rel="stylesheet" href="/styles.css" />
-  </head>
-  <body>
-    <main>
-      <header><span>知乎黑客松</span><b id="runtime">正在检查环境</b></header>
-      <section class="hero">
-        <p class="eyebrow">ZHIHU ACCOUNT / OAUTH</p>
-        <h1>知乎 OAuth<br />Hello World</h1>
-        <p>连接你的知乎账号，然后用登录账号各读取一条创作、关注和收藏数据。</p>
-      </section>
-      <section class="account">
-        <div class="account-title"><span>账号授权状态</span><b id="status">检查中</b></div>
-        <div class="identity"><div id="avatar-placeholder">知</div><img id="avatar" alt="知乎头像" hidden /><div><strong id="name">尚未连接知乎账号</strong><p id="headline">完成授权后显示公开账号信息</p></div></div>
-        <div class="meta"><span>App ID：<b id="app-id">-</b></span><span id="redirect-uri">-</span></div>
-        <p class="message" id="message"></p>
-        <div class="actions"><button id="login">授权知乎账号</button><button class="secondary" id="refresh" hidden>重新请求用户数据</button><button class="secondary danger" id="logout" hidden>退出本次授权</button></div>
-      </section>
-      <aside>本地地址只能预览页面，无法完成知乎登录。请先部署到 Cloudflare、Sealos 等平台，再使用公网地址测试。</aside>
-      <section id="results" hidden><div class="results-title"><h2>OAuth 用户接口</h2><span id="summary">等待请求</span></div><div class="grid" id="grid"></div></section>
-    </main>
-    <script type="module" src="/app.js"></script>
-  </body>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>穿书引擎 · 把故事穿进去玩</title>
+<link rel="stylesheet" href="/css/tokens.css">
+<link rel="stylesheet" href="/css/home.css">
+</head>
+<body>
+<div id="app">
+  <div class="topbar">
+    <span class="title">书架</span>
+    <button class="back" id="login-btn">知乎登录</button>
+  </div>
+
+  <div class="hero">
+    <div class="kanshan">🦊</div>
+    <div class="logo">穿<span>书</span>引擎</div>
+    <p>读完意难平？穿进去玩。—— 确定性引擎管命运，AI 只把角色演活</p>
+  </div>
+
+  <div class="section">
+    <div class="section-title">📚 精选书库 <small>已拆解 · 即点即玩</small></div>
+    <div id="book-list"></div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">✨ 更多入口</div>
+    <div class="entry-row">
+      <div class="card entry" id="entry-create">
+        <div class="ico">🌍</div><h4>创造世界</h4><p>30 秒生成你的世界</p>
+      </div>
+      <div class="card entry" id="entry-all">
+        <div class="ico">🔍</div><h4>全部故事</h4><p>任选一本 · 现场生成</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">🏆 结局图鉴 <small id="gallery-count"></small></div>
+    <div class="card gallery-strip" id="gallery"></div>
+  </div>
+
+  <div class="footer-note">穿书引擎 · 知乎黑客松 2026 · 互动内容由 AI 基于盐言故事生成</div>
+</div>
+<div id="toast-root"></div>
+<script type="module" src="/js/home.page.js"></script>
+</body>
 </html>

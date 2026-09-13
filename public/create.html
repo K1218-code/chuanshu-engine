@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>穿书引擎 · 创造世界</title>
+<link rel="stylesheet" href="/css/tokens.css">
+<link rel="stylesheet" href="/css/create.css">
+</head>
+<body>
+<div id="app">
+  <div class="topbar">
+    <button class="back" id="btn-back">← 书架</button>
+    <span class="title">创造世界</span>
+    <span class="sub">30 秒</span>
+  </div>
+  <div class="wizard">
+    <div class="step-label">① 选一个世界观</div>
+    <div class="opt-grid" id="types"></div>
+    <div class="step-label">② 补充你的设定（可留空）</div>
+    <textarea id="free" placeholder="例：末世第三年，我是唯一记得疫苗配方的人，而追杀我的人是我哥哥……"></textarea>
+    <div class="hint">写得越具体，世界越像你的。≤300 字。</div>
+    <button class="btn block" id="go">生成我的世界（AI 现场拆解）</button>
+    <div class="hint" style="text-align:center;margin-top:10px" id="status"></div>
+  </div>
+  <div class="footer-note">内容由 AI 生成 · 仅供比赛演示</div>
+</div>
+<div id="toast-root"></div>
+<script type="module" src="/js/create.page.js"></script>
+</body>
+</html>

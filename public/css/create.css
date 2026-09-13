@@ -1,0 +1,12 @@
+/* 创造世界页样式 */
+.wizard { flex: 1; padding: 24px 20px; }
+.step-label { font-size: 13px; color: var(--zhihu-blue); font-weight: 700; margin-bottom: 8px; }
+.opt-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; }
+.opt { border: 1px solid var(--border-strong); border-radius: var(--radius-btn); padding: 12px 6px;
+  text-align: center; cursor: pointer; font-size: 14px; background: var(--bg); }
+.opt.sel { border-color: var(--zhihu-blue); background: var(--zhihu-blue-weak); color: var(--zhihu-blue); font-weight: 700; }
+.opt .ico { font-size: 20px; display: block; margin-bottom: 4px; }
+textarea { width: 100%; min-height: 110px; border: 1px solid var(--border-strong); border-radius: var(--radius-btn);
+  padding: 12px; font: inherit; font-size: 14px; resize: vertical; }
+textarea:focus { outline: none; border-color: var(--zhihu-blue); }
+.hint { color: var(--text-3); font-size: 12px; margin: 6px 0 18px; }

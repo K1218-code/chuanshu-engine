@@ -1,0 +1,31 @@
+name = "chuanshu-engine"
+main = "worker/index.js"
+compatibility_date = "2026-09-01"
+
+[assets]
+directory = "./public"
+binding = "ASSETS"
+not_found_handling = "single-page-application"
+
+# KV 命名空间：部署前执行
+#   npx wrangler kv namespace create SESSION_KV
+#   npx wrangler kv namespace create SAVE_KV
+# 然后把返回的 id 填到下面
+[[kv_namespaces]]
+binding = "SESSION_KV"
+id = "REPLACE_WITH_SESSION_KV_ID"
+
+[[kv_namespaces]]
+binding = "SAVE_KV"
+id = "REPLACE_WITH_SAVE_KV_ID"
+
+[vars]
+# 公开配置；密钥走 wrangler secret put
+ZHIHU_OAUTH_APP_ID = "442"
+ZHIHU_OAUTH_REDIRECT_URI = ""
+LLM_BASE_URL = ""
+LLM_MODEL = ""
+
+# Secrets（不写入本文件）：
+#   npx wrangler secret put ZHIHU_OAUTH_APP_KEY
+#   npx wrangler secret put LLM_API_KEY

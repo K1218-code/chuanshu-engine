@@ -1,0 +1,52 @@
+/* AVG 页样式 */
+.stage { flex: 1; display: flex; flex-direction: column; padding: 16px; gap: 12px; overflow-y: auto; }
+.chapter-badge { text-align: center; color: var(--text-3); font-size: 13px; padding: 12px 0 2px; letter-spacing: 2px; }
+.chapter-badge b { color: var(--zhihu-blue); }
+
+.vn-box { margin-top: auto; }
+.name-tag { font-weight: 700; font-size: 15px; color: var(--zhihu-blue); margin-bottom: 6px; }
+.name-tag.narrator { color: var(--text-3); font-weight: 400; }
+.dialog {
+  background: var(--bg); border: 1px solid var(--border-strong); border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card); padding: 18px 20px; font-size: 16px; line-height: 1.9;
+  min-height: 108px; cursor: pointer; position: relative;
+}
+.dialog .cursor { display: inline-block; width: 2px; height: 1em; background: var(--zhihu-blue);
+  vertical-align: -2px; animation: blink .8s infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+.next-hint { position: absolute; right: 14px; bottom: 8px; color: var(--text-3); font-size: 12px; }
+.km-flag { position: absolute; left: 14px; top: -10px; background: var(--zhihu-blue); color: #fff;
+  font-size: 11px; border-radius: 4px; padding: 2px 8px; }
+
+.choices { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
+.choice-btn {
+  text-align: left; background: var(--bg); border: 1px solid var(--zhihu-blue);
+  color: var(--zhihu-blue); border-radius: var(--radius-btn); padding: 11px 16px;
+  font-size: 15px; font-family: inherit; cursor: pointer; transition: all .15s;
+}
+.choice-btn:hover:not(:disabled) { background: var(--zhihu-blue-weak); }
+.choice-btn:disabled { border-color: var(--border-strong); color: var(--text-3); cursor: not-allowed; background: var(--bg-gray); }
+.choice-btn .cond { display: block; font-size: 12px; color: var(--text-3); margin-top: 2px; }
+
+/* 身份选择 / 结局 覆盖层 */
+.overlay { position: fixed; inset: 0; background: rgba(246,246,246,.97); z-index: 50;
+  display: flex; align-items: center; justify-content: center; padding: 24px; overflow-y: auto; }
+.overlay .panel { max-width: 560px; width: 100%; }
+.overlay h2 { font-family: var(--font-serif); font-size: 24px; margin: 8px 0 4px; }
+.overlay .sub { color: var(--text-3); font-size: 13px; margin-bottom: 18px; }
+.id-card { border: 1px solid var(--border); border-radius: var(--radius-card); padding: 14px 16px;
+  margin-bottom: 10px; cursor: pointer; background: var(--bg); transition: border-color .15s; }
+.id-card:hover { border-color: var(--zhihu-blue); }
+.id-card h3 { font-size: 16px; margin-bottom: 4px; }
+.id-card h3 .tag { margin-left: 8px; }
+.id-card p { color: var(--text-2); font-size: 13px; }
+
+.ending-card { text-align: center; padding: 28px 22px; }
+.ending-card .fam { font-size: 13px; color: var(--text-3); letter-spacing: 4px; }
+.ending-card h1 { font-family: var(--font-serif); font-size: 30px; margin: 10px 0 2px; }
+.ending-card .tone { color: var(--zhihu-blue); font-size: 13px; margin-bottom: 16px; }
+.ending-card .epilogue { text-align: left; font-size: 15px; line-height: 2; color: var(--text-2);
+  background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-card); padding: 16px 18px; }
+.ending-stats { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin: 14px 0; }
+.ending-actions { display: flex; gap: 10px; justify-content: center; margin-top: 8px; }
+.rare { font-size: 12px; color: var(--danger); }
