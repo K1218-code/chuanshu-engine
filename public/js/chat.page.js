@@ -11,6 +11,7 @@ let novel = null, state = null;
 let gmAvailable = null; // null=未探测
 
 $('btn-back').addEventListener('click', () => location.href = '/');
+$('btn-reset').addEventListener('click', () => { localStorage.removeItem(`cs_chat_${bookId}`); location.reload(); });
 const msgs = $('msgs');
 
 function el(tag, cls, text) { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
@@ -197,7 +198,7 @@ function recentLog(n) { return [...msgs.querySelectorAll('.bubble')].slice(-n).m
     if (saved) {
       const s = JSON.parse(saved);
       state = s.state;
-      addTime('— 继续上次的旅程 —');
+      addTime('— 已恢复上次进度 · 点右上 ↺ 重新开始 —');
     } else {
       state = createState(novel, { identity: novel.player.identity_cards[0]?.id });
       addTime(`— 你穿成了「${novel.player.identity_cards[0]?.name || '书中人'}」 —`);

@@ -61,14 +61,19 @@ function renderGallery(index) {
   $('entry-all').addEventListener('click', () => location.href = '/stories.html');
 })();
 
-// 登录态（部署后由 Worker 提供 /api/me；本地静态返回 404/405 时隐藏）
+// 登录态（部署后由 Worker 提供 /api/me；本地静态托管无此服务时按钮改为提示）
 const loginBtn = $('login-btn');
-loginBtn.addEventListener('click', () => location.href = '/auth/zhihu/login');
+let loginReady = false;
+loginBtn.addEventListener('click', () => {
+  if (loginReady) location.href = '/auth/zhihu/login';
+  else toast('知乎登录随部署开放（本地预览不支持）');
+});
 (async () => {
   try {
     const r = await fetch('/api/me');
     if (!r.ok) return;
     const me = await r.json();
+    loginReady = true;
     if (me?.name) loginBtn.textContent = me.name;
-  } catch { /* 静态托管下无 /api/me，保持"知乎登录" */ }
+  } catch { /* 静态托管下无 /api/me，保持提示行为 */ }
 })();

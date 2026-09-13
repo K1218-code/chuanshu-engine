@@ -142,6 +142,7 @@ function finish(hit) {
 $('btn-restart').onclick = () => { localStorage.removeItem(`cs_save_${bookId}`); location.reload(); };
 $('btn-back').onclick = () => location.href = '/';
 $('btn-home2').onclick = () => location.href = '/';
+$('btn-reset').onclick = () => { localStorage.removeItem(`cs_save_${bookId}`); location.reload(); };
 
 function save() { localStorage.setItem(`cs_save_${bookId}`, JSON.stringify(state)); }
 
@@ -174,6 +175,13 @@ function showIdentityPicker() {
     const saved = localStorage.getItem(`cs_save_${bookId}`);
     if (saved) {
       state = JSON.parse(saved);
+      showChapterBadge(state.chapter);
+      // 显式提示续档，避免"不是从头开始"的困惑
+      const badge = $('chapter-badge');
+      const note = document.createElement('div');
+      note.className = 'chapter-badge';
+      note.textContent = '— 已恢复上次进度 · 点右上 ↺ 重新开始 —';
+      badge.after(note);
       renderNode();
     } else showIdentityPicker();
   } catch (e) {
