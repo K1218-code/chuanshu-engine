@@ -141,8 +141,8 @@ function finish(hit) {
 }
 
 $('btn-restart').onclick = () => { localStorage.removeItem(`cs_save_${bookId}`); location.reload(); };
-$('btn-back').onclick = () => location.href = '/';
-$('btn-home2').onclick = () => location.href = '/';
+$('btn-back').onclick = () => location.href = './index.html';
+$('btn-home2').onclick = () => location.href = './index.html';
 $('btn-reset').onclick = () => { localStorage.removeItem(`cs_save_${bookId}`); location.reload(); };
 
 function save() { localStorage.setItem(`cs_save_${bookId}`, JSON.stringify(state)); }
@@ -169,8 +169,8 @@ function showIdentityPicker() {
   try {
     const ctrl = new AbortController();
     const timer = setTimeout(() => ctrl.abort(), 8000);
-    let res = await fetch(`/data/books/${bookId}.json`, { signal: ctrl.signal });
-    if (!res.ok) { res = await fetch(`/api/books/${encodeURIComponent(bookId).replace(/%2F/g, '/')}`, { signal: ctrl.signal }); }
+    let res = await fetch(`./data/books/${bookId}.json`, { signal: ctrl.signal });
+    if (!res.ok) { res = await fetch(`./api/books/${encodeURIComponent(bookId).replace(/%2F/g, '/')}`, { signal: ctrl.signal }); }
     clearTimeout(timer);
     if (!res.ok) throw new Error('HTTP ' + res.status);
     novel = await res.json();

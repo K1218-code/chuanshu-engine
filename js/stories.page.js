@@ -1,12 +1,12 @@
 // 全部故事页逻辑：列表 + forge 进度轮询
 const $ = (id) => document.getElementById(id);
-$('btn-back').addEventListener('click', () => location.href = '/');
+$('btn-back').addEventListener('click', () => location.href = './index.html');
 
 const PREBUILT = { '2050600604976803918': 'btg_room', '1716453753710972928': 'ak47_xiuzhen' };
 let polling = null;
 
 (async () => {
-  const data = await (await fetch('/data/stories.index.json')).json();
+  const data = await (await fetch('./data/stories.index.json')).json();
   const list = $('list');
   data.stories.forEach((s, i) => {
     const row = document.createElement('div');
@@ -35,7 +35,7 @@ async function startForge(story) {
   $('gen-fill').style.width = '0%';
   overlay.hidden = false;
   try {
-    const res = await fetch('/api/forge', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ workId: String(story.work_id) }) });
+    const res = await fetch('./api/forge', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ workId: String(story.work_id) }) });
     const data = await res.json();
     if (!data.ok) throw new Error(data.error?.message || '创建任务失败');
     if (data.cached) { location.href = `/avg.html?book=${data.bookId}`; return; }
@@ -50,7 +50,7 @@ function pollForge(jobId) {
   clearInterval(polling);
   polling = setInterval(async () => {
     try {
-      const r = await fetch(`/api/forge/status?jobId=${encodeURIComponent(jobId)}`);
+      const r = await fetch(`./api/forge/status?jobId=${encodeURIComponent(jobId)}`);
       const d = await r.json();
       if (!d.ok) {
         if (d.error?.code === 'JOB_EXPIRED') { clearInterval(polling); overlayHidden(); return; }
