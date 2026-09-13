@@ -10,7 +10,7 @@ const STAGES = [
   { id: 'S5', label: '正在书写你的结局……', call: stageEndings },
 ];
 
-async function llmJson(env, system, user, maxTokens = 4000) {
+async function llmJsonOnce(env, model, system, user) {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), 55000);
   try {
@@ -18,7 +18,7 @@ async function llmJson(env, system, user, maxTokens = 4000) {
       method: 'POST',
       headers: { Authorization: `Bearer ${env.LLM_API_KEY}`, 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        model: env.LLM_MODEL,
+        model,
         temperature: 0.5,
         max_tokens: 6000,
         response_format: { type: 'json_object' },
@@ -33,6 +33,17 @@ async function llmJson(env, system, user, maxTokens = 4000) {
     const content = payload?.choices?.[0]?.message?.content || '{}';
     return JSON.parse(content);
   } finally { clearTimeout(timer); }
+}
+
+// 主模型失败自动回退（forge 五阶段同样享受）
+async function llmJson(env, system, user) {
+  const models = [env.LLM_MODEL, env.LLM_MODEL_FALLBACK].filter(Boolean);
+  let lastErr = new Error('no model');
+  for (const model of models) {
+    try { return await llmJsonOnce(env, model, system, user); }
+    catch (e) { lastErr = e; }
+  }
+  throw lastErr;
 }
 
 const JSON_ONLY = '只输出 JSON，不要输出任何其他文字。所有字段用简体中文。';

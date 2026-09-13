@@ -24,7 +24,8 @@ id = "d9a081dc65544cc6b048be41ae5e05da"
 ZHIHU_OAUTH_APP_ID = "442"
 ZHIHU_OAUTH_REDIRECT_URI = "https://chuanshu-engine.xyz/auth/callback"
 LLM_BASE_URL = "https://api.openai-next.com/v1"
-LLM_MODEL = "qwen3-max"
+LLM_MODEL = "qwen3.8-max"
+LLM_MODEL_FALLBACK = "qwen3-max"
 
 # Secrets（不写入本文件）：
 #   npx wrangler secret put ZHIHU_OAUTH_APP_KEY

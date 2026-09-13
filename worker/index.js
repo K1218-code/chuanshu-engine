@@ -40,21 +40,34 @@ function randomHex(bytes) {
 }
 
 // LLM 通道：URL 来自服务端环境变量配置（可信配置），仍走出站守卫
-async function llmChat(env, messages) {
+async function llmChatModel(env, model, messages) {
   const url = `${env.LLM_BASE_URL.replace(/\/$/, '')}/chat/completions`;
   assertPublicHttpUrl(url);
   const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), 25000);
+  const timer = setTimeout(() => controller.abort(), 40000);
   try {
     const res = await fetch(url, {
       method: 'POST',
       headers: { Authorization: `Bearer ${env.LLM_API_KEY}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ model: env.LLM_MODEL, response_format: { type: 'json_object' }, messages }),
+      body: JSON.stringify({ model, response_format: { type: 'json_object' }, messages }),
       signal: controller.signal,
     });
     const payload = await res.json();
-    return JSON.parse(payload?.choices?.[0]?.message?.content || '{}');
+    const content = payload?.choices?.[0]?.message?.content;
+    if (!content) throw new Error('模型返回空内容');
+    return JSON.parse(content);
   } finally { clearTimeout(timer); }
+}
+
+// 主模型失败或空内容时自动回退（如 qwen3.8-max 中转异常时退 qwen3-max）
+async function llmChat(env, messages) {
+  const models = [env.LLM_MODEL, env.LLM_MODEL_FALLBACK].filter(Boolean);
+  let lastErr = new Error('no model');
+  for (const model of models) {
+    try { return await llmChatModel(env, model, messages); }
+    catch (e) { lastErr = e; }
+  }
+  throw lastErr;
 }
 
 app.get('/auth/zhihu/login', async (c) => {
