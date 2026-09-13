@@ -11,3 +11,8 @@ node_modules/
 .edgeone/*
 .tef_dist/*
   kv-bulk-*.json
+kv-bulk-*.json
+ab_*.json
+*_resp.json
+HANDOVER-密钥与账号.local.md
+穿书引擎-交接包.zip
