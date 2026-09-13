@@ -83,6 +83,15 @@ node.use('*', async (c, next) => {
   await next();
 });
 node.route('/', app);
+// pretty-URL：/chat → /chat.html（Workers Assets 原生行为，Node 需手动补全）
+node.use('*', async (c, next) => {
+  const p = new URL(c.req.url).pathname;
+  if (p !== '/' && !path.extname(p)) {
+    const candidate = path.join(root, 'public', p + '.html');
+    if (existsSync(candidate)) return serveStatic({ root: './public', path: p + '.html' })(c, next);
+  }
+  await next();
+});
 // 静态资源（public/）兜底 + SPA
 node.use('*', serveStatic({ root: './public' }));
 node.get('*', serveStatic({ root: './public', path: './index.html' }));
