@@ -109,7 +109,8 @@ app.get('/auth/zhihu/login', async (c) => {
   return c.redirect(url.toString());
 });
 
-app.get('/auth/zhihu/callback', async (c) => {
+// 知乎回跳路径：赛事系统登记并固定分配的回调是 /auth/callback，与站内发起路径 /auth/zhihu/login 分离——两个路径共用同一处理器
+async function zhihuCallback(c) {
   const env = c.env;
   const code = c.req.query('authorization_code') || c.req.query('code');
   const returnedState = c.req.query('state');
@@ -137,8 +138,9 @@ app.get('/auth/zhihu/callback', async (c) => {
   let profile = null;
   try {
     const p = await (await fetch('https://openapi.zhihu.com/user', { headers: { Authorization: `Bearer ${token}` } })).json();
-    const src = p?.data || p?.Data || p?.user || null;
-    if (src && typeof src === 'object') profile = { name: src.name || src.Fullname || src.fullname || null, avatarUrl: src.avatar_url || src.AvatarUrl || null };
+    // 实测响应为顶层字段（fullname/avatar_path/uid...），兼容 data/Data 包装的历史结构
+    const src = p?.data || p?.Data || p?.user || (p && (p.fullname || p.avatar_path || p.uid != null) ? p : null);
+    if (src && typeof src === 'object') profile = { name: src.fullname || src.name || src.Fullname || null, avatarUrl: src.avatar_path || src.avatar_url || null };
   } catch { /* /user 无正式 schema，失败不阻断 */ }
 
   const sessionId = randomHex(12);
@@ -155,7 +157,10 @@ app.get('/auth/zhihu/callback', async (c) => {
     }
   } catch { /* 迁移失败不阻断登录 */ }
   return c.redirect('/?oauth=success');
-});
+}
+// 赛事系统登记并固定分配的回调路径 + 站内发起路径，共用同一处理器
+app.get('/auth/callback', zhihuCallback);
+app.get('/auth/zhihu/callback', zhihuCallback);
 
 // 退出登录：销毁服务端 session 并清除 cookie（匿名 cookie 保留，新游客数据继续可用）
 // 演示登录（OAUTH_MOCK=true 时开放）：跳过知乎授权，以「演示用户」建立会话。

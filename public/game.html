@@ -5,8 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>穿书引擎 · AI 对话 AVG</title>
 <link rel="stylesheet" href="./css/game.css?v=20260914e">
+<link rel="stylesheet" href="./css/pixel-ui.css?v=20260915">
 </head>
-<body>
+<body class="pixel-page page-game">
 <div id="app" class="game">
   <header class="topbar">
     <button class="back" id="btn-back">← 书架</button>
@@ -58,6 +59,7 @@
 <!-- 身份选择 -->
 <div class="overlay" id="id-overlay" hidden>
   <div class="id-box">
+    <div class="book-cover-strip" aria-hidden="true"></div>
     <h2 id="id-title"></h2>
     <div class="id-sub" id="id-sub"></div>
     <div class="id-list" id="id-list"></div>
@@ -67,6 +69,7 @@
 <!-- 序章引导：世界观 / 身份 / 玩法 -->
 <div class="overlay" id="prologue-overlay" hidden>
   <div class="prologue-box">
+    <div class="book-cover-strip" aria-hidden="true"></div>
     <div class="prologue-head">
       <span class="prologue-kicker">序 章</span>
       <h2 id="prologue-title"></h2>
@@ -111,6 +114,6 @@
 <div class="chapter-full" id="chapter-full" hidden><b id="cf-num"></b><span id="cf-name"></span></div>
 <div class="chapter-full breakthrough" id="breakthrough-full" hidden><span id="bt-kicker">灵 机 自 涌 · 大 道 相 唤</span><b id="bt-label"></b><span>境 界 突 破</span></div>
 
-<script type="module" src="./js/game.page.js?v=20260914j"></script>
+<script type="module" src="./js/game.page.js?v=20260915"></script>
 </body>
 </html>

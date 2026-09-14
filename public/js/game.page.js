@@ -25,6 +25,7 @@ function markPlayed() {
     played[bookId] = {
       title: novel.meta.title || bookId,
       author: novel.meta.author || '',
+      cover: novel.meta.cover || '',
       endings: (novel.endings || []).length,
       at: Date.now(),
     };
@@ -64,6 +65,12 @@ function applySceneTheme(ch) {
   const root = $('app');
   root.style.setProperty('--scene-hue', String(hue));
   root.style.setProperty('--scene-sat', String(genreTheme.sat));
+  if (novel.meta.cover) {
+    const coverUrl = new URL(novel.meta.cover, location.href).href.replace(/["\\]/g, '');
+    document.documentElement.style.setProperty('--book-cover', `url("${coverUrl}")`);
+  } else {
+    document.documentElement.style.removeProperty('--book-cover');
+  }
   root.classList.toggle('genre-dark', !!genreTheme.dark);
 }
 
@@ -1249,6 +1256,7 @@ function showIdentityPicker() {
     if (!loaded) throw new Error('书籍数据不可用（静态与 API 源均失败）');
     novel = loaded;
     novelBase = structuredClone(novel);
+    applySceneTheme(1);
     if (/^(forge|world)_/.test(bookId)) markPlayed(); // 拆的新书/造的世界进入过游戏 → 入栏，下次免重拆重造
     document.title = `${novel.meta.title} · AI对话AVG`;
     $('book-title').textContent = novel.meta.title;

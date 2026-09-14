@@ -5,6 +5,9 @@ node_modules/
 .mimosa/
 .wrangler/
 .kv-data/
+commit.cmd
+_commit.tmp.cmd
+.commit-msg.txt
 
 # Tencent Cloud EdgeOne
 .env

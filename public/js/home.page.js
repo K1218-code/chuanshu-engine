@@ -16,7 +16,15 @@ function renderGallery(index) {
     row.className = 'gallery-book';
     const cover = document.createElement('div');
     cover.className = 'gb-cover';
-    cover.textContent = book.cover_label || book.title.slice(0, 2);
+    if (book.cover) {
+      const img = document.createElement('img');
+      img.src = book.cover;
+      img.alt = '';
+      img.loading = 'lazy';
+      cover.append(img);
+    } else {
+      cover.textContent = book.cover_label || book.title.slice(0, 2);
+    }
     const info = document.createElement('div');
     info.className = 'gb-info';
     const b = document.createElement('b');
@@ -101,7 +109,7 @@ function timeAgo(ts) {
   return '30 天前';
 }
 
-function renderPlayed() {
+function renderPlayed(index = []) {
   const section = $('played-section');
   let played = {};
   try { played = JSON.parse(localStorage.getItem('cs_played') || '{}'); } catch { /* 坏数据当空 */ }
@@ -112,13 +120,23 @@ function renderPlayed() {
   const list = $('played-list');
   list.replaceChildren();
   const gallery = JSON.parse(localStorage.getItem('cs_endings') || '{}');
+  const indexed = new Map(index.map((book) => [book.id, book]));
   for (const [id, info] of entries) {
     const got = (gallery[id] || []).length;
     const row = document.createElement('div');
     row.className = 'gallery-book';
     const cover = document.createElement('div');
     cover.className = 'gb-cover';
-    cover.textContent = (info.title || '书').slice(0, 2);
+    const coverUrl = info.cover || indexed.get(id)?.cover;
+    if (coverUrl) {
+      const img = document.createElement('img');
+      img.src = coverUrl;
+      img.alt = '';
+      img.loading = 'lazy';
+      cover.append(img);
+    } else {
+      cover.textContent = (info.title || '书').slice(0, 2);
+    }
     const infoBox = document.createElement('div');
     infoBox.className = 'gb-info';
     const b = document.createElement('b');
@@ -137,13 +155,14 @@ function renderPlayed() {
 
 (async () => {
   const data = await (await fetch('./data/books.index.json')).json();
+  $('world-count').textContent = String(data.books.length).padStart(2, '0');
   const list = $('book-list');
   for (const book of data.books) {
     const card = document.createElement('div');
     card.className = 'card book-card';
     const tags = book.tags.map((t) => `<span class="tag gray">${t}</span>`).join('');
     card.innerHTML = `
-      <div class="cover">${book.cover_label || book.title.slice(0, 4)}</div>
+      <div class="cover">${book.cover ? `<img src="${book.cover}" alt="《${book.title}》封面" loading="lazy">` : (book.cover_label || book.title.slice(0, 4))}<span class="cover-code">WORLD_${String(list.children.length + 1).padStart(2, '0')}</span></div>
       <div class="book-info">
         <h3></h3>
         <div class="author"></div>
@@ -165,7 +184,7 @@ function renderPlayed() {
     list.append(card);
   }
   renderGallery(data.books);
-  renderPlayed();
+  renderPlayed(data.books);
 
   // 入口卡片
   $('entry-create').addEventListener('click', () => location.href = './create.html');

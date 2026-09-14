@@ -1,0 +1,223 @@
+/* Shared pixel-window system for secondary pages and the game client. */
+body.pixel-page {
+  --px-ink: #19172b;
+  --px-paper: #fffaf0;
+  --px-pink: #ff5e8a;
+  --px-blue: #6174ff;
+  --px-cyan: #5ee6d1;
+  --px-yellow: #ffd75d;
+  min-width: 320px;
+  color: var(--px-ink);
+}
+
+body.pixel-page::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  opacity: .12;
+  pointer-events: none;
+  background: repeating-linear-gradient(0deg, #17152b 0 1px, transparent 1px 4px);
+}
+
+body.page-create,
+body.page-stories {
+  padding: 28px 16px 54px;
+  background-color: #eeecff;
+  background-image: linear-gradient(#68628a12 1px, transparent 1px), linear-gradient(90deg, #68628a12 1px, transparent 1px), radial-gradient(circle at 16% 12%, #ff8cae35, transparent 26%), radial-gradient(circle at 84% 76%, #6578ff2b, transparent 30%);
+  background-size: 28px 28px, 28px 28px, auto, auto;
+}
+
+.page-create #app,
+.page-stories #app {
+  max-width: 760px;
+  overflow: hidden;
+  background: var(--px-paper);
+  border: 3px solid var(--px-ink);
+  box-shadow: 9px 9px 0 var(--px-ink), 15px 15px 0 var(--px-pink);
+}
+
+.pixel-page .topbar {
+  min-height: 54px;
+  padding: 9px 12px;
+  color: #fff;
+  background: var(--px-ink);
+  border-bottom: 3px solid var(--px-ink);
+}
+
+.pixel-page .topbar::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  flex: 0 0 auto;
+  background: var(--px-pink);
+  border: 1px solid #fff7;
+  box-shadow: 12px 0 0 var(--px-yellow), 24px 0 0 var(--px-cyan);
+  margin-right: 22px;
+}
+
+.pixel-page .topbar .title { font: 800 12px "Cascadia Mono", Consolas, "Microsoft YaHei", monospace; letter-spacing: .05em; }
+.pixel-page .topbar .sub { color: #aaa6c0; font: 700 9px "Cascadia Mono", Consolas, "Microsoft YaHei", monospace; }
+.pixel-page .topbar .back { min-height: 32px; padding: 5px 8px; color: #fff; background: #2b2842; border: 1px solid #7e7995; font-size: 12px; font-weight: 800; }
+.pixel-page .topbar .back:hover { color: var(--px-ink); background: var(--px-cyan); border-color: var(--px-cyan); }
+
+.pixel-page .btn { min-height: 43px; color: var(--px-ink); background: var(--px-yellow); border: 2px solid var(--px-ink); border-radius: 0; box-shadow: 3px 3px 0 var(--px-ink); font-weight: 900; transition: transform .15s, box-shadow .15s, background .15s; }
+.pixel-page .btn:hover { color: var(--px-ink); background: #ffe58b; transform: translate(1px, 1px); box-shadow: 1px 1px 0 var(--px-ink); }
+.pixel-page .btn.ghost { color: var(--px-ink); background: #fff; }
+.pixel-page .btn.ghost:hover { background: #f0edff; }
+.pixel-page .footer-note { display: flex; justify-content: center; padding: 24px 18px; color: #9893a9; background: var(--px-ink); font: 700 8px "Cascadia Mono", Consolas, "Microsoft YaHei", monospace; letter-spacing: .05em; }
+
+/* Create world */
+.page-create .wizard { padding: 30px 24px 34px; background: linear-gradient(145deg, #fffaf0, #fff 62%, #f2efff); }
+.page-create .wizard::before { content: "WORLD FORGE // CONFIGURATION"; display: block; width: max-content; margin-bottom: 25px; padding: 6px 9px; color: var(--px-ink); background: var(--px-cyan); border: 2px solid var(--px-ink); box-shadow: 3px 3px 0 var(--px-ink); font: 800 8px "Cascadia Mono", Consolas, monospace; letter-spacing: .08em; }
+.page-create .step-label { display: flex; align-items: center; gap: 9px; margin: 24px 0 10px; color: var(--px-ink); font-size: 14px; }
+.page-create .step-label::after { content: ""; flex: 1; border-top: 2px dashed #19172b38; }
+.page-create .opt-grid { gap: 10px; }
+.page-create .opt { min-height: 78px; display: grid; place-items: center; align-content: center; background: #fff; border: 2px solid var(--px-ink); border-radius: 0; box-shadow: 3px 3px 0 #d8d4e8; font-size: 12px; transition: transform .15s, box-shadow .15s; }
+.page-create .opt:hover { transform: translate(-1px, -1px); box-shadow: 5px 5px 0 var(--px-cyan); }
+.page-create .opt.sel { color: var(--px-ink); background: var(--px-yellow); border-color: var(--px-ink); box-shadow: 4px 4px 0 var(--px-ink); }
+.page-create .opt .ico { font-size: 22px; }
+.page-create textarea { min-height: 170px; background: #fffefb; border: 2px solid var(--px-ink); border-radius: 0; box-shadow: inset 4px 4px 0 #f0edf7; }
+.page-create textarea:focus { border-color: var(--px-blue); outline: 3px solid #6174ff20; }
+.page-create .hint { color: #777186; }
+.page-create #go { margin-top: 8px; }
+
+/* Story catalogue */
+.page-stories .list { padding: 20px 18px 28px; }
+.page-stories .list::before { content: "STORY ARCHIVE // 选择一本开始拆解"; display: block; width: max-content; max-width: 100%; margin-bottom: 18px; padding: 6px 9px; color: var(--px-ink); background: var(--px-cyan); border: 2px solid var(--px-ink); box-shadow: 3px 3px 0 var(--px-ink); font: 800 8px "Cascadia Mono", Consolas, "Microsoft YaHei", monospace; letter-spacing: .05em; }
+.page-stories .story-row { position: relative; min-height: 82px; padding: 10px 12px; gap: 13px; background: #fffefb; border: 2px solid var(--px-ink); border-radius: 0; box-shadow: 4px 4px 0 #d8d4e8; transition: transform .15s, box-shadow .15s; }
+.page-stories .story-row:hover { border-color: var(--px-ink); transform: translate(-2px, -2px); box-shadow: 7px 7px 0 var(--px-pink); }
+.page-stories .story-row .num { width: 48px; height: 58px; display: grid; place-items: center; overflow: hidden; flex: 0 0 auto; color: #fff; background: var(--px-blue); border: 2px solid var(--px-ink); box-shadow: 2px 2px 0 var(--px-ink); font: 800 10px "Cascadia Mono", Consolas, monospace; }
+.page-stories .story-row .num img { width: 100%; height: 100%; object-fit: cover; }
+.page-stories .story-row h4 { font-size: 14px; }
+.page-stories .story-row p { color: #7b758a; font-size: 11px; }
+.page-stories .story-row .go { padding: 4px 7px; color: var(--px-ink); background: #f0edff; border: 1px solid var(--px-ink); font-size: 9px; }
+.page-stories .story-row .go.pre { background: var(--px-cyan); color: var(--px-ink); }
+
+/* Shared generation dialogs */
+.page-create .overlay,
+.page-stories .overlay { background: #19172bc2; backdrop-filter: blur(3px); }
+.page-create .gen-panel,
+.page-stories .gen-panel { overflow: hidden; background: var(--px-paper); border: 3px solid var(--px-ink); border-radius: 0; box-shadow: 8px 8px 0 var(--px-pink); }
+.page-create .gen-panel .bar,
+.page-stories .gen-panel .bar { height: 12px; padding: 2px; background: #fff; border: 2px solid var(--px-ink); border-radius: 0; }
+.page-create .gen-panel .fill,
+.page-stories .gen-panel .fill { border-radius: 0; background: repeating-linear-gradient(90deg, var(--px-blue) 0 12px, #8190ff 12px 16px); }
+
+/* Game window: keep the dark immersive layout, add the same hardware language. */
+.page-game { background: #0c0b18; }
+.page-game #app.game { max-width: 940px; border-inline: 3px solid var(--px-ink); }
+.page-game .topbar { flex: 0 0 auto; }
+.page-game .topbar .title { font-size: 13px; }
+.page-game .save-dot { width: 9px; height: 9px; border: 1px solid #ffffff80; border-radius: 0; }
+.page-game .icon-btn { min-height: 32px; padding: 5px 9px; color: #fff; background: #2b2842; border: 1px solid #7e7995; border-radius: 0; font-weight: 700; }
+.page-game .icon-btn:hover { color: var(--px-ink); background: var(--px-cyan); }
+.page-game .stage { min-height: 248px; border-bottom: 3px solid var(--px-ink); background: linear-gradient(180deg, #11122235 0%, #11131acc 70%, #0c0d12 100%), radial-gradient(100% 75% at 50% 5%, hsl(var(--scene-hue) var(--scene-sat) 42% / .36), transparent 65%), var(--book-cover, none) center 37% / cover no-repeat, #14161a; }
+.page-game #app.genre-dark .stage { background: linear-gradient(180deg, #08091070 0%, #090a0dde 72%, #07080a 100%), radial-gradient(100% 75% at 50% 5%, hsl(var(--scene-hue) var(--scene-sat) 26% / .3), transparent 65%), var(--book-cover, none) center 37% / cover no-repeat, #090a0c; }
+.page-game .stage::after { background: repeating-linear-gradient(0deg, #03040a15 0 1px, transparent 1px 4px); }
+.page-game .hud-chip { border: 1px solid #ffffff3b; border-radius: 0; box-shadow: 2px 2px 0 #0008; font-family: "Cascadia Mono", Consolas, "Microsoft YaHei", monospace; font-size: 10px; }
+.page-game .hud-map-btn { color: var(--px-ink); background: var(--px-yellow); border: 1px solid var(--px-ink); border-radius: 0; box-shadow: 2px 2px 0 #000; }
+.page-game .chapter-banner b { color: var(--px-yellow); background: none; -webkit-text-fill-color: initial; text-shadow: 3px 3px 0 #000; }
+.page-game .km-banner { color: var(--px-yellow); background: #1b1836d9; border: 2px solid var(--px-pink); border-radius: 0; box-shadow: 3px 3px 0 #000; }
+.page-game .chat-wrap { border-top: 0; }
+.page-game .bubble-avatar { border: 1px solid #ffffff3d; border-radius: 0; }
+.page-game .bubble { border: 1px solid #ffffff18; border-radius: 0; box-shadow: 3px 3px 0 #101116; }
+.page-game .me .bubble { color: var(--px-ink); background: var(--px-cyan); border-color: var(--px-ink); box-shadow: 3px 3px 0 #000; }
+.page-game .mind-card,
+.page-game .event-card,
+.page-game .recap-card { border-radius: 0; }
+.page-game .event-card { border-width: 2px; box-shadow: 4px 4px 0 #0d0e12; }
+.page-game .event-choices button { border-radius: 0; }
+.page-game .quick-btn { border-radius: 0; }
+.page-game .quick-btn.advance { color: var(--px-ink); background: var(--px-yellow); border-color: var(--px-yellow); font-weight: 900; }
+.page-game .input-bar { background: #17181d; border-top: 1px solid #ffffff1c; }
+.page-game .input-bar input { border: 1px solid #ffffff29; border-radius: 0; box-shadow: inset 3px 3px 0 #0e0f13; }
+.page-game .input-bar button { color: var(--px-ink); background: var(--px-yellow); border: 2px solid var(--px-ink); border-radius: 0; box-shadow: 3px 3px 0 #000; font-weight: 900; }
+
+.page-game .panel { border-left: 3px solid var(--px-ink); box-shadow: -8px 0 0 #0d0c18aa; }
+.page-game .panel-head { color: #fff; background: var(--px-ink); border-bottom: 2px solid var(--px-ink); }
+.page-game .panel-tabs { border-bottom: 2px solid var(--px-ink); }
+.page-game .panel-tabs button.on { color: var(--px-ink); background: var(--px-cyan); border-bottom-color: var(--px-ink); }
+.page-game .attr-bar,
+.page-game .rel-bar { border-radius: 0; }
+.page-game .attr-bar i,
+.page-game .rel-bar i { border-radius: 0; }
+.page-game .mem-item,
+.page-game .set-cat,
+.page-game .set-row,
+.page-game .set-input,
+.page-game .set-textarea,
+.page-game .set-search,
+.page-game .set-add { border-radius: 0; }
+
+.page-game .overlay { background: #0b0a16e8; backdrop-filter: blur(5px); }
+.page-game .id-box,
+.page-game .prologue-box,
+.page-game .map-box,
+.page-game .end-box { overflow: hidden; background: #171821; border: 3px solid #08090d; box-shadow: 8px 8px 0 var(--px-pink); }
+.page-game .book-cover-strip { height: 150px; background: linear-gradient(180deg, transparent 15%, #171821 100%), var(--book-cover, none) center 34% / cover no-repeat, #252632; border-bottom: 2px solid #08090d; }
+.page-game .id-box h2 { margin-top: 18px; }
+.page-game .id-box .id-sub { padding-inline: 18px; }
+.page-game .id-list { padding: 0 18px 20px; }
+.page-game .id-card,
+.page-game .map-card { border: 2px solid #ffffff22; border-radius: 0; box-shadow: 3px 3px 0 #090a0d; }
+.page-game .id-card:hover,
+.page-game .map-card.explore-btn:hover { border-color: var(--px-cyan); box-shadow: 4px 4px 0 var(--px-cyan); }
+.page-game .prologue-head { padding: 0 18px; }
+.page-game .prologue-body { margin: 0 18px; border-radius: 0; }
+.page-game .prologue-foot { padding: 0 18px 18px; }
+.page-game .prologue-foot .btn { color: var(--px-ink); }
+.page-game .map-box { padding: 20px; }
+.page-game .end-box { padding: 24px 20px; }
+.page-game #record-canvas,
+.page-game .end-epilogue { border-radius: 0; }
+.page-game .chapter-full { background: radial-gradient(80% 60% at 50% 40%, #2d2752, #0d0c18); }
+.page-game .chapter-full::after { content: ""; position: absolute; inset: 18px; border: 2px solid var(--px-pink); box-shadow: 6px 6px 0 var(--px-cyan); }
+
+/* Legacy routes */
+.page-redirect { min-height: 100vh; display: grid; place-items: center; padding: 20px; background-color: #eeecff; background-image: linear-gradient(#68628a14 1px, transparent 1px), linear-gradient(90deg, #68628a14 1px, transparent 1px); background-size: 28px 28px; }
+.redirect-window { width: min(460px, 100%); background: var(--px-paper); border: 3px solid var(--px-ink); box-shadow: 8px 8px 0 var(--px-ink), 13px 13px 0 var(--px-pink); }
+.redirect-bar { min-height: 44px; display: flex; align-items: center; gap: 32px; padding: 8px 12px; color: #fff; background: var(--px-ink); font: 800 9px "Cascadia Mono", Consolas, monospace; letter-spacing: .06em; }
+.redirect-bar span { display: flex; gap: 5px; }
+.redirect-bar i { width: 8px; height: 8px; background: var(--px-pink); }
+.redirect-bar i:nth-child(2) { background: var(--px-yellow); }
+.redirect-bar i:nth-child(3) { background: var(--px-cyan); }
+.redirect-body { padding: 34px 26px; text-align: center; }
+.redirect-body b { display: block; margin-bottom: 8px; font-size: 24px; }
+.redirect-body p { margin-bottom: 24px; color: #716b80; }
+.redirect-body a { min-height: 46px; display: flex; align-items: center; justify-content: center; gap: 9px; color: var(--px-ink); background: var(--px-yellow); border: 2px solid var(--px-ink); box-shadow: 4px 4px 0 var(--px-ink); font-weight: 900; text-decoration: none; }
+.redirect-body small { display: block; margin-top: 16px; color: #9690a4; font: 700 8px "Cascadia Mono", Consolas, monospace; }
+
+@media (max-width: 640px) {
+  body.page-create,
+  body.page-stories { padding: 0; background: var(--px-paper); }
+  .page-create #app,
+  .page-stories #app { max-width: none; border: 0; box-shadow: none; }
+  .pixel-page .topbar::before { width: 7px; height: 7px; box-shadow: 10px 0 0 var(--px-yellow), 20px 0 0 var(--px-cyan); margin-right: 17px; }
+  .pixel-page .topbar .sub { display: none; }
+  .page-create .wizard { padding: 24px 14px 28px; }
+  .page-create .opt-grid { grid-template-columns: repeat(2, 1fr); }
+  .page-create .opt { min-height: 72px; }
+  .page-stories .list { padding: 16px 10px 24px; }
+  .page-stories .story-row { padding: 9px; }
+  .page-stories .story-row .num { width: 43px; height: 54px; }
+  .page-stories .story-row .go { max-width: 58px; text-align: center; }
+  .page-game #app.game { border: 0; }
+  .page-game .topbar::before { display: none; }
+  .page-game .topbar { gap: 7px; padding-inline: 8px; }
+  .page-game .topbar .back,
+  .page-game .icon-btn { padding-inline: 7px; font-size: 11px; }
+  .page-game .topbar .title { font-size: 12px; }
+  .page-game .stage { min-height: 210px; }
+  .page-game .book-cover-strip { height: 120px; }
+  .page-game .id-box,
+  .page-game .prologue-box,
+  .page-game .map-box,
+  .page-game .end-box { box-shadow: 5px 5px 0 var(--px-pink); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pixel-page *,
+  .pixel-page *::before,
+  .pixel-page *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}

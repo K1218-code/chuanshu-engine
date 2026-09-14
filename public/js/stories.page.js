@@ -6,14 +6,28 @@ const PREBUILT = { '2050600604976803918': 'btg_room', '1716453753710972928': 'ak
 let polling = null;
 
 (async () => {
-  const data = await (await fetch('./data/stories.index.json')).json();
+  const [data, books] = await Promise.all([
+    fetch('./data/stories.index.json').then((r) => r.json()),
+    fetch('./data/books.index.json').then((r) => r.json()).catch(() => ({ books: [] })),
+  ]);
+  const prebuiltCovers = new Map((books.books || []).map((book) => [book.id, book.cover]));
   const list = $('list');
   data.stories.forEach((s, i) => {
     const row = document.createElement('div');
     row.className = 'card story-row';
     const h = document.createElement('h4'); h.textContent = s.title;
     const p = document.createElement('p'); p.textContent = s.intro || s.author;
-    const num = document.createElement('div'); num.className = 'num'; num.textContent = i + 1;
+    const num = document.createElement('div'); num.className = 'num';
+    const prebuiltId = PREBUILT[s.work_id];
+    const coverUrl = prebuiltCovers.get(prebuiltId);
+    if (coverUrl) {
+      const img = document.createElement('img');
+      img.src = coverUrl;
+      img.alt = '';
+      num.append(img);
+    } else {
+      num.textContent = String(i + 1).padStart(2, '0');
+    }
     const info = document.createElement('div'); info.className = 'info';
     info.append(h, p);
     const go = document.createElement('div');

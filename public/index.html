@@ -3,37 +3,46 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="穿书引擎：进入故事、扮演角色，通过自由行动和命运节点改写结局。">
 <title>穿书引擎 · 把故事穿进去玩</title>
 <link rel="stylesheet" href="./css/tokens.css">
-<link rel="stylesheet" href="./css/home.css?v=20260915b">
+<link rel="stylesheet" href="./css/home.css?v=20260915pixel">
 </head>
-<body>
+<body class="page-home">
+<div class="desktop-pixels" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
 <div id="app">
   <div class="topbar">
-    <span class="title">书架</span>
+    <span class="window-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+    <span class="title">穿书终端 <small>/ LIBRARY.EXE</small></span>
     <button class="back" id="demo-btn" hidden>演示登录</button>
     <button class="back" id="login-btn">知乎登录</button>
   </div>
 
   <div class="hero">
-    <div class="kanshan">🦊</div>
+    <div class="system-chip"><i></i> STORY DIVE SYSTEM // ONLINE</div>
+    <div class="kanshan" aria-hidden="true"><span>狐</span><i></i></div>
     <div class="logo">穿<span>书</span>引擎</div>
     <p>读完意难平？穿进去玩。—— 确定性引擎管命运，AI 只把角色演活</p>
-    <button class="btn ghost" id="guide-btn">📖 新手指南</button>
+    <button class="btn ghost" id="guide-btn"><span aria-hidden="true">▶</span> 新手指南</button>
+    <div class="hero-hud" aria-label="穿书引擎状态">
+      <span><b id="world-count">--</b><small>STORY WORLDS</small></span>
+      <span><b>02</b><small>ENGINE LAYERS</small></span>
+      <span><b>∞</b><small>DESTINY ROUTES</small></span>
+    </div>
   </div>
 
   <div class="section" id="played-section" hidden>
-    <div class="section-title">🎮 玩过的书 <small id="played-count"></small></div>
+    <div class="section-title"><span class="section-no">01</span><span>🎮 玩过的书 <small id="played-count"></small></span><i aria-hidden="true"></i></div>
     <div class="card gallery-strip" id="played-list"></div>
   </div>
 
   <div class="section">
-    <div class="section-title">📚 精选书库 <small>已拆解 · 即点即玩</small></div>
+    <div class="section-title"><span class="section-no">02</span><span>📚 精选书库 <small>已拆解 · 即点即玩</small></span><i aria-hidden="true"></i></div>
     <div id="book-list"></div>
   </div>
 
   <div class="section">
-    <div class="section-title">✨ 更多入口</div>
+    <div class="section-title"><span class="section-no">03</span><span>✨ 更多入口</span><i aria-hidden="true"></i></div>
     <div class="entry-row">
       <div class="card entry" id="entry-create">
         <div class="ico">🌍</div><h4>创造世界</h4><p>30 秒生成你的世界</p>
@@ -45,11 +54,11 @@
   </div>
 
   <div class="section">
-    <div class="section-title">🏆 结局图鉴 <small id="gallery-count"></small></div>
+    <div class="section-title"><span class="section-no">04</span><span>🏆 结局图鉴 <small id="gallery-count"></small></span><i aria-hidden="true"></i></div>
     <div class="card gallery-strip" id="gallery"></div>
   </div>
 
-  <div class="footer-note">穿书引擎 · 知乎黑客松 2026 · 互动内容由 AI 基于盐言故事生成</div>
+  <div class="footer-note"><span>CHUANSHU ENGINE © 2026</span><span>AI 负责表达 · 规则引擎守住命运</span></div>
 </div>
 
 <!-- 结局图鉴浮层：书籍 → 不同结局与评价总结 -->
@@ -78,6 +87,6 @@
   </div>
 </div>
 <div id="toast-root"></div>
-<script type="module" src="./js/home.page.js?v=20260915d"></script>
+<script type="module" src="./js/home.page.js?v=20260915pixel"></script>
 </body>
 </html>
