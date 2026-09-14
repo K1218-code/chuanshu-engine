@@ -23,7 +23,7 @@ app.get('/api/health', (c) => c.json({ ok: true, app: 'chuanshu-engine', v: 2, t
 
 // ---- 书籍读取三层：KV（动态书/forge）→ Worker 内置静态书（零延迟兜底）----
 // 内置层由 tools/gen-gm-context.mjs 生成（仅 GM prompt 与 sanitize 所需字段）
-import GM_BOOKS_RAW from './gm-context.generated.json';
+import GM_BOOKS_RAW from './gm-context.generated.json' with { type: 'json' };
 const GM_BOOKS = GM_BOOKS_RAW || {};
 
 async function loadNovel(c, bookId) {
@@ -507,7 +507,9 @@ app.get('/api/forge/status', async (c) => {
 
   if (job.stage >= STAGES.length && !job.error) {
     const novel = assembleNovel(job.story, job.acc);
-    sanityCheck(novel);
+    const problems = sanityCheck(novel);
+    delete novel.__chapterSummaries; // 内部脚手架不入库
+    if (problems.length) console.log(`sanity 修复: ${problems.join('；')}`);
     const bookId = novel.meta.id;
     await env.SAVE_KV.put(`book:forge:${job.workId}`, JSON.stringify(novel), { expirationTtl: 30 * 24 * 3600 });
     await env.SAVE_KV.put(`book:${bookId}`, JSON.stringify(novel), { expirationTtl: 30 * 24 * 3600 });

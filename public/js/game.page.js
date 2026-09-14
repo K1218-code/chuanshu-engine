@@ -809,7 +809,9 @@ $('send').addEventListener('click', () => sendInput());
 $('input').addEventListener('keydown', (e) => { if (e.key === 'Enter') sendInput(); });
 
 async function sendInput() {
-  if (busy || phase !== 'free' || pendingEvent) { if (pendingEvent) addSys('先处理眼前的事件…'); return; }
+  // 自由行动与命运节点阶段都接受自由输入（命运节点的固定选项始终保留，自由输入=自定义应对）
+  if (busy || pendingEvent) { if (pendingEvent) addSys('先处理眼前的事件…'); return; }
+  if (phase !== 'free' && phase !== 'keymoment') return;
   const input = $('input');
   const text = input.value.trim();
   if (!text) return;
@@ -883,6 +885,10 @@ async function aiTurn(userText) {
     } else {
       renderQuick();
     }
+  } else if (phase === 'keymoment') {
+    // 命运节点阶段的自由输入后：重新渲染节点固定选项（不丢失），玩家仍可点选
+    const node = nodeOf(novel, state.node);
+    if (node?.choices?.length) renderKeyChoices(node);
   }
 }
 
@@ -1133,11 +1139,20 @@ $('btn-reset').addEventListener('click', () => {
 // ============ 身份选择 ============
 function showIdentityPicker() {
   phase = 'identity';
+  // 防御：身份卡为空（拆书异常）→ 自动以默认身份直接开始，不让玩家卡在空浮层
+  if (!(novel.player.identity_cards || []).length) {
+    novel.player.identity_cards = [{ id: null, name: '穿成书中人', desc: '以穿越者的身份进入这个故事。', init: {} }];
+    state = createState(novel, { identity: null });
+    state.summaries = [];
+    state.saveId = saveId;
+    addSys('— 这本书的身份卡缺失，已按「穿成书中人」开始 —');
+    showPrologue(novel.player.identity_cards[0]);
+    return;
+  }
   $('id-title').textContent = `《${novel.meta.title}》`;
   $('id-sub').textContent = novel.meta.intro;
   const list = $('id-list'); list.replaceChildren();
-  (novel.player.identity_cards || []).forEach((card, i) => {
-    const cardEl = el('div', 'id-card');
+  (novel.player.identity_cards || []).forEach((card, i) => {    const cardEl = el('div', 'id-card');
     const h3 = el('h3', null, card.name);
     if (i === 0) h3.append(el('span', 'tag', '推荐'));
     const pc = resolvePlayerChar(novel, card.id);
@@ -1163,12 +1178,21 @@ function showIdentityPicker() {
 (async () => {
   try {
     const ctrl = new AbortController();
-    const timer = setTimeout(() => ctrl.abort(), 8000);
-    let res = await fetch(`./data/books/${bookId}.json`, { signal: ctrl.signal });
-    if (!res.ok) res = await fetch(`./api/books/${bookId}`, { signal: ctrl.signal });
+    const timer = setTimeout(() => ctrl.abort(), 12000);
+    // 双源加载：静态文件 → API。注意 SPA 兜底会把 404 变成 200 的 HTML，
+    // 必须以「JSON 解析成功且含 meta」为准，而不是 HTTP 状态码。
+    let loaded = null;
+    for (const url of [`./data/books/${bookId}.json`, `./api/books/${bookId}`]) {
+      try {
+        const res = await fetch(url, { signal: ctrl.signal });
+        if (!res.ok) continue;
+        const data = await res.json();
+        if (data && data.meta && data.graph) { loaded = data; break; }
+      } catch { /* 尝试下一源（含 SPA 200 返回 HTML 的 JSON 解析失败） */ }
+    }
     clearTimeout(timer);
-    if (!res.ok) throw new Error('HTTP ' + res.status);
-    novel = await res.json();
+    if (!loaded) throw new Error('书籍数据不可用（静态与 API 源均失败）');
+    novel = loaded;
     novelBase = structuredClone(novel);
     document.title = `${novel.meta.title} · AI对话AVG`;
     $('book-title').textContent = novel.meta.title;

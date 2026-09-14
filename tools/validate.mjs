@@ -67,9 +67,10 @@ for (const n of nodes) {
   else chapters.set(n.chapter, [n]);
 }
 for (const [ch, list] of chapters) {
-  if (list.length < 3) err(`第 ${ch} 章只有 ${list.length} 个节点（<3）`);
+  if (list.length < 2) err(`第 ${ch} 章只有 ${list.length} 个节点（<2，v2.5 结构=开场+命运节点）`);
   const km = list.filter((n) => n.keyMoment).length;
   if (km > 2) err(`第 ${ch} 章 keyMoment 有 ${km} 个（>2）`);
+  if (km === 0) warn(`第 ${ch} 章没有命运节点`);
 }
 
 // ---- 可达性：从 start BFS ----

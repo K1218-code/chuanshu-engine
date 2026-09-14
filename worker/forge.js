@@ -51,6 +51,45 @@ async function llmJson(env, system, user, opts = {}) {
 
 const JSON_ONLY = '只输出 JSON，不要输出任何其他文字。所有字段用简体中文。';
 
+// ---- 确定性保底：LLM 抽风（空数组/截断/换键名）时从章节摘要构造可玩产物 ----
+function fallbackGraph(acc) {
+  const chapters = (acc.chapterSummaries || []).slice(0, 10).map((c) => c.chapter).filter((x) => x);
+  const list = chapters.length ? chapters : [1, 2, 3];
+  const attrA = acc.player?.attributes?.[0]?.key;
+  const attrB = acc.player?.attributes?.[2]?.key || attrA;
+  const nodes = [];
+  list.forEach((ch, i) => {
+    const sum = (acc.chapterSummaries || []).find((s) => s.chapter === ch)?.summary || '';
+    nodes.push({ id: `n${i * 2}`, chapter: ch, who: 'narrator', text: String(sum).slice(0, 110) || '故事继续。', set: {}, goto: `n${i * 2 + 1}`, canon: true, keyMoment: false });
+    nodes.push({
+      id: `n${i * 2 + 1}`, chapter: ch, who: 'narrator', text: '命运的岔口摆在你面前。',
+      set: {}, canon: false, keyMoment: true,
+      choices: [
+        { text: '迎难而上', set: attrA ? { [attrA]: 1 } : {}, goto: i < list.length - 1 ? `n${(i + 1) * 2}` : 'n_gate', divergence_delta: 0.05 },
+        { text: '暂避锋芒', set: attrB ? { [attrB]: 1 } : {}, goto: i < list.length - 1 ? `n${(i + 1) * 2}` : 'n_gate', divergence_delta: 0 },
+      ],
+    });
+  });
+  nodes.push({ id: 'n_gate', chapter: list[list.length - 1], who: 'narrator', text: '故事讲到了这里——', set: {}, canon: true, keyMoment: false });
+  return { start: 'n0', nodes };
+}
+
+function fallbackEvents(acc) {
+  const chapters = (acc.chapterSummaries || []).slice(0, 10);
+  const attrs = (acc.player?.attributes || []).map((a) => a.key).filter(Boolean);
+  const cast = (acc.characters || []).map((c) => c.name).filter(Boolean);
+  const events = [];
+  (chapters.length ? chapters : [{ chapter: 1, summary: '' }]).forEach((c, i) => {
+    const ch = c.chapter || i + 1;
+    const sum = String(c.summary || '变故').slice(0, 26);
+    events.push(
+      { id: `e${ch}_fb1`, chapter: ch, weight: 3, once: true, requires: '', narrative: `有关「${sum}」的流言传到了你耳中，说的人欲言又止。`, choices: [{ text: '追问下去', set: attrs[0] ? { [attrs[0]]: 1 } : {} }, { text: '不置可否', set: {} }] },
+      { id: `e${ch}_fb2`, chapter: ch, weight: 2, once: true, requires: '', narrative: `${cast[0] ? cast[0] + '突然来寻你' : '一位不速之客来寻你'}，神色有异，似乎有话要说。`, choices: [{ text: '听听他说什么', set: attrs[1] ? { [attrs[1]]: 1 } : {} }, { text: '借故避开', set: {} }] },
+    );
+  });
+  return events;
+}
+
 // ---- S1 大纲：拆成 8-10 章（单周目 40-90 分钟的骨架）+ 开局序章 ----
 async function stageOutline(env, story, acc) {
   const r = await llmJson(env,
@@ -86,14 +125,27 @@ async function stageCast(env, story, acc) {
 
 // ---- S4 命运节点链（graph 是骨架）：每章开场节点 + 1 个命运节点 ----
 async function stageGraph(env, story, acc) {
-  const chCount = acc.chapterSummaries.length;
+  const chCount = Math.max(3, acc.chapterSummaries.length);
   const r = await llmJson(env,
-    `你是AVG剧情图谱生成器。${JSON_ONLY}`,
-    `为这本小说生成剧情节点图谱，共${chCount}章。每章2-3个节点：开场节点(旁白或角色，无choices，交代本章场景)+命运节点(必须keyMoment:true且带2-3个choices)。节点：{id:"n0"起连续,chapter:1-${chCount},who(角色id或narrator),text(≤110字，台词优先引用原文),set:{属性:±1}(仅关键节点),choices(仅命运节点:{text≤18字,requires如"属性>=4"可空,set:{属性:±1或±2},goto下一个章节开场节点或本章后续节点}),goto(无choices节点必填),keyMoment:布尔,canon:true}\n规则：start=n0；命运节点的分支最终汇合到下一章开场；每个chapter≥2个节点；其中2-3个命运节点提供一个"改命选项"用requires锁住(需要某属性>=5或前面节点EVT)；最后追加一个收尾节点id为n_gate(chapter=${chCount},无goto无choices)。\n章节摘要：${JSON.stringify(acc.chapterSummaries)}\n原文开头：${story.content.slice(0, 1800)}`,
-    { maxTokens: 6000 });
-  const nodes = (r.nodes || []);
+    `你是AVG剧情图谱生成器。${JSON_ONLY}\n【输出顶层键必须是 "nodes"，其他任何包装都算失败】`,
+    `为这本小说生成剧情节点数组 nodes（JSON 顶层就是数组所在的键，不要嵌套、不要换键名）。共${chCount}章，每章恰好2个节点：①开场节点(无choices,有goto,交代本章场景,who=narrator) ②命运节点(keyMoment:true,带2-3个choices)。每个节点：{"id":"n0"起连续编号,"chapter":1-${chCount},"who":"narrator或角色id","text":"≤70字","choices":[{"text":"≤16字","set":{"属性":±1},"goto":"同章或下一章节点id"}],"goto":"下一节点id","keyMoment":true/false}。规则：第1章开场=n0；命运节点选项的goto指向下一章开场；每章命运节点2个选项其一可用requires如"属性>=4"锁住作改命项；最后加收尾节点{"id":"n_gate","chapter":${chCount},"who":"narrator","text":"≤40字"}无goto无choices。\n章节摘要：${JSON.stringify(acc.chapterSummaries.map((c) => ({ ch: c.chapter, s: c.summary.slice(0, 40) })))}\n原文开头：${story.content.slice(0, 900)}`,
+    { maxTokens: 8000 });
+  // 宽容提取：顶层 nodes；否则找「元素含 text+chapter」的最长数组
+  let nodes = Array.isArray(r?.nodes) ? r.nodes : null;
+  if (!nodes) {
+    for (const v of Object.values(r || {})) {
+      if (Array.isArray(v) && v.length > 3 && v.every((x) => x && typeof x === 'object' && 'text' in x)) { nodes = v; break; }
+    }
+  }
+  if (!nodes || nodes.length < Math.min(8, chCount * 2 - 2)) {
+    // LLM 抽风（空数组/截断/换键名）→ 确定性保底图，绝不产出空书
+    console.log(`[forge S4] 图谱提取不足（${nodes?.length || 0}）→ 使用章节摘要保底图`);
+    return { graph: fallbackGraph(acc) };
+  }
   const attrs = acc.player.attributes.map((a) => a.key);
   for (const n of nodes) { // 属性白名单清洗
+    n.keyMoment = n.keyMoment === true;
+    n.chapter = Math.max(1, Math.min(chCount, Number(n.chapter) || 1));
     for (const s of [n.set, ...(n.choices || []).map((c) => c.set)]) {
       if (s) for (const k of Object.keys(s)) if (!attrs.includes(k)) delete s[k];
     }
@@ -107,10 +159,30 @@ async function stageEvents(env, story, acc) {
   const attrs = acc.player.attributes.map((a) => a.key);
   const cast = (acc.characters || []).map((c) => `${c.name}(${c.id})`).join('、');
   const r = await llmJson(env,
-    `你是互动小说事件设计师。${JSON_ONLY}`,
-    `为这本书的每章生成日常事件池，每章4-6条，总计≥${chCount * 4}条。事件=玩家在章节自由行动阶段随机遭遇的小事：一条负向/麻烦、一条正向/机缘、一条关系向、一条世界观细节。每条：{id:"e{章号}_{序号}",chapter:1-${chCount},weight:1-5(越大越常见),once:true,requires:""(可空的DSL),narrative:"遭遇描述≤70字，结尾停在玩家要做反应处",choices:[2-3个:{text:"≤12字",set:{${attrs.join('均可用')}中某属性:±1},divergence_delta:0或0.05}]}\n正负效果平衡：所有事件的set总和接近0。可引用角色：${cast}。\n章节摘要：${JSON.stringify(acc.chapterSummaries)}\n开头：${story.content.slice(0, 1000)}`,
-    { maxTokens: 6000 });
-  const events = (r.events || r['事件'] || []).filter((e) => e && e.id && e.narrative).map((e) => ({
+    `你是互动小说事件设计师。${JSON_ONLY}\n【输出顶层键必须是 "events"】`,
+    `为这本书生成日常事件池（JSON 顶层键 "events"，直接是数组，至少${Math.max(24, chCount * 3)}条，禁止空数组、禁止按章节分组嵌套）。每章3-4条。每条：{"id":"e{章号}_{序号}","chapter":1-${chCount},"weight":1-5,"once":true,"narrative":"遭遇描述≤60字，结尾停在玩家要做反应处","choices":[2-3个:{"text":"≤12字","set":{"${attrs.join('|')}中某属性":±1},"divergence_delta":0.05}]}。正负效果平衡。可引用角色：${cast}。\n章节摘要：${JSON.stringify(acc.chapterSummaries.map((c) => ({ ch: c.chapter, s: String(c.summary || '').slice(0, 30) })))}`,
+    { maxTokens: 7000 });
+  // 宽容提取：顶层 events / 事件 / 按章分组嵌套（{"第1章":[...]}）→ 递归展平
+  let list = Array.isArray(r?.events) ? r.events : Array.isArray(r?.['事件']) ? r['事件'] : null;
+  if (!list) {
+    const flat = [];
+    const collect = (obj, depth) => {
+      if (depth > 3) return;
+      for (const v of Object.values(obj || {})) {
+        if (Array.isArray(v)) flat.push(...v.filter((x) => x && typeof x === 'object'));
+        else if (v && typeof v === 'object') collect(v, depth + 1);
+      }
+    };
+    collect(r, 0);
+    const cand = flat.filter((x) => 'narrative' in x || 'text' in x);
+    if (cand.length > 3) list = cand;
+  }
+  if (!list || list.length < chCount * 2) {
+    // LLM 抽风 → 确定性模板事件（每章2条），事件池非关键路径
+    console.log(`[forge S5] 事件提取不足（${list?.length || 0}）→ 使用模板事件保底`);
+    return { events: fallbackEvents(acc) };
+  }
+  const events = list.filter((e) => e && e.id && e.narrative).map((e) => ({
     id: String(e.id).slice(0, 24),
     chapter: Math.max(1, Math.min(chCount, Number(e.chapter) || 1)),
     weight: Math.max(1, Math.min(5, Number(e.weight) || 1)),
@@ -183,7 +255,7 @@ export function assembleNovel(story, acc) {
   const chapters = acc.chapterSummaries || [];
   const chapterNames = {};
   for (const c of chapters) chapterNames[String(c.chapter)] = String(c.title || '').slice(0, 8);
-  return {
+  const novel = {
     meta: {
       id: `forge_${story.work_id}`,
       title: story.title,
@@ -196,13 +268,13 @@ export function assembleNovel(story, acc) {
       rating_hint: 'general',
       generated_at: new Date().toISOString(),
     },
-    canon_rules: acc.canon_rules,
-    lorebook: acc.lorebook,
-    characters: acc.characters,
-    player: acc.player,
-    graph: acc.graph,
+    canon_rules: acc.canon_rules || [],
+    lorebook: acc.lorebook || [],
+    characters: acc.characters || [],
+    player: acc.player || { identity_cards: [], attributes: [] },
+    graph: acc.graph || { start: 'n0', nodes: [] },
     events: acc.events || [],
-    endings: acc.endings,
+    endings: acc.endings || [],
     presentation: {
       ui_style: 'ai-avg',
       bubble_theme: 'light',
@@ -215,19 +287,93 @@ export function assembleNovel(story, acc) {
       prologue: acc.prologue || [],
     },
   };
+  // sanityCheck 的保底图需要章节摘要
+  novel.__chapterSummaries = chapters;
+  return novel;
 }
 
-// 校验 + 修复：forged 数据至少要能玩（事件池/图连通/结局可达/效果平衡）
+// 校验 + 修复：forged 数据至少要能玩（空图/空卡/空属性全部构造保底，绝不产出进不去的书）
 export function sanityCheck(novel) {
-  const ids = new Set(novel.graph.nodes.map((n) => n.id));
   const problems = [];
-  if (novel.graph.nodes.length < 12) problems.push('节点过少');
+
+  // ---- 硬防线：身份卡/属性/角色/图谱 缺失时构造保底 ----
+  if (!Array.isArray(novel.player.identity_cards) || !novel.player.identity_cards.length) {
+    novel.player.identity_cards = [{ id: 'ic_default', name: '穿成书中人', desc: '以穿越者的身份进入这个故事。', init: {} }];
+    problems.push('身份卡为空→已补默认卡');
+  }
+  for (const card of novel.player.identity_cards) {
+    if (!card.id) card.id = 'ic_' + String(card.name || 'x').slice(0, 6);
+    if (!card.name) card.name = '书中人';
+  }
+  if (!Array.isArray(novel.player.attributes) || !novel.player.attributes.length) {
+    novel.player.attributes = [
+      { key: '智慧', name: '智慧', initial: 4, min: 0, max: 10, deathBelow: null, bands: [] },
+      { key: '勇气', name: '勇气', initial: 4, min: 0, max: 10, deathBelow: null, bands: [] },
+      { key: '心力', name: '心力', initial: 5, min: 0, max: 10, deathBelow: 1, bands: [{ upTo: 2, label: '心力交瘁', directive: '疲惫低落，行动迟疑' }] },
+    ];
+    problems.push('属性为空→已补默认三维');
+  }
+  if (!Array.isArray(novel.characters) || !novel.characters.length) {
+    novel.characters = [{ id: 'npc0', name: '神秘人', role: 'npc', description: '故事的影子。', anchor: '来历不明，但似乎什么都知道。', mind: '又来了一个穿越者。', voice: '「你终于来了。」', first_mes: '「醒了？那就开始吧。」', avatar: '谜' }];
+    problems.push('角色为空→已补旁白者');
+  }
+  if (!Array.isArray(novel.graph?.nodes) || novel.graph.nodes.length < 4) {
+    // 空图/残图 → 用章节摘要构造保底线性图（每章：开场叙事节点 + 命运抉择节点）
+    const chapters = (novel.meta.chapters_covered || [1, 2, 3]).slice(0, 12);
+    const sums = novel.__chapterSummaries || [];
+    const nodes = [];
+    chapters.forEach((ch, i) => {
+      const sum = sums.find((s) => s.chapter === ch)?.summary || novel.meta.intro || '';
+      nodes.push({ id: `n${i * 2}`, chapter: ch, who: 'narrator', text: String(sum).slice(0, 120) || '故事继续。', set: {}, goto: `n${i * 2 + 1}`, canon: true, keyMoment: false });
+      nodes.push({
+        id: `n${i * 2 + 1}`, chapter: ch, who: 'narrator',
+        text: '命运的岔口摆在你面前。',
+        set: {}, canon: false, keyMoment: true,
+        choices: [
+          { text: '迎难而上', set: { [novel.player.attributes[0].key]: 1 }, goto: i < chapters.length - 1 ? `n${(i + 1) * 2}` : 'n_gate', divergence_delta: 0.05 },
+          { text: '暂避锋芒', set: { [novel.player.attributes[2]?.key || novel.player.attributes[0].key]: 1 }, goto: i < chapters.length - 1 ? `n${(i + 1) * 2}` : 'n_gate', divergence_delta: 0 },
+        ],
+      });
+    });
+    nodes.push({ id: 'n_gate', chapter: chapters[chapters.length - 1], who: 'narrator', text: '故事讲到了这里——', set: {}, canon: true, keyMoment: false });
+    novel.graph = { start: 'n0', nodes };
+    problems.push(`图谱节点不足→已按${chapters.length}章构造保底图`);
+  }
+
+  const ids = new Set(novel.graph.nodes.map((n) => n.id));
   if (!ids.has(novel.graph.start)) problems.push('start 缺失');
   for (const n of novel.graph.nodes) {
     if (n.goto && !ids.has(n.goto)) delete n.goto;
     for (const c of n.choices || []) {
       if (c.goto && !ids.has(c.goto)) c.goto = n.goto || null;
       if (!c.goto) c.text = c.text || '……';
+    }
+  }
+  // keyMoment 可达性修复：被跳过的命运节点接进链（前驱改道），接不上则降级
+  {
+    const reach = new Set([novel.graph.start]);
+    const queue = [novel.graph.start];
+    while (queue.length) {
+      const cur = novel.graph.nodes.find((x) => x.id === queue.shift());
+      if (!cur) continue;
+      const nexts = [];
+      if (cur.goto) nexts.push(cur.goto);
+      for (const c of cur.choices || []) if (c.goto) nexts.push(c.goto);
+      for (const t of nexts) if (!reach.has(t)) { reach.add(t); queue.push(t); }
+    }
+    for (const n of novel.graph.nodes) {
+      if (!n.keyMoment || reach.has(n.id)) continue;
+      const pred = novel.graph.nodes.find((p) =>
+        p.id !== n.id && (p.chapter ?? 1) === (n.chapter ?? 1) && p.goto &&
+        p.goto !== n.id && ((novel.graph.nodes.find((x) => x.id === p.goto)?.chapter ?? p.chapter ?? 1) !== (n.chapter ?? 1) || p.goto === 'n_gate'));
+      if (pred) {
+        const oldTarget = pred.goto;
+        pred.goto = n.id;
+        if (!n.choices?.length) n.choices = [{ text: '继续前行', set: {}, goto: oldTarget }, { text: '另寻他法', set: {}, goto: oldTarget }];
+        else for (const c of n.choices) if (!c.goto) c.goto = oldTarget;
+      } else {
+        n.keyMoment = false; // 接不上则降级，保持图干净
+      }
     }
   }
   const attrSet = new Set(novel.player.attributes.map((a) => a.key));
