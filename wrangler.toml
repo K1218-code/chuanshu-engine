@@ -19,18 +19,13 @@ id = "f7304fb341c04f75a7fa10b8f74b3029"
 binding = "SAVE_KV"
 id = "d9a081dc65544cc6b048be41ae5e05da"
 
-# 长期记忆库（worker/memory.js）：D1 绑定暂缓——当前 wrangler OAuth 令牌无 D1 权限
-# （Authentication error 10000）。启用步骤：
-#   1. npx wrangler login（浏览器重新授权，勾选 D1 权限）
-#   2. npx wrangler d1 create chuanshu-memory
-#   3. 把返回的 database_id 填到下面并解开注释
-#   4. npx wrangler d1 migrations apply chuanshu-memory --remote && npx wrangler deploy
-# 未绑定期间 memory.js 自动降级 SAVE_KV（save:/mem:/summ: 前缀），云存档照常工作
-# [[d1_databases]]
-# binding = "DB"
-# database_name = "chuanshu-memory"
-# database_id = "TODO_replace_after_d1_create"
-# migrations_dir = "migrations"
+# 长期记忆库（worker/memory.js）：D1 绑定，全参数绑定 SQL（migrations/0001_init.sql）
+# 2026-09-14 已创建并授权（wrangler login 含 d1:write）
+[[d1_databases]]
+binding = "DB"
+database_name = "chuanshu-memory"
+database_id = "036d724e-1d4a-4bc4-bea9-23c00ebcf629"
+migrations_dir = "migrations"
 
 [vars]
 # 公开配置；密钥走 wrangler secret put
