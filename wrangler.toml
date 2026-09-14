@@ -29,10 +29,13 @@ migrations_dir = "migrations"
 
 [vars]
 # 公开配置；密钥走 wrangler secret put
+# 模型链（2026-09-14 实测）：glm-5.2 质量优（细节/多角色调度）但延迟 16-24s；
+# qwen3-max 快稳（6-7s）。qwen3.8-max 通道已失效（秒回空内容）。
+# 中转站无 glm-5.3/5.3-flash（5.3 通道 400，5.1 上游 401）。
 ZHIHU_OAUTH_APP_ID = "442"
 ZHIHU_OAUTH_REDIRECT_URI = "https://chuanshu-engine.xyz/auth/callback"
 LLM_BASE_URL = "https://api.openai-next.com/v1"
-LLM_MODEL = "qwen3.8-max"
+LLM_MODEL = "glm-5.2"
 LLM_MODEL_FALLBACK = "qwen3-max"
 
 # Secrets（不写入本文件）：
