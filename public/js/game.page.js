@@ -109,7 +109,7 @@ function addEventCard(event) {
   scrollBottom();
 }
 
-function pickEvent(event, choice, card) {
+async function pickEvent(event, choice, card) {
   if (busy) return;
   busy = true;
   const before = { ...state.attrs };
@@ -125,13 +125,57 @@ function pickEvent(event, choice, card) {
       return `${def?.name || k} ${d > 0 ? '+' : ''}${d}`;
     }).join(' ｜ '));
   }
-  checkBreakthrough(before);
   renderPanel(); saveSession();
   pendingEvent = null;
-  busy = false;
+  // AI 补全事件后果演出：让玩家看清这个选择引发了什么
+  await aiEventOutcome(event, choice);
+  checkBreakthrough(before);
+  renderPanel(); renderHUD(); saveSession();
   const dead = checkDeathEnding(state, novel);
   if (dead) { finish(dead); return; }
+  busy = false;
   maybeDrawEvent(true); // 事件可能连锁，但有抑制
+}
+
+async function aiEventOutcome(event, choice) {
+  $('typing-hint').textContent = '命运正在回应你的选择……';
+  $('typing-hint').hidden = false;
+  scrollBottom();
+  let degraded = false;
+  let d = null;
+  try {
+    const r = await fetch('./api/gm', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        bookId, state, novelOverride: state.novelOverride || null,
+        userInput: `【遭遇】${event.narrative} 我选择了「${choice.text}」。请演出这个选择的经过与直接后果：我做了什么、引发了什么、在场的人如何反应。`,
+      }) });
+    d = await r.json();
+    degraded = !!d.degraded;
+  } catch { degraded = true; }
+  $('typing-hint').hidden = true;
+  $('typing-hint').textContent = '叙事引擎正在推演……';
+
+  if (d?.ok && !degraded) {
+    for (const rep of d.replies || []) {
+      addBubble(rep.who, rep.text, rep.loc, false);
+      remember('gm', `${charOf(rep.who)?.name || ''}：${rep.text}`);
+    }
+    if (d.narration) { addNarration(d.narration); remember('gm', d.narration); if ($('scene-text')) $('scene-text').textContent = d.narration.slice(0, 60); }
+    if (d.mind) addMind(d.mind);
+    if (Array.isArray(d.choices) && d.choices.length) lastGmChoices = d.choices;
+    const { state: next } = applyPatch(state, novel, d.state_patch || {});
+    state = next;
+    for (const m of (d.state_patch?.memories_add || [])) unsyncedMems.push(m);
+    const relDiffs = Object.entries(d.state_patch?.rels || {});
+    for (const [npc, rp] of relDiffs) {
+      const name = charOf(npc)?.name || npc;
+      if (rp.favor) addSys(`${name} 对你的好感 ${rp.favor > 0 ? '+' : ''}${rp.favor}${rp.nature ? ` · 关系变为「${rp.nature}」` : ''}`);
+    }
+  } else {
+    // 降级：确定性后果文案（事件文本 + 选择 + 数值已在上方播报）
+    addNarration(`你${choice.text}。${degraded ? '（叙事引擎降级中，结果由事件规则结算）' : ''}`);
+  }
+  scrollBottom();
 }
 
 // 抽取日常事件：每章第2轮必出一次（保底展示），其余 38% 概率；刚出过则不出
