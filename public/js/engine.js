@@ -397,14 +397,34 @@ export function realmChange(beforeAttrs, afterAttrs, novel) {
   return null;
 }
 
+// ---- 心声能力门控：仅特定条件（读心能力/系统偷听/神识）才能听到心声 ----
+// presentation.mind_require = DSL（如 "TLT?[ic_xt]"、"修为>=10"）；presentation.mind_reading=false 直接关闭
+export function mindAllowed(novel, state) {
+  const pres = novel.presentation || {};
+  if (pres.mind_reading === false) return false;
+  const card = (novel.player.identity_cards || []).find((c) => c.id === state?.identity);
+  if (card?.mind_gift) return true;
+  if (pres.mind_require) {
+    try { return !!createEvaluator(state)(pres.mind_require); } catch { return false; }
+  }
+  if (card) return false; // 有身份卡但未配置任何心声能力 → 默认听不到
+  return true; // 极简/无身份卡书保留原行为
+}
+
 // ---- 序章引导：交代世界观/身份处境/玩法 ----
 // presentation.prologue 提供自定义的世界观段落；身份与玩法段落始终自动追加
 export function buildPrologue(novel, identityCard) {
   const custom = novel.presentation?.prologue;
-  const sections = Array.isArray(custom) && custom.length
+  const hasCustom = Array.isArray(custom) && custom.length > 0;
+  const sections = hasCustom
     ? custom.map((s) => ({ title: String(s.title || ''), text: String(s.text || '') }))
     : [{ title: '这个世界', text: novel.meta.intro || '' }];
   if (!sections.length) sections.push({ title: '这个世界', text: novel.meta.intro || '' });
+  // 开局处境（仅无手写序章的书）：用第一章开场节点把"发生了什么、你（穿越对象）怎么了"讲清楚
+  if (!hasCustom) {
+    const opening = (novel.graph?.nodes || []).find((n) => (n.chapter ?? 1) === 1);
+    if (opening?.text) sections.push({ title: '故事从你睁开眼开始', text: `${String(opening.text).slice(0, 160)}${opening.text.length > 160 ? '……' : ''}` });
+  }
   if (identityCard) sections.push({ title: '你穿成了谁', text: `${identityCard.name}——${identityCard.desc || ''}` });
   sections.push({
     title: '怎么玩',

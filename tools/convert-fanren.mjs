@@ -321,6 +321,8 @@ const novel = {
     bubble_theme: 'light',
     narration_rules: '凡人风：旁白克制写实，台词朴拙；修仙细节（灵石/法器/境界）须符合设定',
     mind_reading: true,
+    mind_require: '修为>=10',
+    mind_flavor: '神识感应·元婴外放',
     npc_pool: ['门房执事', '同门弟子', '坊市商人'],
     chapter_names: chapterNames,
     prologue: [

@@ -7,7 +7,7 @@ import {
   drawEvent, evalChoices, evalEventChoices, checkEnding, checkDeathEnding, attrBand,
   chapterStartNode, keyMomentNode, chapterList, rollBudget, relOf, advanceThrough,
   mapLocations, visitLocation, resolvePlayerChar,
-  buildPrologue, inventoryOf, realmChange,
+  buildPrologue, inventoryOf, realmChange, mindAllowed,
 } from './engine.js';
 
 const $ = (id) => document.getElementById(id);
@@ -78,8 +78,10 @@ function addNarration(text) { msgs.append(el('div', 'narration', text)); }
 function addSys(text) { msgs.append(el('div', 'sys-line', text)); }
 function addMind(text) {
   if (!text) return;
+  if (!mindAllowed(novel, state)) return; // 能力门控：无读心/偷听能力则听不到心声
   const card = el('div', 'mind-card');
-  card.append(el('span', 'tag-mind', '心声 · 没说出口的'), el('span', null, text));
+  const flavor = novel.presentation?.mind_flavor || '心声 · 没说出口的';
+  card.append(el('span', 'tag-mind', flavor), el('span', null, text));
   msgs.append(card);
 }
 function remember(role, text) {
@@ -143,6 +145,7 @@ async function aiEventOutcome(event, choice) {
   scrollBottom();
   let degraded = false;
   let d = null;
+  state.mindAllowed = mindAllowed(novel, state);
   try {
     const r = await fetch('./api/gm', { method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -734,6 +737,11 @@ function checkBreakthrough(beforeAttrs) {
 // ---- 序章引导：开始游戏之前交代世界观 / 身份处境 / 玩法 ----
 function showPrologue(card) {
   const sections = buildPrologue(novel, card);
+  // 能力告知：让玩家知道自己能否听到心声（及来源）
+  if (mindAllowed(novel, { ...state, identity: card.id })) {
+    const flavor = novel.presentation?.mind_flavor || '某种直觉';
+    sections.splice(sections.length - 1, 0, { title: '你的特殊能力', text: `你能听见别人没说出口的心声（${flavor}）。心声可能与嘴上说的完全相反——信哪个，你自己判断。` });
+  }
   $('prologue-title').textContent = `《${novel.meta.title}》`;
   $('prologue-sub').textContent = `穿书之前，先弄清楚三件事：这是哪里、你是谁、怎么活下去`;
   const body = $('prologue-body'); body.replaceChildren();
@@ -820,6 +828,7 @@ async function aiTurn(userText) {
 
   let degraded = false;
   let d = null;
+  state.mindAllowed = mindAllowed(novel, state);
   try {
     const r = await fetch('./api/gm', { method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ bookId, state, userInput: userText, novelOverride: state.novelOverride || null }) });

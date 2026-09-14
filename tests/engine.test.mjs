@@ -331,3 +331,41 @@ test('v2.2：储物袋 inventory 与境界跃迁检测', async () => {
   s3.attrs['根骨'] = 8;
   assert.equal(engine.realmChange(s.attrs, s3.attrs, fanren), null);
 });
+
+test('v2.5：心声能力门控 mindAllowed', async () => {
+  const ak47 = JSON.parse(await readFile(path.join(root, 'public/data/books/ak47_xiuzhen.json'), 'utf8'));
+  // 穿成叶青青：无读心能力 → 无声
+  const sYqq = engine.createState(ak47, { identity: 'ic_yqq' });
+  assert.equal(engine.mindAllowed(ak47, sYqq), false);
+  // 穿成系统：全知后台 → 有声
+  const sXt = engine.createState(ak47, { identity: 'ic_xt' });
+  assert.equal(engine.mindAllowed(ak47, sXt), true);
+  // btg_room：mind_reading=false 一票否决
+  const btg = JSON.parse(await readFile(path.join(root, 'public/data/books/btg_room.json'), 'utf8'));
+  const sSnn = engine.createState(btg, { identity: 'ic_snn' });
+  assert.equal(engine.mindAllowed(btg, sSnn), false);
+  // fanren：修为>=10（元婴神识）才开
+  const fanren = JSON.parse(await readFile(path.join(root, 'public/data/books/fanren.json'), 'utf8'));
+  const sHl = engine.createState(fanren, { identity: 'ic_hl' });
+  assert.equal(engine.mindAllowed(fanren, sHl), false);
+  sHl.attrs['修为'] = 10;
+  assert.equal(engine.mindAllowed(fanren, sHl), true);
+  // 无身份卡的极简书保留原行为
+  assert.equal(engine.mindAllowed({ presentation: {}, player: {} }, { attrs: {}, flags: {}, evt: [], tlt: [] }), true);
+});
+
+test('v2.5：序章自动拼装含开局处境段（讲明白发生了什么）', async () => {
+  const btg = JSON.parse(await readFile(path.join(root, 'public/data/books/btg_room.json'), 'utf8'));
+  const card = btg.player.identity_cards[0];
+  const sections = engine.buildPrologue(btg, card);
+  // 手写序章 + 开局处境 + 身份 + 玩法
+  assert.ok(sections.some((s) => s.title === '发生在你身上的事'), '手写序章保留');
+  assert.ok(!sections.some((s) => s.title === '故事从你睁开眼开始'), '手写序章不叠加开场段');
+  assert.ok(sections.some((s) => s.title === '你穿成了谁'));
+  assert.ok(sections.some((s) => s.title === '怎么玩'));
+  // forge 风（无手写序章）的书：intro + 开局处境也齐
+  const fake = { meta: { intro: '测试世界' }, presentation: {}, player: { identity_cards: [card] },
+    graph: { nodes: [{ id: 'n0', chapter: 1, who: 'narrator', text: '主角被困在测试房间，墙上倒计时归零在即，门外传来脚步声。' }] } };
+  const auto = engine.buildPrologue(fake, card);
+  assert.ok(auto.some((s) => s.text.includes('测试房间')));
+});

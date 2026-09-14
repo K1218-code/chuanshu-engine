@@ -25,7 +25,7 @@
   "schema": 2,
   "ai_disclaimer": true,
   "rating_hint": "general",
-  "generated_at": "2026-09-13T18:19:40.781Z"
+  "generated_at": "2026-09-14T06:09:32.170Z"
  },
  "canon_rules": [
   {
@@ -14482,6 +14482,8 @@
   "bubble_theme": "light",
   "narration_rules": "凡人风：旁白克制写实，台词朴拙；修仙细节（灵石/法器/境界）须符合设定",
   "mind_reading": true,
+  "mind_require": "修为>=10",
+  "mind_flavor": "神识感应·元婴外放",
   "npc_pool": [
    "门房执事",
    "同门弟子",
