@@ -17,14 +17,22 @@ html, body { height: 100%; overflow: hidden; }
 .icon-btn:hover { background: var(--border); }
 
 /* ========= AVG 舞台（章节演出区） ========= */
+/* 题材主题变量挂在 #app：舞台、事件卡等组件统一继承（修仙明金/言情粉/恐怖暗夜…） */
+#app.game { --scene-hue: 222; --scene-sat: 62; }
+
 .stage { position: relative; flex: none; min-height: 218px; max-height: 300px; display: flex; flex-direction: column; justify-content: flex-end;
   overflow: hidden; color: #EDEFF3; cursor: pointer; user-select: none;
-  --scene-hue: 222;
   background:
-    radial-gradient(120% 90% at 50% -10%, hsl(var(--scene-hue) 70% 26% / .95), transparent 60%),
-    radial-gradient(90% 70% at 85% 110%, hsl(calc(var(--scene-hue) + 40) 60% 18% / .9), transparent 55%),
+    radial-gradient(120% 90% at 50% -10%, hsl(var(--scene-hue) var(--scene-sat) 26% / .95), transparent 60%),
+    radial-gradient(90% 70% at 85% 110%, hsl(calc(var(--scene-hue) + 40) calc(var(--scene-sat) - 10) 18% / .9), transparent 55%),
     linear-gradient(180deg, #14161A 0%, #1B1E24 100%);
   transition: min-height .5s ease; }
+/* 恐怖类题材：压亮度近黑，只留暗色氛围 */
+#app.genre-dark .stage {
+  background:
+    radial-gradient(120% 90% at 50% -10%, hsl(var(--scene-hue) var(--scene-sat) 13% / .97), transparent 60%),
+    radial-gradient(90% 70% at 85% 110%, hsl(var(--scene-hue) calc(var(--scene-sat) - 15) 7% / .95), transparent 55%),
+    linear-gradient(180deg, #0A0B0E 0%, #101216 100%); }
 .stage.compact { min-height: 168px; }
 .stage::after { content: ''; position: absolute; inset: 0; pointer-events: none;
   background: repeating-linear-gradient(115deg, transparent 0 14px, rgba(255,255,255,.012) 14px 15px); }
@@ -57,9 +65,9 @@ html, body { height: 100%; overflow: hidden; }
 @keyframes bannerIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
 
 .km-banner { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 10px; padding: 4px 14px;
-  font-size: 13px; letter-spacing: 6px; color: #FFD9A0; border: 1px solid rgba(255,190,110,.5); border-radius: 4px;
-  background: linear-gradient(90deg, rgba(120,40,20,.55), rgba(60,20,40,.35)); animation: kmPulse 1.6s ease-in-out infinite; }
-@keyframes kmPulse { 0%,100% { box-shadow: 0 0 4px rgba(255,170,80,.25); } 50% { box-shadow: 0 0 18px rgba(255,170,80,.55); } }
+  font-size: 13px; letter-spacing: 6px; color: hsl(var(--scene-hue) 80% 78%); border: 1px solid hsl(var(--scene-hue) 70% 55% / .5); border-radius: 4px;
+  background: linear-gradient(90deg, hsl(var(--scene-hue) 60% 25% / .55), hsl(calc(var(--scene-hue) + 40) 50% 18% / .35)); animation: kmPulse 1.6s ease-in-out infinite; }
+@keyframes kmPulse { 0%,100% { box-shadow: 0 0 4px hsl(var(--scene-hue) 70% 55% / .25); } 50% { box-shadow: 0 0 18px hsl(var(--scene-hue) 70% 55% / .55); } }
 
 .scene-text { font-family: var(--font-serif); font-size: 17px; line-height: 1.9; text-shadow: 0 1px 8px rgba(0,0,0,.6); min-height: 32px; }
 .stage.compact .scene-text { font-size: 14px; color: #C9CFD8; }
@@ -84,7 +92,11 @@ html, body { height: 100%; overflow: hidden; }
 .map-loc-tag { color: #6E9BDB; font-size: 11px; }
 
 /* ========= IM 对话流 ========= */
-.chat-wrap { flex: 1; display: flex; flex-direction: column; background: var(--im-bg); min-height: 0; }
+/* 聊天区：顶部一层极淡的题材色晕染，与舞台过渡衔接（恐怖类自动更沉） */
+.chat-wrap { flex: 1; display: flex; flex-direction: column; min-height: 0;
+  background: linear-gradient(180deg, hsl(var(--scene-hue) calc(var(--scene-sat) - 25) 16% / .3), transparent 170px), var(--im-bg); }
+#app.genre-dark .chat-wrap {
+  background: linear-gradient(180deg, hsl(var(--scene-hue) calc(var(--scene-sat) - 20) 9% / .5), transparent 190px), var(--im-bg); }
 .msgs { flex: 1; overflow-y: auto; padding: 16px 14px 10px; scroll-behavior: smooth; }
 
 .bubble-block { margin: 0 0 14px; max-width: 86%; }
@@ -98,23 +110,24 @@ html, body { height: 100%; overflow: hidden; }
   padding: 9px 13px; font-size: 15px; line-height: 1.65; word-break: break-word; }
 .me .bubble { background: var(--zhihu-blue); border-radius: 12px 4px 12px 12px; }
 .narration { color: var(--im-narration); font-size: 13px; text-align: center; margin: 10px auto; max-width: 90%; }
+.ai-mark { opacity: .35; font-size: 10px; } /* 弱化 AI 出演标记：可辨认但不抢戏 */
 .sys-line { text-align: center; color: var(--im-time); font-size: 12px; margin: 12px 0; }
 .mind-card { margin: -6px 0 14px; display: inline-flex; flex-direction: column; gap: 2px; max-width: 86%;
   background: var(--im-mind); border-left: 2px solid var(--im-mind-border); padding: 7px 12px; border-radius: 0 8px 8px 0; }
 .tag-mind { color: #6E9BDB; font-size: 11px; letter-spacing: 1px; }
 .mind-card span:last-child { color: #B9C4D6; font-size: 13px; font-style: italic; }
 
-/* 事件卡（日常事件池抽取） */
-.event-card { margin: 6px 0 16px; border: 1px solid rgba(240,206,131,.4); border-radius: 10px;
-  background: linear-gradient(160deg, rgba(80,62,26,.5), rgba(40,38,30,.55)); padding: 12px 14px; }
-.event-tag { color: #F0CE83; font-size: 11px; letter-spacing: 3px; display: block; margin-bottom: 6px; }
+/* 事件卡（日常事件池抽取）—— 颜色随题材主题联动 */
+.event-card { margin: 6px 0 16px; border: 1px solid hsl(var(--scene-hue) var(--scene-sat) 60% / .45); border-radius: 10px;
+  background: linear-gradient(160deg, hsl(var(--scene-hue) var(--scene-sat) 22% / .5), rgba(40,38,30,.55)); padding: 12px 14px; }
+.event-tag { color: hsl(var(--scene-hue) 75% 72%); font-size: 11px; letter-spacing: 3px; display: block; margin-bottom: 6px; }
 .event-text { color: #E8E2D2; font-size: 14px; line-height: 1.8; margin-bottom: 10px; }
 .event-choices { display: flex; flex-direction: column; gap: 8px; }
-.event-choices button { text-align: left; background: rgba(240,206,131,.08); color: #EAD9AE; border: 1px solid rgba(240,206,131,.35);
+.event-choices button { text-align: left; background: hsl(var(--scene-hue) var(--scene-sat) 55% / .08); color: hsl(var(--scene-hue) 55% 80%); border: 1px solid hsl(var(--scene-hue) var(--scene-sat) 60% / .4);
   border-radius: 8px; padding: 8px 12px; font-size: 14px; cursor: pointer; font-family: inherit; transition: background .15s; }
-.event-choices button:hover { background: rgba(240,206,131,.18); }
+.event-choices button:hover { background: hsl(var(--scene-hue) var(--scene-sat) 55% / .18); }
 .event-choices button.locked { opacity: .45; cursor: not-allowed; }
-.event-choices .cond { display: block; color: #A08C5A; font-size: 12px; }
+.event-choices .cond { display: block; color: hsl(var(--scene-hue) 35% 62%); font-size: 12px; }
 
 /* 章末结算卡 */
 .recap-card { margin: 8px auto 18px; max-width: 92%; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.12);
@@ -130,6 +143,7 @@ html, body { height: 100%; overflow: hidden; }
   border-radius: 999px; padding: 7px 14px; font-size: 13px; cursor: pointer; font-family: inherit; transition: background .15s, border-color .15s; }
 .quick-btn:hover { background: rgba(255,255,255,.14); border-color: rgba(255,255,255,.3); }
 .quick-btn.advance { background: var(--zhihu-blue); border-color: var(--zhihu-blue); color: #fff; font-weight: 600; }
+.quick-btn.at { color: #9FC3FF; border-color: rgba(120,170,255,.45); } /* @在场角色 */
 .quick-btn.fate { color: #FFD9A0; border-color: rgba(255,190,110,.6); background: rgba(120,60,20,.25); }
 .quick-btn:disabled { opacity: .4; cursor: not-allowed; }
 

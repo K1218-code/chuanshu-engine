@@ -91,6 +91,50 @@ async function openEndingsModal(book) {
 
 $('eg-close').addEventListener('click', () => { $('endings-overlay').hidden = true; });
 
+// ---- 玩过的书：完成过一局、或拆解生成过的书；点击直接续玩（forge 书走服务端缓存，免重拆） ----
+function timeAgo(ts) {
+  if (!ts) return '';
+  const days = Math.floor((Date.now() - ts) / 86400000);
+  if (days <= 0) return '今天';
+  if (days === 1) return '昨天';
+  if (days < 30) return `${days} 天前`;
+  return '30 天前';
+}
+
+function renderPlayed() {
+  const section = $('played-section');
+  let played = {};
+  try { played = JSON.parse(localStorage.getItem('cs_played') || '{}'); } catch { /* 坏数据当空 */ }
+  const entries = Object.entries(played).sort((a, b) => (b[1].at || 0) - (a[1].at || 0));
+  if (!entries.length) { section.hidden = true; return; }
+  section.hidden = false;
+  $('played-count').textContent = `${entries.length} 本 · 存档都在`;
+  const list = $('played-list');
+  list.replaceChildren();
+  const gallery = JSON.parse(localStorage.getItem('cs_endings') || '{}');
+  for (const [id, info] of entries) {
+    const got = (gallery[id] || []).length;
+    const row = document.createElement('div');
+    row.className = 'gallery-book';
+    const cover = document.createElement('div');
+    cover.className = 'gb-cover';
+    cover.textContent = (info.title || '书').slice(0, 2);
+    const infoBox = document.createElement('div');
+    infoBox.className = 'gb-info';
+    const b = document.createElement('b');
+    b.textContent = info.title || id;
+    const span = document.createElement('span');
+    span.textContent = `${info.author ? info.author + ' · ' : ''}${got}/${info.endings || '?'} 结局 · ${timeAgo(info.at)}玩过`;
+    infoBox.append(b, span);
+    const arrow = document.createElement('span');
+    arrow.className = 'gb-arrow';
+    arrow.textContent = '继续玩 ›';
+    row.append(cover, infoBox, arrow);
+    row.addEventListener('click', () => { location.href = `/game.html?book=${encodeURIComponent(id)}`; });
+    list.append(row);
+  }
+}
+
 (async () => {
   const data = await (await fetch('./data/books.index.json')).json();
   const list = $('book-list');
@@ -121,6 +165,7 @@ $('eg-close').addEventListener('click', () => { $('endings-overlay').hidden = tr
     list.append(card);
   }
   renderGallery(data.books);
+  renderPlayed();
 
   // 入口卡片
   $('entry-create').addEventListener('click', () => location.href = './create.html');

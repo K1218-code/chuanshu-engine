@@ -12,7 +12,8 @@
       4
     ],
     "ai_disclaimer": true,
-    "rating_hint": "general"
+    "rating_hint": "general",
+    "genre": "romance"
   },
   "canon_rules": [
     {
@@ -784,5 +785,277 @@
         "text": "四个章节：入房、第一夜、台阶、大考。提分是明线，那行被打码的字是暗线。六种结局里，藏着一个只有默契足够深才能解开的真相。"
       }
     ]
-  }
+  },
+  "events": [
+    {
+      "id": "e1_banner_note",
+      "chapter": 1,
+      "weight": 3,
+      "once": true,
+      "requires": "",
+      "narrative": "墙上红横幅「做，爱做多做」的角落里，还有半行被涂掉的小字，笔画很急。",
+      "choices": [
+        {
+          "text": "凑近辨认",
+          "set": {
+            "清醒": 1
+          },
+          "divergence_delta": 0.05
+        },
+        {
+          "text": "当没看见",
+          "set": {
+            "信心": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "e1_desk_note",
+      "chapter": 1,
+      "weight": 2,
+      "once": true,
+      "requires": "",
+      "narrative": "课桌抽屉里塞着半包苏打饼干，压着一张纸条，上面只写了「第7天」。",
+      "choices": [
+        {
+          "text": "收好纸条",
+          "set": {
+            "清醒": 1
+          }
+        },
+        {
+          "text": "塞回抽屉",
+          "set": {}
+        }
+      ]
+    },
+    {
+      "id": "e1_cold_milk",
+      "chapter": 1,
+      "weight": 2,
+      "once": true,
+      "requires": "",
+      "narrative": "一盒清柠味牛奶从桌缝里滚出来，落在你脚边——居然还是冰的。",
+      "choices": [
+        {
+          "text": "喝掉它",
+          "set": {
+            "信心": 1
+          }
+        },
+        {
+          "text": "想想谁放的",
+          "set": {
+            "清醒": 1
+          },
+          "divergence_delta": 0.05
+        }
+      ]
+    },
+    {
+      "id": "e2_error_book",
+      "chapter": 2,
+      "weight": 3,
+      "once": true,
+      "requires": "",
+      "narrative": "李迟游的错题本摊在桌上，某页页脚有一行极小的字，被他的手指正好按住。",
+      "choices": [
+        {
+          "text": "假装没看见",
+          "set": {
+            "默契": 1
+          }
+        },
+        {
+          "text": "瞟一眼",
+          "set": {
+            "清醒": 1
+          },
+          "divergence_delta": 0.05
+        }
+      ]
+    },
+    {
+      "id": "e2_moon_rank",
+      "chapter": 2,
+      "weight": 3,
+      "once": true,
+      "requires": "",
+      "narrative": "月考排名贴出来了，你的名字一口气往上挪了十一名，走廊里有人回头看你。",
+      "choices": [
+        {
+          "text": "挺直腰板走过去",
+          "set": {
+            "信心": 1
+          }
+        },
+        {
+          "text": "快步离开",
+          "set": {
+            "清醒": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "e2_zhouxi_probe",
+      "chapter": 2,
+      "weight": 2,
+      "once": true,
+      "requires": "",
+      "narrative": "周希在楼梯口拦住你，说你最近总是没精神，眼神里的担心藏都不藏。",
+      "choices": [
+        {
+          "text": "跟他说实话",
+          "set": {
+            "信心": 1
+          }
+        },
+        {
+          "text": "含糊带过",
+          "set": {
+            "清醒": 1
+          },
+          "divergence_delta": 0.05
+        }
+      ]
+    },
+    {
+      "id": "e3_steps_carve",
+      "chapter": 3,
+      "weight": 3,
+      "once": true,
+      "requires": "",
+      "narrative": "天台台阶上有人刻了行字：「第43天，我出去了。」笔画深得像用尽力气。",
+      "choices": [
+        {
+          "text": "记住天数",
+          "set": {
+            "清醒": 1
+          },
+          "divergence_delta": 0.05
+        },
+        {
+          "text": "当是恶作剧",
+          "set": {
+            "信心": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "e3_wenjian_ask",
+      "chapter": 3,
+      "weight": 2,
+      "once": true,
+      "requires": "",
+      "narrative": "温简课间凑过来，没话找话地打听你和李迟游是什么关系，笑意不达眼底。",
+      "choices": [
+        {
+          "text": "反问她",
+          "set": {
+            "信心": 1
+          },
+          "divergence_delta": 0.05
+        },
+        {
+          "text": "打哈哈",
+          "set": {
+            "默契": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "e3_milkAgain",
+      "chapter": 3,
+      "weight": 2,
+      "once": true,
+      "requires": "",
+      "narrative": "桌缝里又出现一盒清柠味牛奶，这次旁边多了张便利贴：「喝了继续做。」",
+      "choices": [
+        {
+          "text": "当面问他",
+          "set": {
+            "默契": 1
+          },
+          "divergence_delta": 0.05
+        },
+        {
+          "text": "默默喝掉",
+          "set": {
+            "信心": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "e4_mock_tie",
+      "chapter": 4,
+      "weight": 3,
+      "once": true,
+      "requires": "",
+      "narrative": "最后一模排名出炉，你和李迟游并列年级第二——全校都在传这个事故。",
+      "choices": [
+        {
+          "text": "找他核对错题",
+          "set": {
+            "提分": 1
+          }
+        },
+        {
+          "text": "独自复盘",
+          "set": {
+            "信心": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "e4_anon_note",
+      "chapter": 4,
+      "weight": 2,
+      "once": true,
+      "requires": "",
+      "narrative": "有人匿名塞来一张纸条：「惩罚不是做题。别信墙上那行字。」",
+      "choices": [
+        {
+          "text": "追查纸条",
+          "set": {
+            "清醒": 1
+          },
+          "divergence_delta": 0.05
+        },
+        {
+          "text": "撕掉它",
+          "set": {
+            "信心": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "e4_last_self",
+      "chapter": 4,
+      "weight": 2,
+      "once": true,
+      "requires": "",
+      "narrative": "深夜的房间里只剩你和卷子，墙上的倒计时轻轻跳了一格，像在催你。",
+      "choices": [
+        {
+          "text": "再刷一套",
+          "set": {
+            "提分": 1
+          }
+        },
+        {
+          "text": "早点睡",
+          "set": {
+            "清醒": 1
+          }
+        }
+      ]
+    }
+  ]
 }

@@ -17,5 +17,5 @@ for (const [name, ico] of TYPES) {
 }
 $('go').addEventListener('click', async () => {
   $('status').textContent = '生成服务随部署开放（Day2）——先体验精选书库';
-  setTimeout(() => location.href = './avg.html?book=btg_room', 1600);
+  setTimeout(() => location.href = './game.html?book=btg_room', 1600);
 });

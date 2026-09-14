@@ -439,3 +439,32 @@ export function attrBand(def, value) {
   for (const band of sorted) if (value <= (band.upTo ?? Infinity)) return band;
   return sorted[sorted.length - 1] || null;
 }
+
+// ---- 题材主题：不同题材的书进入游戏后舞台氛围不同 ----
+// hue 主色相 / sat 饱和度 / dark 暗黑变体（恐怖类压亮度近黑）
+export const GENRE_THEMES = {
+  xiuxian: { hue: 44, sat: 80, label: '修仙 · 明金' },
+  romance: { hue: 335, sat: 72, label: '言情 · 暧昧粉' },
+  horror: { hue: 355, sat: 45, dark: true, label: '恐怖 · 暗夜' },
+  suspense: { hue: 262, sat: 55, label: '悬疑 · 幽紫' },
+  default: { hue: 222, sat: 62, label: '星蓝' },
+};
+
+// 题材判定：meta.genre 显式声明优先，否则按 tags/书名/简介关键词推断（forge 书覆盖）
+export function inferGenre(novel) {
+  const g = novel?.meta?.genre;
+  if (g && GENRE_THEMES[g]) return g;
+  const text = [...(novel?.meta?.tags || []), novel?.meta?.title || '', novel?.meta?.intro || ''].join(' ');
+  if (/修仙|修真|玄幻|仙侠|凡人流/.test(text)) return 'xiuxian';
+  if (/恐怖|惊悚|诡异|怪谈|克苏鲁/.test(text)) return 'horror';
+  if (/悬疑|推理|犯罪|刑侦/.test(text)) return 'suspense';
+  if (/言情|校园|暗恋|甜宠|暧昧|都市|总裁|宫廷|喜剧|恋爱/.test(text)) return 'romance';
+  return 'default';
+}
+
+// 章节色相：题材基调 + 每章小幅偏移（保持章节间微差，不跳出色系）
+export function sceneHueFor(themeKey, chapter) {
+  const theme = GENRE_THEMES[themeKey] || GENRE_THEMES.default;
+  const offset = [0, 14, -12, 8][(Math.max(1, chapter) - 1) % 4];
+  return (theme.hue + offset + 360) % 360;
+}

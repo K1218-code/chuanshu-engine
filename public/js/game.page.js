@@ -8,12 +8,29 @@ import {
   chapterStartNode, keyMomentNode, chapterList, rollBudget, relOf, advanceThrough,
   mapLocations, visitLocation, resolvePlayerChar,
   buildPrologue, inventoryOf, realmChange, mindAllowed,
-} from './engine.js';
+  GENRE_THEMES, inferGenre, sceneHueFor,
+} from './engine.js?v=20260914g';
 
 const $ = (id) => document.getElementById(id);
 const params = new URLSearchParams(location.search);
 const bookId = (/^[a-z0-9_-]{1,64}$/i.test(params.get('book') || '') ? params.get('book') : 'ak47_xiuzhen');
-const SCENE_HUES = [222, 268, 158, 24, 200, 320, 96, 12, 262, 180];
+const DEFAULT_INPUT_HINT = '固定选项之外的自定义行动：说什么、做什么都行……';
+
+// ---- 玩过的书：完成一局、或拆解生成的新书进入过游戏，即记入首页「玩过的书」栏 ----
+// forge 书记录后，下次从首页直接进入（服务端 KV 缓存 30 天），无需重新拆书
+function markPlayed() {
+  if (!novel) return;
+  try {
+    const played = JSON.parse(localStorage.getItem('cs_played') || '{}');
+    played[bookId] = {
+      title: novel.meta.title || bookId,
+      author: novel.meta.author || '',
+      endings: (novel.endings || []).length,
+      at: Date.now(),
+    };
+    localStorage.setItem('cs_played', JSON.stringify(played));
+  } catch { /* 隐私模式等场景下静默 */ }
+}
 
 let novel = null, state = null;
 let phase = 'loading';           // loading | identity | chapter-start | free | keymoment | chapter-end | ending
@@ -25,6 +42,8 @@ let chapterSnap = null;          // 章首快照（结算 diff 用）
 let pendingEvent = null;         // 待处理事件卡
 let currentEnding = null;        // 当前触发结局（战绩卡用）
 let lastGmChoices = [];          // 最近一轮 GM 建议选项（持久显示，不丢失）
+let presentChars = [];           // 当前在场角色（@ 互动只对在场者开放）
+let genreTheme = GENRE_THEMES.default; // 题材主题（舞台氛围）
 let typeTimer = null, typeResolve = null;
 
 const msgs = $('msgs');
@@ -34,6 +53,26 @@ function charOf(id) { return (novel.characters || []).find((x) => x.id === id) |
 function identityName() {
   const card = (novel.player.identity_cards || []).find((i) => i.id === state?.identity);
   return card?.name || '书中人';
+}
+
+// ============ 题材主题：舞台氛围随书而变（修仙明金 / 言情暧昧粉 / 恐怖暗夜…） ============
+// 变量挂在 #app 上：舞台、事件卡、命运节点横幅、聊天区晕染全部继承主题
+function applySceneTheme(ch) {
+  if (!novel) return;
+  genreTheme = GENRE_THEMES[inferGenre(novel)] || GENRE_THEMES.default;
+  const hue = sceneHueFor(inferGenre(novel), ch ?? state?.chapter ?? 1);
+  const root = $('app');
+  root.style.setProperty('--scene-hue', String(hue));
+  root.style.setProperty('--scene-sat', String(genreTheme.sat));
+  root.classList.toggle('genre-dark', !!genreTheme.dark);
+}
+
+// ============ 在场角色：@ 互动只对当前场景中的角色开放 ============
+// 在场 = 最近一轮演出（AI 回复/事件后果/开场链/开场白）中出现过的非玩家角色
+function setPresent(ids) {
+  presentChars = [...new Set((ids || []).filter(Boolean))]
+    .filter((id) => id !== state?.identity && id !== state?.playerChar && charOf(id))
+    .slice(0, 4);
 }
 
 // ============ 打字机（点击舞台跳过） ============
@@ -163,6 +202,8 @@ async function aiEventOutcome(event, choice) {
       addBubble(rep.who, rep.text, rep.loc, false);
       remember('gm', `${charOf(rep.who)?.name || ''}：${rep.text}`);
     }
+    // 事件后果演出中出现的角色同样计入在场
+    setPresent((d.replies || []).map((r) => r.who));
     if (d.narration) { addNarration(d.narration); remember('gm', d.narration); if ($('scene-text')) $('scene-text').textContent = d.narration.slice(0, 60); }
     if (d.mind) addMind(d.mind);
     if (Array.isArray(d.choices) && d.choices.length) lastGmChoices = d.choices;
@@ -416,9 +457,7 @@ async function startChapter(ch, { entryNode = null, showHint = true } = {}) {
   state.chapterBudget = rollBudget(ch, state.identity);
   chapterLog = [];
   chapterSnap = { attrs: { ...state.attrs }, rels: Object.fromEntries(Object.entries(state.rels).map(([k, v]) => [k, { ...v }])), div: state.divergence };
-  const hue = SCENE_HUES[(ch - 1) % SCENE_HUES.length];
-  $('stage').style.setProperty('--scene-hue', String(hue));
-  $('stage').classList.remove('compact');
+  applySceneTheme(ch);
 
   // 全屏章节转场
   const cf = $('chapter-full');
@@ -452,6 +491,8 @@ async function startChapter(ch, { entryNode = null, showHint = true } = {}) {
       else await typeInto($('scene-text'), vn.text);
       remember('gm', vn.text);
     }
+    // 开场链上露过面的角色计入在场（保留开场白角色，不被 narrator 开场节点清掉）
+    setPresent([...presentChars, entry.who, ...visited.map((vn) => vn.who)]);
     if (nextChapter != null) { busy = false; await chapterEnd(nextChapter); return; }
   }
   busy = false;
@@ -764,10 +805,12 @@ function beginStory(card) {
   const opener = (novel.characters || []).find((x) => x.id !== state.playerChar && x.first_mes)
     || (novel.characters || []).find((x) => x.first_mes);
   if (opener && opener.id !== state.playerChar) {
-    addBubble(opener.id, opener.first_mes, '');
+    if (/^[（(].*[)）]$/.test(String(opener.first_mes).trim())) addNarration(opener.first_mes); // 纯动作描述不是台词
+    else addBubble(opener.id, opener.first_mes, '');
     remember('gm', opener.first_mes);
   }
   if (opener && opener.id !== state.playerChar && opener.mind) addMind(opener.mind);
+  setPresent(opener ? [opener.id] : []); // 开场只有搭话者在你身边
   saveSession();
   startChapter(state.chapter, { showHint: true });
 }
@@ -791,9 +834,17 @@ function renderQuick(gmChoices = null) {
     const adv = el('button', 'quick-btn advance', left > 0 ? `推进剧情 ▸（剩${left}轮）` : '直面命运 ▸');
     adv.addEventListener('click', () => gotoKeyMoment());
     quick.append(adv);
-    for (const c of (novel.characters || []).filter((x) => x.id !== state.identity && x.id !== state.playerChar).slice(0, 3)) {
-      const b = el('button', 'quick-btn', `@${c.name}`);
-      b.addEventListener('click', () => { $('input').value = `（走向${c.name}）`; $('input').focus(); });
+    // @互动：只有当前场景中的角色可以互动；点击后输入框预填 @名字，提示继续输入行为
+    for (const id of presentChars) {
+      const c = charOf(id);
+      if (!c) continue;
+      const b = el('button', 'quick-btn at', `@${c.name}`);
+      b.addEventListener('click', () => {
+        const input = $('input');
+        input.value = `@${c.name} `;
+        input.placeholder = `你想对${c.name}说什么、做什么？直接输入，如「问他这是什么地方」`;
+        input.focus();
+      });
       quick.append(b);
     }
   }
@@ -816,6 +867,7 @@ async function sendInput() {
   const text = input.value.trim();
   if (!text) return;
   input.value = '';
+  input.placeholder = DEFAULT_INPUT_HINT; // 复位 @ 带来的动态提示
   await aiTurn(text);
 }
 
@@ -845,6 +897,8 @@ async function aiTurn(userText) {
       addBubble(rep.who, rep.text, rep.loc, degraded);
       remember('gm', `${charOf(rep.who)?.name || ''}：${rep.text}`);
     }
+    // 更新在场者：本轮回应过玩家的角色就在场景中
+    setPresent((d.replies || []).map((r) => r.who));
     if (d.narration) { addNarration(d.narration); remember('gm', d.narration); if (!degraded) $('scene-text').textContent = d.narration; }
     if (d.mind) addMind(d.mind);
     if (Array.isArray(d.choices) && d.choices.length) lastGmChoices = d.choices;
@@ -1037,6 +1091,7 @@ async function chapterEnd(nextChapterTarget = null, entryNode = null, closingCha
 function finish(hit) {
   if (phase === 'ending') return;
   phase = 'ending';
+  markPlayed(); // 完成一局 → 记入「玩过的书」
   const quick = $('quick'); quick.replaceChildren();
   const ending = hit.ending;
   currentEnding = ending;
@@ -1194,6 +1249,7 @@ function showIdentityPicker() {
     if (!loaded) throw new Error('书籍数据不可用（静态与 API 源均失败）');
     novel = loaded;
     novelBase = structuredClone(novel);
+    if (bookId.startsWith('forge_')) markPlayed(); // 拆的新书进入过游戏 → 入栏，下次免重新拆
     document.title = `${novel.meta.title} · AI对话AVG`;
     $('book-title').textContent = novel.meta.title;
     state = null;
@@ -1243,7 +1299,11 @@ function showIdentityPicker() {
 function resumeGame() {
   renderPanel();
   renderHUD();
-  $('stage').style.setProperty('--scene-hue', String(SCENE_HUES[(state.chapter - 1) % SCENE_HUES.length]));
+  applySceneTheme(state.chapter);
+  // 恢复在场者：最近对话里发言过的角色仍在场景中（recent 文本格式「角色名：台词」）
+  const recentNames = (state.recent || []).slice(-8).filter((r) => r.role === 'gm')
+    .map((r) => String(r.text || '').split('：')[0]);
+  setPresent(recentNames.map((n) => (novel.characters || []).find((c) => c.name === n)?.id));
   const opener = (novel.characters || []).find((x) => x.role === 'lead');
   if (opener) $('panel-whoami').textContent = `${identityName()} · 第${state.chapter}章`;
   // 续档直接回到自由行动（演出从简）

@@ -21,7 +21,7 @@ let polling = null;
     go.textContent = PREBUILT[s.work_id] ? '已拆解 ✓' : '生成 ▸';
     row.append(num, info, go);
     row.addEventListener('click', () => {
-      if (PREBUILT[s.work_id]) { location.href = `/avg.html?book=${PREBUILT[s.work_id]}`; return; }
+      if (PREBUILT[s.work_id]) { location.href = `/game.html?book=${PREBUILT[s.work_id]}`; return; }
       startForge(s);
     });
     list.append(row);
@@ -38,7 +38,7 @@ async function startForge(story) {
     const res = await fetch('./api/forge', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ workId: String(story.work_id) }) });
     const data = await res.json();
     if (!data.ok) throw new Error(data.error?.message || '创建任务失败');
-    if (data.cached) { location.href = `/avg.html?book=${data.bookId}`; return; }
+    if (data.cached) { location.href = `/game.html?book=${data.bookId}`; return; }
     pollForge(data.jobId);
   } catch (e) {
     $('gen-label').textContent = '✕ ' + e.message;
@@ -61,7 +61,7 @@ function pollForge(jobId) {
       if (d.done && d.bookId) {
         clearInterval(polling);
         $('gen-label').textContent = '拆解完成，正在进入世界——';
-        setTimeout(() => location.href = `/avg.html?book=${d.bookId}`, 600);
+        setTimeout(() => location.href = `/game.html?book=${d.bookId}`, 600);
       }
     } catch (e) {
       clearInterval(polling);

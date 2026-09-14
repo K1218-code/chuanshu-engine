@@ -47,6 +47,10 @@
 .gb-info span.done { color: var(--ok); }
 .gb-arrow { color: var(--text-3); font-size: 18px; }
 
+/* 玩过的书：继续玩入口 */
+#played-list .gb-arrow { color: var(--zhihu-blue); font-size: 13px; font-weight: 600; white-space: nowrap; }
+#played-list .gb-info span.done { color: var(--ok); }
+
 /* 结局图鉴浮层 */
 .overlay { position: fixed; inset: 0; z-index: 80; background: rgba(18,18,18,.55); backdrop-filter: blur(3px);
   display: flex; align-items: center; justify-content: center; padding: 18px; }
