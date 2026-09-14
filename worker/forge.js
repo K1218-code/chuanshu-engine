@@ -13,11 +13,17 @@ const STAGES = [
   { id: 'S6', label: '正在书写你的结局……', call: stageEndings },
 ];
 
+import { assertPublicHttpUrl } from './guard.js';
+
 async function llmJsonOnce(env, model, system, user, { maxTokens = 6000 } = {}) {
   const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), 55000);
+  // 100s：S5 事件池（24+ 条大输出）在慢模型（glm-5.2 16-24s/轮）上 55s 会连续超时；
+  // 上限须小于 /api/forge/status 并发锁的 120s 僵尸阈值
+  const timer = setTimeout(() => controller.abort(), 100000);
+  const url = `${env.LLM_BASE_URL.replace(/\/$/, '')}/chat/completions`;
+  assertPublicHttpUrl(url); // SSRF 守卫：与 GM 对话路径共用出站基线
   try {
-    const res = await fetch(`${env.LLM_BASE_URL.replace(/\/$/, '')}/chat/completions`, {
+    const res = await fetch(url, {
       method: 'POST',
       headers: { Authorization: `Bearer ${env.LLM_API_KEY}`, 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -216,40 +222,8 @@ async function stageEndings(env, story, acc) {
   return { endings };
 }
 
-// 后台推进一个阶段（由 /api/forge/status 以 waitUntil 调起；本函数自校验任务状态）
-// 所有网络请求仅访问服务端配置的 LLM_BASE_URL 与平台 KV，不涉及任何用户可控 URL
-export async function advanceJob(env, jobId) {
-  if (!/^[a-f0-9-]{6,40}$/.test(String(jobId))) return;
-  const raw = await env.SAVE_KV.get(`job:${jobId}`);
-  if (!raw) return;
-  let job;
-  try { job = JSON.parse(raw); } catch { return; }
-  if (job.error || job.running || job.stage >= STAGES.length) return;
-  const stage = STAGES[job.stage];
-  try {
-    const fresh = JSON.parse(await env.SAVE_KV.get(`job:${jobId}`) || raw);
-    const patch = await stage.call(env, fresh.story, fresh.acc);
-    Object.assign(fresh.acc, patch);
-    fresh.stage = Math.max(fresh.stage, job.stage + 1);
-    fresh.running = false;
-    if (fresh.stage >= STAGES.length) {
-      const novel = assembleNovel(fresh.story, fresh.acc);
-      sanityCheck(novel);
-      fresh.bookId = novel.meta.id;
-      await env.SAVE_KV.put(`book:forge:${fresh.workId}`, JSON.stringify(novel), { expirationTtl: 30 * 24 * 3600 });
-      await env.SAVE_KV.put(`book:${novel.meta.id}`, JSON.stringify(novel), { expirationTtl: 30 * 24 * 3600 });
-    }
-    await env.SAVE_KV.put(`job:${jobId}`, JSON.stringify(fresh), { expirationTtl: 3600 });
-  } catch (e) {
-    try {
-      const fresh = JSON.parse(await env.SAVE_KV.get(`job:${jobId}`) || raw);
-      fresh.retries = (fresh.retries || 0) + 1;
-      if (fresh.retries >= 2) fresh.error = `阶段 ${stage.id} 失败：${e.message}`;
-      else fresh.running = false; // 允许下次轮询重试
-      await env.SAVE_KV.put(`job:${jobId}`, JSON.stringify(fresh), { expirationTtl: 3600 });
-    } catch { /* KV 写失败则任务自然过期 */ }
-  }
-}
+// （后台推进函数 advanceJob 已移除：阶段推进统一由 /api/forge/status 内联处理，
+//   并发锁在该 handler 中实现；保留两个入口会出现锁语义分叉。）
 
 export function assembleNovel(story, acc) {
   const chapters = acc.chapterSummaries || [];
@@ -405,7 +379,8 @@ export function sanityCheck(novel) {
     const soft = attrs.find((a) => a.deathBelow != null);
     if (hard && !has('end_synth_good')) novel.endings.push({ id: 'end_synth_good', family: '改命', condition: `${hard.key}>=6`, title: '逆天改命', tone: '爽·逆袭', epilogue: `你把${hard.name}走到了别人到不了的高度。这一世，剧本由你执笔。`, rarity: 0.2 });
     if (soft && !has('end_synth_crash')) novel.endings.push({ id: 'end_synth_crash', family: '死亡', condition: `${soft.key}<1`, title: '心死之局', tone: '崩溃线', epilogue: `${soft.name}燃到了尽头，你在故事里提前谢幕。（重开试试别的路）`, rarity: 0.1 });
-    if (!has('end_synth_dark')) novel.endings.push({ id: 'end_synth_dark', family: '隐藏', condition: `${hard ? hard.key : 'X'}>=4 & ${soft ? soft.key : 'X'}<=0`, title: '深渊回响', tone: '隐藏', epilogue: '你以近乎自毁的方式通关了这个世界——没人想到，也没人敢效仿。', rarity: 0.08 });
+    // 深渊结局需要硬+软两条属性都在：缺失时用 'X' 占位会产出非法 DSL（且合成器在清洗后运行，无人兜底）
+    if (hard && soft && !has('end_synth_dark')) novel.endings.push({ id: 'end_synth_dark', family: '隐藏', condition: `${hard.key}>=4 & ${soft.key}<=0`, title: '深渊回响', tone: '隐藏', epilogue: '你以近乎自毁的方式通关了这个世界——没人想到，也没人敢效仿。', rarity: 0.08 });
   }
   return problems;
 }

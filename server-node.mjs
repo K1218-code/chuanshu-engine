@@ -36,6 +36,11 @@ class FileKV {
     this.flush();
   }
   async delete(key) { this.store.delete(key); this.flush(); }
+  // 与 Workers KV 接口对齐：前缀列出（数据量小，单页返回）
+  async list({ prefix = '', cursor } = {}) {
+    const keys = [...this.store.keys()].filter((k) => k.startsWith(prefix)).map((name) => ({ name }));
+    return { keys, list_complete: true, cursor: undefined };
+  }
 }
 
 // ---- Cache API 等效实现（gm 缓存用，内存版） ----

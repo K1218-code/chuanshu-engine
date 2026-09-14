@@ -3,20 +3,9 @@
 // v2：GM Prompt 融合「叙事者裁定规则 + IM演出格式」；长期记忆（D1/KV）；存档同步。
 import { Hono } from 'hono';
 import { createMemoryStore } from './memory.js';
+import { assertPublicHttpUrl } from './guard.js';
 
 const app = new Hono();
-
-// ---- 出站 URL 守卫（仅 http/https，拒绝本地/私有/保留地址） ----
-function assertPublicHttpUrl(raw) {
-  const url = new URL(raw);
-  if (url.protocol !== 'https:' && url.protocol !== 'http:') throw new Error('仅允许 http/https 请求');
-  const host = url.hostname.toLowerCase().replace(/^\[|\]$/g, '');
-  if (host === 'localhost' || host.endsWith('.localhost') || host === '::1' || host === '0.0.0.0') throw new Error('拒绝本地回环地址');
-  if (/^127\./.test(host) || /^10\./.test(host) || /^192\.168\./.test(host)) throw new Error('拒绝私有地址');
-  const m172 = host.match(/^172\.(\d{1,3})\./);
-  if (m172 && Number(m172[1]) >= 16 && Number(m172[1]) <= 31) throw new Error('拒绝私有地址');
-  if (/^169\.254\./.test(host)) throw new Error('拒绝保留地址');
-}
 
 // ---- 健康检查 ----
 app.get('/api/health', (c) => c.json({ ok: true, app: 'chuanshu-engine', v: 2, ts: Date.now() }));
@@ -397,6 +386,11 @@ app.post('/api/save/sync', async (c) => {
   const { saveId, bookId, state, newMemories } = await c.req.json().catch(() => ({}));
   if (!saveId || !bookId || !state) return c.json({ ok: false, error: { code: 'BAD_REQUEST', message: '缺少 saveId/bookId/state' } }, 400);
   const userHash = await getUserHash(c);
+  // 归属校验：已存在的存档只能由其属主覆写（防 IDOR）
+  const owner = await store.getOwner(saveId).catch(() => null);
+  if (owner && owner !== userHash) {
+    return c.json({ ok: false, error: { code: 'FORBIDDEN', message: '该存档属于其他账号' } }, 403);
+  }
   try {
     await store.saveState(saveId, bookId, userHash, state, state.chapter || 1);
     let added = 0;
@@ -420,6 +414,9 @@ app.get('/api/save/load', async (c) => {
     const userHash = await getUserHash(c);
     const sid = saveId || await store.findLatestSave(userHash, bookId);
     if (!sid) return c.json({ ok: true, found: false });
+    // 归属校验：他人存档按不存在处理（不泄露其存在性）
+    const owner = await store.getOwner(sid).catch(() => null);
+    if (saveId && owner && owner !== userHash) return c.json({ ok: true, found: false });
     const state = await store.loadState(sid);
     if (!state) return c.json({ ok: true, found: false });
     const [memories, summaries] = await Promise.all([store.loadMemories(sid, 8), store.getSummaries(sid)]);
@@ -495,6 +492,16 @@ app.get('/api/forge/status', async (c) => {
     return c.json({ ok: false, error: { code: 'LLM_NOT_CONFIGURED', message: '运行时模型未配置，现场生成不可用（精选书库不受影响）' } });
   }
 
+  // 并发锁：多客户端同时轮询同一 jobId 时，只允许一个请求推进阶段（LLM 阶段 20-55s，
+  // 无锁会重复执行同一阶段、双烧 token）。锁带时间戳，超 120s 视为僵尸锁允许接管（worker 崩溃自愈）。
+  const now = Date.now();
+  if (job.running && now - (job.runningTs || 0) < 120000) {
+    return c.json({ ok: true, done: false, bookId: job.bookId || null, stage: job.stage, progress: +(job.stage / STAGES.length).toFixed(2), label: STAGES[Math.min(job.stage, STAGES.length - 1)].label, busy: true });
+  }
+  job.running = true;
+  job.runningTs = now;
+  await env.SAVE_KV.put(`job:${jobId}`, JSON.stringify(job), { expirationTtl: 3600 });
+
   const stage = STAGES[job.stage];
   try {
     const patch = await stage.call(env, job.story, job.acc);
@@ -503,6 +510,8 @@ app.get('/api/forge/status', async (c) => {
   } catch (e) {
     job.retries = (job.retries || 0) + 1;
     if (job.retries >= 2) { job.error = `阶段 ${stage.id} 失败：${e.message}`; }
+  } finally {
+    job.running = false;
   }
 
   if (job.stage >= STAGES.length && !job.error) {

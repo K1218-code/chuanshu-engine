@@ -282,10 +282,12 @@ test('v2.1：choice/事件 flags 结算 + DSL 旗标门控', async () => {
 test('v2.1：凡人修仙传结构健全性', async () => {
   const fanren = JSON.parse(await readFile(path.join(root, 'public/data/books/fanren.json'), 'utf8'));
   assert.equal(fanren.meta.schema, 2);
-  assert.equal(fanren.graph.nodes.length, 554);
-  assert.equal(fanren.meta.chapters_covered.length, 15);
+  // FIX-08：66 个未接入主链的支线场景归档至 archive_nodes，游玩图为 488 节点全可达
+  assert.equal(fanren.graph.nodes.length, 488);
+  assert.equal(fanren.graph.archive_nodes.length, 66);
+  assert.equal(fanren.meta.chapters_covered.length, 14);
   // 每章都有命运节点与开场节点
-  for (let ch = 1; ch <= 15; ch++) {
+  for (let ch = 1; ch <= 14; ch++) {
     assert.ok(engine.chapterStartNode(fanren, ch), `ch${ch} 开场`);
     assert.ok(engine.keyMomentNode(fanren, ch), `ch${ch} 命运节点`);
   }
@@ -295,6 +297,10 @@ test('v2.1：凡人修仙传结构健全性', async () => {
   assert.equal(band.label, '筑基初期');
   // 结局：EVT 门控的场景结局在无兜底判定下可命中，兜底结局排最后
   assert.equal(fanren.endings[fanren.endings.length - 1].id, 'end_mortal');
+  // FIX-08 回归：end_ch14_ending 门控指向可达节点（转换时原节点 ch14_ending 丢失）
+  const liveIds = new Set(fanren.graph.nodes.map((n) => n.id));
+  const evtRefs = fanren.endings.map((e) => String(e.condition || '').match(/EVT?\[([^\]]*)\]/)?.[1]).filter(Boolean);
+  for (const ref of evtRefs) for (const id of ref.split(',')) assert.ok(liveIds.has(id.trim()), `结局 EVT 引用可达节点 ${id}`);
 });
 
 test('v2.2：序章构建器（自定义文案 + 身份/玩法自动追加）', async () => {
@@ -368,4 +374,38 @@ test('v2.5：序章自动拼装含开局处境段（讲明白发生了什么）'
     graph: { nodes: [{ id: 'n0', chapter: 1, who: 'narrator', text: '主角被困在测试房间，墙上倒计时归零在即，门外传来脚步声。' }] } };
   const auto = engine.buildPrologue(fake, card);
   assert.ok(auto.some((s) => s.text.includes('测试房间')));
+});
+
+// ---- v2.4：题材主题（舞台氛围随书而变） ----
+test('v2.4：题材推断 meta.genre 优先，关键词兜底', async () => {
+  const ak47 = JSON.parse(await readFile(path.join(root, 'public/data/books/ak47_xiuzhen.json'), 'utf8'));
+  const btg = JSON.parse(await readFile(path.join(root, 'public/data/books/btg_room.json'), 'utf8'));
+  const fanren = JSON.parse(await readFile(path.join(root, 'public/data/books/fanren.json'), 'utf8'));
+  assert.equal(engine.inferGenre(ak47), 'xiuxian');
+  assert.equal(engine.inferGenre(btg), 'romance');
+  assert.equal(engine.inferGenre(fanren), 'xiuxian');
+  // 无 meta.genre 时按关键词推断（forge 书路径）
+  assert.equal(engine.inferGenre({ meta: { tags: ['恐怖', '规则怪谈'], intro: '' } }), 'horror');
+  assert.equal(engine.inferGenre({ meta: { intro: '一个关于悬疑与推理的故事' } }), 'suspense');
+  assert.equal(engine.inferGenre({ meta: { intro: '甜宠日常，暧昧升温' } }), 'romance');
+  assert.equal(engine.inferGenre({ meta: { intro: '普通故事' } }), 'default');
+});
+
+test('v2.4：题材主题表完整 & 章节色相不跳出色系', () => {
+  for (const key of ['xiuxian', 'romance', 'horror', 'suspense', 'default']) {
+    assert.ok(engine.GENRE_THEMES[key], `主题 ${key}`);
+    assert.equal(typeof engine.GENRE_THEMES[key].hue, 'number');
+  }
+  // 各题材各章节色相都在主题基调 ±14 内
+  for (const key of Object.keys(engine.GENRE_THEMES)) {
+    for (let ch = 1; ch <= 15; ch++) {
+      const hue = engine.sceneHueFor(key, ch);
+      const base = engine.GENRE_THEMES[key].hue;
+      const diff = Math.min(Math.abs(hue - base), 360 - Math.abs(hue - base));
+      assert.ok(diff <= 14, `${key} ch${ch} hue=${hue} 偏移 ${diff}>14`);
+    }
+  }
+  // sceneHueFor 对未知题材与 0/负章号容错
+  assert.equal(engine.sceneHueFor('unknown', 1), engine.GENRE_THEMES.default.hue);
+  assert.equal(engine.sceneHueFor('xiuxian', 0), engine.sceneHueFor('xiuxian', 1));
 });

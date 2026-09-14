@@ -29,6 +29,10 @@ function d1Store(db) {
       if (!row?.state) return null;
       try { return JSON.parse(row.state); } catch { return null; }
     },
+    async getOwner(saveId) {
+      const row = await db.prepare(`SELECT user_hash FROM saves WHERE save_id = ?`).bind(String(saveId)).first();
+      return row?.user_hash || null;
+    },
     async findLatestSave(userHash, bookId) {
       const row = await db.prepare(
         `SELECT save_id FROM saves WHERE user_hash = ? AND book_id = ? ORDER BY updated_at DESC LIMIT 1`
@@ -95,6 +99,11 @@ function kvStore(kv) {
       const raw = await kv.get(`save:${saveId}`);
       if (!raw) return null;
       try { return JSON.parse(raw)?.state ?? null; } catch { return null; }
+    },
+    async getOwner(saveId) {
+      const raw = await kv.get(`save:${saveId}`);
+      if (!raw) return null;
+      try { return JSON.parse(raw)?.userHash || null; } catch { return null; }
     },
     async findLatestSave(userHash, bookId) {
       // KV 无二级索引：靠 list 前缀扫描（量小可接受）
