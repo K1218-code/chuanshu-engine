@@ -1,7 +1,19 @@
 {
   "version": 3,
-  "updated": "2026-09-14",
+  "updated": "2026-09-15",
   "books": [
+    {
+      "id": "wqd_xiaoshidi",
+      "title": "被无情道小师弟倒追了",
+      "cover_label": "小师弟倒追",
+      "author": "风歌且行（改编）",
+      "intro": "暗恋十年的小师弟葬身火海，全世界都信了，只有我背起木剑下山救他——可队伍里那个自称「沈策」的恶劣外门生，为什么越来越像他？",
+      "tags": ["修仙", "言情", "双向暗恋", "白切黑", "AI对话"],
+      "source": "jjwxc_reference",
+      "modes": ["game"],
+      "endings": 6,
+      "featured": true
+    },
     {
       "id": "ak47_xiuzhen",
       "title": "我在修真界掏出了AK47",
