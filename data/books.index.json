@@ -1,28 +1,40 @@
 {
-  "version": 1,
-  "updated": "2026-09-13",
+  "version": 3,
+  "updated": "2026-09-14",
   "books": [
-    {
-      "id": "btg_room",
-      "title": "不提分就出不去的房间",
-      "cover_label": "提分房间",
-      "author": "盐言故事",
-      "intro": "讨厌我的年级第一和我被关在一起了。系统提示：不提分就有惩罚——可那行字，只有他看得见。",
-      "tags": ["校园", "高概念", "喜剧", "暗恋"],
-      "source": "zhihu_yanyan",
-      "modes": ["chat", "avg"],
-      "endings": 6,
-      "featured": true
-    },
     {
       "id": "ak47_xiuzhen",
       "title": "我在修真界掏出了AK47",
       "cover_label": "修真AK47",
       "author": "风吹过你的心窝",
       "intro": "系统传送错了世界：我拿着星际军火库，穿成了修真文里灵根受损的炮灰大师姐。万人迷小师妹要抢我用命换来的玉灵芝？",
-      "tags": ["修真", "爽文", "高概念", "打脸"],
+      "tags": ["修真", "爽文", "高概念", "打脸", "AI对话"],
       "source": "zhihu_yanyan",
-      "modes": ["chat", "avg"],
+      "modes": ["game"],
+      "endings": 11,
+      "featured": true
+    },
+    {
+      "id": "fanren",
+      "title": "凡人修仙传·凡人风起",
+      "cover_label": "凡人修仙",
+      "author": "忘语（改编）",
+      "intro": "山村穷小子韩立的修仙长卷：四灵根、无靠山，靠一个神秘小瓶和过分谨慎的心性，从七玄门杂役一步步走到化神之巅。15章 · 500+场景 · 16境界。",
+      "tags": ["修仙", "凡人流", "长线", "地图探索", "AI对话"],
+      "source": "fanren_reference",
+      "modes": ["game"],
+      "endings": 8,
+      "featured": true
+    },
+    {
+      "id": "btg_room",
+      "title": "不提分就出不去的房间",
+      "cover_label": "提分房间",
+      "author": "盐言故事",
+      "intro": "讨厌我的年级第一和我被关在一起了。系统提示：不提分就有惩罚——可那行字，只有他看得见。",
+      "tags": ["校园", "高概念", "喜剧", "暗恋", "AI对话"],
+      "source": "zhihu_yanyan",
+      "modes": ["game"],
       "endings": 6,
       "featured": true
     }

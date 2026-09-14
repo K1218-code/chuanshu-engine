@@ -34,6 +34,37 @@
 .entry h4 { font-size: 14px; margin: 8px 0 4px; }
 .entry p { font-size: 12px; color: var(--text-3); }
 
-.gallery-strip { display: flex; gap: 8px; flex-wrap: wrap; padding: 12px 16px; }
-.end-chip { background: var(--bg-gray); border-radius: 999px; padding: 4px 12px; font-size: 12px; color: var(--text-2); }
-.end-chip.got { background: var(--zhihu-blue-weak); color: var(--zhihu-blue); }
+.gallery-strip { display: flex; flex-direction: column; gap: 10px; padding: 12px; }
+.gallery-book { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border: 1px solid var(--border);
+  border-radius: 8px; cursor: pointer; transition: border-color .15s; }
+.gallery-book:hover { border-color: var(--zhihu-blue); }
+.gb-cover { width: 40px; height: 54px; border-radius: 4px; flex-shrink: 0;
+  background: linear-gradient(150deg, var(--zhihu-blue) 0%, #0047B3 100%); color: #fff;
+  display: flex; align-items: center; justify-content: center; font-family: var(--font-serif); font-size: 15px; font-weight: 900; }
+.gb-info { flex: 1; min-width: 0; }
+.gb-info b { font-size: 14px; display: block; }
+.gb-info span { font-size: 12px; color: var(--text-3); }
+.gb-info span.done { color: var(--ok); }
+.gb-arrow { color: var(--text-3); font-size: 18px; }
+
+/* 结局图鉴浮层 */
+.overlay { position: fixed; inset: 0; z-index: 80; background: rgba(18,18,18,.55); backdrop-filter: blur(3px);
+  display: flex; align-items: center; justify-content: center; padding: 18px; }
+.eg-box { max-width: 620px; width: 100%; max-height: 86dvh; display: flex; flex-direction: column;
+  background: var(--bg); border-radius: 12px; box-shadow: 0 18px 60px rgba(18,18,18,.3); overflow: hidden; }
+.eg-head-main { padding: 18px 20px 12px; border-bottom: 1px solid var(--border); }
+.eg-head-main h3 { font-size: 18px; font-family: var(--font-serif); }
+.eg-head-main p { color: var(--text-3); font-size: 12.5px; margin: 4px 0 12px; }
+.eg-list { flex: 1; overflow-y: auto; padding: 14px 20px 20px; display: flex; flex-direction: column; gap: 10px; }
+.eg-card { border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; }
+.eg-card.eg-locked { background: var(--bg-gray); }
+.eg-head { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.eg-head b { font-size: 15px; }
+.eg-family { font-size: 11px; background: var(--zhihu-blue-weak); color: var(--zhihu-blue); border-radius: 4px; padding: 1px 7px; }
+.eg-family.death { background: #FDE9E8; color: var(--danger); }
+.eg-family.gold { background: #FBF3E0; color: #B8860B; }
+.eg-rare { margin-left: auto; font-size: 11px; color: var(--text-3); }
+.eg-tone { font-size: 12px; color: var(--text-3); margin-top: 3px; }
+.eg-card p { font-size: 13px; color: var(--text-2); line-height: 1.8; margin-top: 7px; }
+.eg-card .eg-hint { color: var(--text-3); }
+.eg-loading { text-align: center; color: var(--text-3); font-size: 13px; padding: 20px 0; }

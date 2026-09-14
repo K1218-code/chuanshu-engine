@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>穿书引擎 · AI 对话 AVG</title>
+<link rel="stylesheet" href="./css/game.css?v=20260914b">
+</head>
+<body>
+<div id="app" class="game">
+  <header class="topbar">
+    <button class="back" id="btn-back">← 书架</button>
+    <span class="title" id="book-title">AI 对话 AVG</span>
+    <span class="save-dot" id="save-dot" title="云存档状态"></span>
+    <button class="icon-btn" id="btn-panel">面板</button>
+    <button class="icon-btn" id="btn-reset" title="清空进度，重新开始">↺</button>
+  </header>
+
+  <!-- AVG 舞台：章节演出 / 命运节点 / 左上角统一 HUD -->
+  <section class="stage" id="stage">
+    <div class="hud" id="hud"></div>
+    <div class="stage-content">
+      <div class="chapter-banner" id="chapter-banner" hidden><b id="banner-num"></b><span id="banner-name"></span></div>
+      <div class="km-banner" id="km-banner" hidden>命运节点</div>
+      <div class="scene-text" id="scene-text"></div>
+      <div class="next-hint" id="next-hint" hidden>点击跳过 ▼</div>
+    </div>
+  </section>
+
+  <!-- IM 对话流（内部滚动） -->
+  <section class="chat-wrap">
+    <div class="msgs" id="msgs"></div>
+    <div class="typing-hint" id="typing-hint" hidden>叙事引擎正在推演……</div>
+    <div class="quick" id="quick"></div>
+    <div class="input-bar">
+      <input id="input" type="text" maxlength="120" placeholder="固定选项之外的自定义行动：说什么、做什么都行……">
+      <button id="send">送出</button>
+    </div>
+  </section>
+</div>
+
+<!-- 侧栏：角色面板 / 羁绊簿 / 手记 -->
+<aside class="panel" id="panel" hidden>
+  <div class="panel-head">
+    <h3 id="panel-whoami"></h3>
+    <button class="icon-btn" id="btn-panel-close">收起</button>
+  </div>
+  <div class="panel-tabs">
+    <button data-tab="attrs" class="on">面板</button>
+    <button data-tab="rels">羁绊簿</button>
+    <button data-tab="mems">手记</button>
+    <button data-tab="bag">储物袋</button>
+    <button data-tab="settings">设定</button>
+  </div>
+  <div class="panel-body" id="panel-body"></div>
+</aside>
+
+<!-- 身份选择 -->
+<div class="overlay" id="id-overlay" hidden>
+  <div class="id-box">
+    <h2 id="id-title"></h2>
+    <div class="id-sub" id="id-sub"></div>
+    <div class="id-list" id="id-list"></div>
+  </div>
+</div>
+
+<!-- 序章引导：世界观 / 身份 / 玩法 -->
+<div class="overlay" id="prologue-overlay" hidden>
+  <div class="prologue-box">
+    <div class="prologue-head">
+      <span class="prologue-kicker">序 章</span>
+      <h2 id="prologue-title"></h2>
+      <div class="id-sub" id="prologue-sub"></div>
+    </div>
+    <div class="prologue-body" id="prologue-body"></div>
+    <div class="prologue-foot">
+      <button class="btn" id="btn-prologue-start">踏入书中 · 开始第一章</button>
+      <span class="prologue-hint">固定选项之外，你可以做任何事——输入框就是你的自定义选项</span>
+    </div>
+  </div>
+</div>
+
+<!-- 地图探索 -->
+<div class="overlay" id="map-overlay" hidden>
+  <div class="map-box">
+    <h2>地 图</h2>
+    <div class="map-sub" id="map-sub"></div>
+    <div class="map-grid" id="map-grid"></div>
+    <div style="text-align:center;margin-top:18px"><button class="btn ghost" id="btn-map-close">收起地图</button></div>
+  </div>
+</div>
+
+<!-- 结局 -->
+<div class="overlay" id="end-overlay" hidden>
+  <div class="end-box">
+    <div class="end-family" id="end-family"></div>
+    <div class="end-title" id="end-title"></div>
+    <div class="end-tone" id="end-tone"></div>
+    <canvas id="record-canvas" width="600" height="840"></canvas>
+    <div class="end-epilogue" id="end-epilogue"></div>
+    <div class="end-rare" id="end-rare"></div>
+    <div class="end-stats" id="end-stats"></div>
+    <div class="end-actions">
+      <button class="btn" id="btn-save-card">保存战绩卡</button>
+      <button class="btn ghost" id="btn-restart">重新穿书</button>
+      <button class="btn ghost" id="btn-home2">回到书架</button>
+    </div>
+  </div>
+</div>
+
+<div class="chapter-full" id="chapter-full" hidden><b id="cf-num"></b><span id="cf-name"></span></div>
+<div class="chapter-full breakthrough" id="breakthrough-full" hidden><span id="bt-kicker">灵 机 自 涌 · 大 道 相 唤</span><b id="bt-label"></b><span>境 界 突 破</span></div>
+
+<script type="module" src="./js/game.page.js?v=20260914b"></script>
+</body>
+</html>
