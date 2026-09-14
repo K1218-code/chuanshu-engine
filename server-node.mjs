@@ -56,6 +56,20 @@ class SimpleCache {
 }
 if (!globalThis.caches) globalThis.caches = { default: new SimpleCache() };
 
+// ---- .dev.vars 加载器（与 wrangler dev 等价；键已存在于 process.env 时不覆盖） ----
+function loadDevVars() {
+  try {
+    for (const line of readFileSync(path.join(root, '.dev.vars'), 'utf8').split('\n')) {
+      const m = line.match(/^\s*([A-Za-z_][A-Za-z0-9_]*)\s*=\s*(.*)\s*$/);
+      if (!m || line.trim().startsWith('#')) continue;
+      let val = m[2].trim();
+      if ((val.startsWith('"') && val.endsWith('"')) || (val.startsWith("'") && val.endsWith("'"))) val = val.slice(1, -1);
+      if (!(m[1] in process.env)) process.env[m[1]] = val;
+    }
+  } catch { /* 无 .dev.vars 则跳过（线上用平台 Secret） */ }
+}
+loadDevVars();
+
 const env = {
   SESSION_KV: new FileKV('session'),
   SAVE_KV: new FileKV('save'),
@@ -65,12 +79,37 @@ const env = {
   LLM_API_KEY: process.env.LLM_API_KEY || '',
   LLM_BASE_URL: process.env.LLM_BASE_URL || '',
   LLM_MODEL: process.env.LLM_MODEL || '',
+  LLM_MODEL_FALLBACK: process.env.LLM_MODEL_FALLBACK || '',
 };
 
 // ---- 加载 Worker 版 Hono 应用并注入环境 ----
 const modPath = new URL('./worker/index.js', import.meta.url).href;
 const workerMod = await import(modPath);
 const app = workerMod.default;
+
+// ---- 启动时把 public/data 的书籍与语料播种进 FileKV（与线上 KV 种子对齐） ----
+// 覆盖 key 规约见技术文档 §8：book:{id} / story:{workId} / book:forge:{workId}
+import { readdirSync } from 'node:fs';
+function seedKV() {
+  try {
+    const booksDir = path.join(root, 'public', 'data', 'books');
+    for (const f of readdirSync(booksDir).filter((x) => x.endsWith('.json'))) {
+      const novel = JSON.parse(readFileSync(path.join(booksDir, f), 'utf8'));
+      if (novel?.meta?.id) env.SAVE_KV.put(`book:${novel.meta.id}`, JSON.stringify(novel));
+    }
+  } catch { /* 首次目录缺失不阻断 */
+  }
+  try {
+    const idx = JSON.parse(readFileSync(path.join(root, 'public', 'data', 'stories.index.json'), 'utf8'));
+    for (const s of idx.stories || []) {
+      try {
+        const raw = readFileSync(path.join(root, 'public', 'data', 'stories', `${s.work_id}.json`), 'utf8');
+        env.SAVE_KV.put(`story:${s.work_id}`, raw);
+      } catch { /* 单篇缺失跳过 */ }
+    }
+  } catch { /* 无语料索引则跳过 */ }
+}
+seedKV();
 
 const node = new Hono();
 // 环境/平台垫片注入到每个请求（实例级覆盖只读 getter）

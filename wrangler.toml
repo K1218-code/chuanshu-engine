@@ -19,6 +19,16 @@ id = "f7304fb341c04f75a7fa10b8f74b3029"
 binding = "SAVE_KV"
 id = "d9a081dc65544cc6b048be41ae5e05da"
 
+# 长期记忆库（worker/memory.js）：部署前执行
+#   npx wrangler d1 create chuanshu-memory
+#   npx wrangler d1 migrations apply chuanshu-memory --remote
+# 并把返回的 database_id 填到下面
+[[d1_databases]]
+binding = "DB"
+database_name = "chuanshu-memory"
+database_id = "TODO_replace_after_d1_create"
+migrations_dir = "migrations"
+
 [vars]
 # 公开配置；密钥走 wrangler secret put
 ZHIHU_OAUTH_APP_ID = "442"

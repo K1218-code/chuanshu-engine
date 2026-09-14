@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>穿书引擎 · 把故事穿进去玩</title>
 <link rel="stylesheet" href="./css/tokens.css">
-<link rel="stylesheet" href="./css/home.css">
+<link rel="stylesheet" href="./css/home.css?v=20260914b">
 </head>
 <body>
 <div id="app">
@@ -44,7 +44,19 @@
 
   <div class="footer-note">穿书引擎 · 知乎黑客松 2026 · 互动内容由 AI 基于盐言故事生成</div>
 </div>
+
+<!-- 结局图鉴浮层：书籍 → 不同结局与评价总结 -->
+<div class="overlay" id="endings-overlay" hidden>
+  <div class="eg-box">
+    <div class="eg-head-main">
+      <h3 id="eg-title"></h3>
+      <p id="eg-sub"></p>
+      <button class="btn ghost" id="eg-close">收起图鉴</button>
+    </div>
+    <div class="eg-list" id="eg-list"></div>
+  </div>
+</div>
 <div id="toast-root"></div>
-<script type="module" src="./js/home.page.js"></script>
+<script type="module" src="./js/home.page.js?v=20260914b"></script>
 </body>
 </html>
