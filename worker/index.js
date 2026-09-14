@@ -21,7 +21,11 @@ function assertPublicHttpUrl(raw) {
 // ---- 健康检查 ----
 app.get('/api/health', (c) => c.json({ ok: true, app: 'chuanshu-engine', v: 2, ts: Date.now() }));
 
-// ---- 书籍读取：统一 KV（book:{id}，静态书由种子导入，动态书由 forge 生成）----
+// ---- 书籍读取三层：KV（动态书/forge）→ Worker 内置静态书（零延迟兜底）----
+// 内置层由 tools/gen-gm-context.mjs 生成（仅 GM prompt 与 sanitize 所需字段）
+import GM_BOOKS_RAW from './gm-context.generated.json';
+const GM_BOOKS = GM_BOOKS_RAW || {};
+
 async function loadNovel(c, bookId) {
   const id = String(bookId).replace(/[^a-zA-Z0-9_-]/g, '').slice(0, 64);
   if (!id) return null;
@@ -29,6 +33,11 @@ async function loadNovel(c, bookId) {
     const raw = await c.env.SAVE_KV.get(`book:${id}`);
     if (raw) return JSON.parse(raw);
   } catch {}
+  // KV 未命中（免费版传播偶发长延迟）→ 内置静态书兜底：部署即可读
+  if (Object.prototype.hasOwnProperty.call(GM_BOOKS, id)) {
+    const slim = GM_BOOKS[id];
+    if (slim?.meta?.title) return slim;
+  }
   return null;
 }
 
@@ -505,11 +514,9 @@ app.get('/api/forge/status', async (c) => {
 });
 
 app.get('/api/books/:id', async (c) => {
-  const id = (c.req.param('id') || '').replace(/[^a-zA-Z0-9_-]/g, '');
-  if (!id) return c.json({ ok: false }, 400);
-  const raw = await c.env.SAVE_KV.get(`book:${id}`);
-  if (!raw) return c.json({ ok: false, error: { code: 'NOT_FOUND' } }, 404);
-  return c.json(JSON.parse(raw));
+  const novel = await loadNovel(c, c.req.param('id'));
+  if (!novel) return c.json({ ok: false, error: { code: 'NOT_FOUND' } }, 404);
+  return c.json(novel);
 });
 
 // ---- 造世界（彩蛋位：走 forge 管线的精简版，Day2 后半接入） ----
