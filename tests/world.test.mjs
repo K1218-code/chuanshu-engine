@@ -1,7 +1,7 @@
 // 造世界（create 模式）单元测试：类型映射 / story 合成 / 题材推断扩展
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { TYPE_GENRE, buildWorldStory } from '../worker/forge.js';
+import { TYPE_GENRE, buildWorldStory, assembleNovel } from '../worker/forge.js';
 import { inferGenre, GENRE_THEMES } from '../public/js/engine.js';
 
 test('造世界：类型白名单覆盖 create 页全部六类，genre 映射正确', () => {
@@ -31,6 +31,15 @@ test('造世界：buildWorldStory 合成（mode/genre/world_ 前缀/长度截断
   assert.equal(buildWorldStory('科幻', '').genre, 'default');
   // work_id 唯一性
   assert.notEqual(s1.work_id, s2.work_id);
+});
+
+test('造世界：封面 dataURL 随 story 透传进 novel.meta.cover，无封面时字段缺省', () => {
+  const story = buildWorldStory('校园', '测试设定');
+  story.cover = 'data:image/jpeg;base64,' + 'A'.repeat(120);
+  const withCover = assembleNovel(story, { chapterSummaries: [] });
+  assert.ok(withCover.meta.cover.startsWith('data:image/jpeg;base64,'), 'meta.cover 应透传 data URL');
+  const withoutCover = assembleNovel(buildWorldStory('校园', ''), { chapterSummaries: [] });
+  assert.equal(withoutCover.meta.cover, undefined, '未上传封面时不应有 cover 字段');
 });
 
 test('造世界：inferGenre 识别末世/求生关键词 → apocalypse', () => {

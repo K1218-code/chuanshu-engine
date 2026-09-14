@@ -22,3 +22,20 @@ textarea:focus { outline: none; border-color: var(--zhihu-blue); }
 .gen-panel .fill { display: block; height: 100%; width: 0%; border-radius: 4px;
   background: linear-gradient(90deg, var(--zhihu-blue), #4D9AFF); transition: width .5s; }
 .gen-hint { color: var(--text-3); font-size: 12px; margin-bottom: 16px; line-height: 1.7; }
+
+/* 封面上传（像素硬边风，与全站 pixel-ui 一致） */
+.cover-row { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 18px; }
+.cover-box { position: relative; width: 96px; height: 134px; flex: none;
+  border: 2px solid var(--border-strong); background: var(--bg);
+  box-shadow: 4px 4px 0 rgba(36,33,55,.85);
+  display: flex; align-items: center; justify-content: center; text-align: center;
+  cursor: pointer; overflow: hidden; }
+.cover-box:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0 rgba(36,33,55,.85); }
+.cover-placeholder { color: var(--text-3); font-size: 12px; line-height: 1.7; pointer-events: none; }
+.cover-box img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.cover-meta { flex: 1; min-width: 0; }
+.cover-tip { color: var(--text-3); font-size: 12px; line-height: 1.7; margin-bottom: 8px; }
+.cover-actions { display: flex; gap: 8px; }
+.cover-btn { border: 1px solid var(--border-strong); background: var(--bg); font: inherit; font-size: 12px;
+  padding: 4px 12px; cursor: pointer; }
+.cover-btn:hover { border-color: var(--zhihu-blue); color: var(--zhihu-blue); }

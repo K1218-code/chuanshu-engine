@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>穿书引擎 · 创造世界</title>
 <link rel="stylesheet" href="./css/tokens.css">
-<link rel="stylesheet" href="./css/create.css?v=20260915">
+<link rel="stylesheet" href="./css/create.css?v=20260915c">
 <link rel="stylesheet" href="./css/pixel-ui.css?v=20260915">
 </head>
 <body class="pixel-page page-create">
@@ -21,6 +21,21 @@
     <div class="step-label">② 补充你的设定（可留空）</div>
     <textarea id="free" maxlength="50000" placeholder="例：末世第三年，我是唯一记得疫苗配方的人，而追杀我的人是我哥哥……&#10;&#10;也可以直接贴入长篇设定：世界观、力量体系、人物小传、大事年表……越完整，世界越贴合你的想象"></textarea>
     <div class="hint">想写多少写多少——从一句话到 5 万字长篇设定都可以，写得越细，世界越完整。</div>
+    <div class="step-label">③ 传一张封面（可选）</div>
+    <div class="cover-row">
+      <div class="cover-box" id="cover-box" title="点击选择封面图片">
+        <input type="file" id="cover-file" accept="image/*" hidden>
+        <span class="cover-placeholder" id="cover-placeholder">🖼️<br>点击上传<br>封面</span>
+        <img id="cover-preview" alt="" hidden>
+      </div>
+      <div class="cover-meta">
+        <div class="cover-tip">封面会显示在书架卡片和游戏场景头图。<br>支持 JPG / PNG / WebP，自动压缩。</div>
+        <div class="cover-actions">
+          <button type="button" class="cover-btn" id="cover-change" hidden>更换</button>
+          <button type="button" class="cover-btn" id="cover-clear" hidden>移除</button>
+        </div>
+      </div>
+    </div>
     <button class="btn block" id="go">生成我的世界（AI 现场创作）</button>
     <div class="hint" style="text-align:center;margin-top:10px" id="status"></div>
   </div>
@@ -37,6 +52,6 @@
   </div>
 </div>
 <div id="toast-root"></div>
-<script type="module" src="./js/create.page.js?v=20260915"></script>
+<script type="module" src="./js/create.page.js?v=20260915c"></script>
 </body>
 </html>

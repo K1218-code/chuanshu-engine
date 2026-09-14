@@ -265,6 +265,7 @@ export function assembleNovel(story, acc) {
       author: story.author || '盐言故事',
       source: story.mode === 'create' ? 'ai_created' : 'zhihu_yanyan',
       genre: story.genre || undefined,
+      cover: story.cover || undefined, // 造世界用户上传封面（data URL）；改编书走静态 assets 路径
       intro: acc.intro,
       chapters_covered: chapters.map((c) => c.chapter),
       schema: 2,

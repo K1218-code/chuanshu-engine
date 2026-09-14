@@ -519,7 +519,13 @@ app.post('/api/forge', async (c) => {
     const type = String(body.world.type || '');
     const free = String(body.world.free || '').slice(0, 50000);
     if (!TYPE_GENRE[type]) return c.json({ ok: false, error: { code: 'BAD_TYPE', message: '未知的世界类型' } }, 400);
+    // 可选封面：前端压缩后的 data URL，白名单格式 + 大小上限（写进书籍 meta 随书存 KV）
+    const cover = String(body.cover || '');
+    if (cover && (!/^data:image\/(jpeg|png|webp);base64,[A-Za-z0-9+/=]+$/.test(cover) || cover.length > 220000)) {
+      return c.json({ ok: false, error: { code: 'BAD_COVER', message: '封面图片格式或大小不符' } }, 400);
+    }
     const story = buildWorldStory(type, free);
+    if (cover) story.cover = cover;
     const rlKey = `world:rl:${(await getUserHash(c))}`;
     const used = Number(await env.SAVE_KV.get(rlKey)) || 0;
     if (used >= WORLD_DAILY_LIMIT) {
