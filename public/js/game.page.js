@@ -1249,7 +1249,7 @@ function showIdentityPicker() {
     if (!loaded) throw new Error('书籍数据不可用（静态与 API 源均失败）');
     novel = loaded;
     novelBase = structuredClone(novel);
-    if (bookId.startsWith('forge_')) markPlayed(); // 拆的新书进入过游戏 → 入栏，下次免重新拆
+    if (/^(forge|world)_/.test(bookId)) markPlayed(); // 拆的新书/造的世界进入过游戏 → 入栏，下次免重拆重造
     document.title = `${novel.meta.title} · AI对话AVG`;
     $('book-title').textContent = novel.meta.title;
     state = null;

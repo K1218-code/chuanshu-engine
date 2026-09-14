@@ -446,6 +446,7 @@ export const GENRE_THEMES = {
   xiuxian: { hue: 44, sat: 80, label: '修仙 · 明金' },
   romance: { hue: 335, sat: 72, label: '言情 · 暧昧粉' },
   horror: { hue: 355, sat: 45, dark: true, label: '恐怖 · 暗夜' },
+  apocalypse: { hue: 28, sat: 68, dark: true, label: '末世 · 暗橙' },
   suspense: { hue: 262, sat: 55, label: '悬疑 · 幽紫' },
   default: { hue: 222, sat: 62, label: '星蓝' },
 };
@@ -456,6 +457,7 @@ export function inferGenre(novel) {
   if (g && GENRE_THEMES[g]) return g;
   const text = [...(novel?.meta?.tags || []), novel?.meta?.title || '', novel?.meta?.intro || ''].join(' ');
   if (/修仙|修真|玄幻|仙侠|凡人流/.test(text)) return 'xiuxian';
+  if (/末世|废土|丧尸|求生/.test(text)) return 'apocalypse';
   if (/恐怖|惊悚|诡异|怪谈|克苏鲁/.test(text)) return 'horror';
   if (/悬疑|推理|犯罪|刑侦/.test(text)) return 'suspense';
   if (/言情|校园|暗恋|甜宠|暧昧|都市|总裁|宫廷|喜剧|恋爱/.test(text)) return 'romance';

@@ -5,27 +5,37 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>穿书引擎 · 创造世界</title>
 <link rel="stylesheet" href="./css/tokens.css">
-<link rel="stylesheet" href="./css/create.css">
+<link rel="stylesheet" href="./css/create.css?v=20260915">
 </head>
 <body>
 <div id="app">
   <div class="topbar">
     <button class="back" id="btn-back">← 书架</button>
     <span class="title">创造世界</span>
-    <span class="sub">30 秒</span>
+    <span class="sub">AI 原创</span>
   </div>
   <div class="wizard">
     <div class="step-label">① 选一个世界观</div>
     <div class="opt-grid" id="types"></div>
     <div class="step-label">② 补充你的设定（可留空）</div>
-    <textarea id="free" placeholder="例：末世第三年，我是唯一记得疫苗配方的人，而追杀我的人是我哥哥……"></textarea>
+    <textarea id="free" maxlength="300" placeholder="例：末世第三年，我是唯一记得疫苗配方的人，而追杀我的人是我哥哥……"></textarea>
     <div class="hint">写得越具体，世界越像你的。≤300 字。</div>
-    <button class="btn block" id="go">生成我的世界（AI 现场拆解）</button>
+    <button class="btn block" id="go">生成我的世界（AI 现场创作）</button>
     <div class="hint" style="text-align:center;margin-top:10px" id="status"></div>
   </div>
   <div class="footer-note">内容由 AI 生成 · 仅供比赛演示</div>
 </div>
+
+<div class="overlay" id="gen-overlay" hidden>
+  <div class="gen-panel">
+    <h2 id="gen-title">创造你的世界</h2>
+    <p class="gen-label" id="gen-label">正在创建任务……</p>
+    <div class="bar"><div class="fill" id="gen-fill"></div></div>
+    <p class="gen-hint" id="gen-hint">AI 正在为你原创一个可玩世界，约需 3-7 分钟</p>
+    <button class="btn ghost" id="gen-cancel">取消</button>
+  </div>
+</div>
 <div id="toast-root"></div>
-<script type="module" src="./js/create.page.js?v=20260914"></script>
+<script type="module" src="./js/create.page.js?v=20260915"></script>
 </body>
 </html>

@@ -10,3 +10,15 @@ textarea { width: 100%; min-height: 110px; border: 1px solid var(--border-strong
   padding: 12px; font: inherit; font-size: 14px; resize: vertical; }
 textarea:focus { outline: none; border-color: var(--zhihu-blue); }
 .hint { color: var(--text-3); font-size: 12px; margin: 6px 0 18px; }
+
+/* 造世界进度浮层（与 stories 页同款） */
+.overlay { position: fixed; inset: 0; z-index: 80; background: rgba(18,18,18,.55); backdrop-filter: blur(3px);
+  display: flex; align-items: center; justify-content: center; padding: 18px; }
+.gen-panel { max-width: 420px; width: 100%; background: var(--bg); border: 1px solid var(--border); border-radius: 14px;
+  padding: 26px 24px; text-align: center; }
+.gen-panel h2 { font-size: 18px; margin-bottom: 8px; }
+.gen-label { color: var(--text-2); font-size: 13.5px; margin-bottom: 14px; }
+.gen-panel .bar { height: 8px; border-radius: 4px; background: var(--bg-gray); overflow: hidden; margin-bottom: 12px; }
+.gen-panel .fill { display: block; height: 100%; width: 0%; border-radius: 4px;
+  background: linear-gradient(90deg, var(--zhihu-blue), #4D9AFF); transition: width .5s; }
+.gen-hint { color: var(--text-3); font-size: 12px; margin-bottom: 16px; line-height: 1.7; }

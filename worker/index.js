@@ -451,11 +451,33 @@ app.post('/api/summary', async (c) => {
 });
 
 // ---- 选书现场生成 /api/forge（技术文档 §6.3A；管线 v2 见 forge.js）----
-import { STAGES, assembleNovel, sanityCheck } from './forge.js';
+// 两种模式共用一条管线：workId=拆书（忠实改编）；world=造世界（零素材原创，S1 换创作指令）
+import { STAGES, assembleNovel, sanityCheck, buildWorldStory, TYPE_GENRE } from './forge.js';
+
+const WORLD_DAILY_LIMIT = 3; // 每匿名用户每天可创造世界次数（LLM 成本防护）
 
 app.post('/api/forge', async (c) => {
   const env = c.env;
-  const { workId } = await c.req.json().catch(() => ({}));
+  const body = await c.req.json().catch(() => ({}));
+
+  // 造世界模式：类型白名单 + 300 字设定 → 合成 story 进管线；限流 3 次/天
+  if (body.world) {
+    const type = String(body.world.type || '');
+    const free = String(body.world.free || '').slice(0, 500);
+    if (!TYPE_GENRE[type]) return c.json({ ok: false, error: { code: 'BAD_TYPE', message: '未知的世界类型' } }, 400);
+    const story = buildWorldStory(type, free);
+    const rlKey = `world:rl:${(await getUserHash(c))}`;
+    const used = Number(await env.SAVE_KV.get(rlKey)) || 0;
+    if (used >= WORLD_DAILY_LIMIT) {
+      return c.json({ ok: false, error: { code: 'RATE_LIMITED', message: `今天的创世界次数用完了（${WORLD_DAILY_LIMIT} 次/天），明天再来` } }, 429);
+    }
+    await env.SAVE_KV.put(rlKey, String(used + 1), { expirationTtl: 86400 });
+    const jobId = crypto.randomUUID().slice(0, 12);
+    await env.SAVE_KV.put(`job:${jobId}`, JSON.stringify({ workId: story.work_id, mode: 'create', stage: 0, acc: { chapterSummaries: [] }, story }), { expirationTtl: 3600 });
+    return c.json({ ok: true, jobId, bookId: `world_${story.work_id}` });
+  }
+
+  const { workId } = body;
   if (!/^\d{4,32}$/.test(String(workId || ''))) return c.json({ ok: false, error: { code: 'BAD_ID', message: '无效的故事 ID' } }, 400);
 
   const cached = await env.SAVE_KV.get(`book:forge:${workId}`);
