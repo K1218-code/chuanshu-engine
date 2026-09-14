@@ -144,7 +144,10 @@ async function zhihuCallback(c) {
   } catch { /* /user 无正式 schema，失败不阻断 */ }
 
   const sessionId = randomHex(12);
-  await env.SESSION_KV.put(`sess:${sessionId}`, JSON.stringify({ token, profile, ts: Date.now() }), { expirationTtl: 30 * 24 * 3600 });
+  // token 有效期两份官方文档矛盾（数据平台示例 3600s / OAuth Skill 文档 30 天），按响应值保守记录；
+  // session 仍 30 天，后续带 X-OAuth-Token 调用户数据接口前须检查 token_expires_at
+  const tokenExpiresIn = Number(payload?.expires_in) > 0 ? Number(payload.expires_in) : 3600;
+  await env.SESSION_KV.put(`sess:${sessionId}`, JSON.stringify({ token, token_expires_at: Date.now() + tokenExpiresIn * 1000, profile, ts: Date.now() }), { expirationTtl: 30 * 24 * 3600 });
   c.header('Set-Cookie', `sid=${sessionId}; HttpOnly; Secure; SameSite=Lax; Path=/; Max-Age=${30 * 24 * 3600}`);
   c.header('Set-Cookie', 'cs_state=; HttpOnly; Secure; SameSite=Lax; Path=/; Max-Age=0');
 
