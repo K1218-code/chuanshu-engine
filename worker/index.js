@@ -2,12 +2,19 @@
 // 静态资源由 Workers Assets 托管（wrangler.toml [assets]），本文件只负责 API。
 // v2：GM Prompt 融合「叙事者裁定规则 + IM演出格式」；长期记忆（D1/KV）；存档同步。
 import { Hono } from 'hono';
-import { createMemoryStore } from './memory.js';
+import { createMemoryStore, purgeExpiredAnon } from './memory.js';
 import { assertPublicHttpUrl } from './guard.js';
 
 const app = new Hono();
 
 // ---- 健康检查 ----
+// 裸路径兼容：手输 /game 等无后缀地址时 301 到 .html（路由收紧为 not_found_handling=none 后的容错）
+const PRETTY_PAGES = { '/game': '/game.html', '/stories': '/stories.html', '/create': '/create.html', '/avg': '/game.html', '/chat': '/game.html' };
+app.get(Object.keys(PRETTY_PAGES), (c) => {
+  const url = new URL(c.req.url);
+  return c.redirect(PRETTY_PAGES[url.pathname] + url.search, 301);
+});
+
 app.get('/api/health', (c) => c.json({ ok: true, app: 'chuanshu-engine', v: 2, ts: Date.now() }));
 
 // ---- 书籍读取三层：KV（动态书/forge）→ Worker 内置静态书（零延迟兜底）----
@@ -85,6 +92,7 @@ async function getUserHash(c) {
   return `anon:${anon}`;
 }
 
+// 真实知乎 OAuth：跳转授权页（回调换 token 后自动迁移游客存档并建立 30 天会话）
 app.get('/auth/zhihu/login', async (c) => {
   const env = c.env;
   if (!env.ZHIHU_OAUTH_APP_ID || !env.ZHIHU_OAUTH_APP_KEY || !env.ZHIHU_OAUTH_REDIRECT_URI) {
@@ -134,10 +142,49 @@ app.get('/auth/zhihu/callback', async (c) => {
   } catch { /* /user 无正式 schema，失败不阻断 */ }
 
   const sessionId = randomHex(12);
-  await env.SESSION_KV.put(`sess:${sessionId}`, JSON.stringify({ token, profile, ts: Date.now() }), { expirationTtl: 7 * 24 * 3600 });
-  c.header('Set-Cookie', `sid=${sessionId}; HttpOnly; Secure; SameSite=Lax; Path=/; Max-Age=${7 * 24 * 3600}`);
+  await env.SESSION_KV.put(`sess:${sessionId}`, JSON.stringify({ token, profile, ts: Date.now() }), { expirationTtl: 30 * 24 * 3600 });
+  c.header('Set-Cookie', `sid=${sessionId}; HttpOnly; Secure; SameSite=Lax; Path=/; Max-Age=${30 * 24 * 3600}`);
   c.header('Set-Cookie', 'cs_state=; HttpOnly; Secure; SameSite=Lax; Path=/; Max-Age=0');
+
+  // 登录迁移：匿名期间产生的存档划归登录账号（memories/summaries 以 save_id 关联自动跟随），并转为永久保留
+  try {
+    const anon = getCookie(c.req.header('Cookie') || '', 'cs_anon');
+    if (anon && /^[a-f0-9]{24}$/.test(anon)) {
+      const store = createMemoryStore(env);
+      if (store?.migrateUser) await store.migrateUser(`anon:${anon}`, `zh:${(await sha256(token)).slice(0, 24)}`);
+    }
+  } catch { /* 迁移失败不阻断登录 */ }
   return c.redirect('/?oauth=success');
+});
+
+// 退出登录：销毁服务端 session 并清除 cookie（匿名 cookie 保留，新游客数据继续可用）
+// 演示登录（OAUTH_MOCK=true 时开放）：跳过知乎授权，以「演示用户」建立会话。
+// 身份由访客匿名 cookie 派生——同一访客多次登录身份稳定，不同访客相互独立；游客存档同样迁移为永久。
+app.get('/auth/demo/login', async (c) => {
+  const env = c.env;
+  if (env.OAUTH_MOCK !== 'true') return c.json({ ok: false, error: { code: 'DEMO_DISABLED' } }, 404);
+  let anon = getCookie(c.req.header('Cookie') || '', 'cs_anon');
+  if (!anon || !/^[a-f0-9]{24}$/.test(anon)) {
+    anon = randomHex(12);
+    c.header('Set-Cookie', `cs_anon=${anon}; HttpOnly; Secure; SameSite=Lax; Path=/; Max-Age=${365 * 24 * 3600}`);
+  }
+  const token = `mock:${anon}`;
+  const sessionId = randomHex(12);
+  await env.SESSION_KV.put(`sess:${sessionId}`, JSON.stringify({ token, profile: { name: '演示用户', mock: true }, ts: Date.now() }), { expirationTtl: 30 * 24 * 3600 });
+  c.header('Set-Cookie', `sid=${sessionId}; HttpOnly; Secure; SameSite=Lax; Path=/; Max-Age=${30 * 24 * 3600}`);
+  try {
+    const store = createMemoryStore(env);
+    if (store?.migrateUser) await store.migrateUser(`anon:${anon}`, `zh:${(await sha256(token)).slice(0, 24)}`);
+  } catch { /* 迁移失败不阻断登录 */ }
+  return c.redirect('/?oauth=success');
+});
+
+app.get('/auth/logout', async (c) => {
+  const env = c.env;
+  const sid = getCookie(c.req.header('Cookie') || '', 'sid');
+  if (sid) await env.SESSION_KV.delete(`sess:${sid}`).catch(() => {});
+  c.header('Set-Cookie', 'sid=; HttpOnly; Secure; SameSite=Lax; Path=/; Max-Age=0');
+  return c.redirect('/?oauth=logout');
 });
 
 function getCookie(header, name) {
@@ -147,11 +194,12 @@ function getCookie(header, name) {
 
 app.get('/api/me', async (c) => {
   const sid = getCookie(c.req.header('Cookie') || '', 'sid');
-  if (!sid) return c.json({ ok: false, error: { code: 'NOT_LOGGED_IN' } }, 401);
+  const mockFlag = { oauthMock: c.env.OAUTH_MOCK === 'true' };
+  if (!sid) return c.json({ ok: false, error: { code: 'NOT_LOGGED_IN' }, ...mockFlag }, 401);
   const sess = await c.env.SESSION_KV.get(`sess:${sid}`);
-  if (!sess) return c.json({ ok: false, error: { code: 'SESSION_EXPIRED' } }, 401);
+  if (!sess) return c.json({ ok: false, error: { code: 'SESSION_EXPIRED' }, ...mockFlag }, 401);
   const { profile } = JSON.parse(sess);
-  return c.json({ ok: true, name: profile?.name || '知乎用户', avatarUrl: profile?.avatarUrl || null });
+  return c.json({ ok: true, name: profile?.name || '知乎用户', avatarUrl: profile?.avatarUrl || null, mock: profile?.mock === true });
 });
 
 // ============================================================
@@ -414,9 +462,10 @@ app.get('/api/save/load', async (c) => {
     const userHash = await getUserHash(c);
     const sid = saveId || await store.findLatestSave(userHash, bookId);
     if (!sid) return c.json({ ok: true, found: false });
-    // 归属校验：他人存档按不存在处理（不泄露其存在性）
+    // 归属 + 过期校验：他人存档、已过期的匿名档均按不存在处理（不泄露其存在性）
     const owner = await store.getOwner(sid).catch(() => null);
-    if (saveId && owner && owner !== userHash) return c.json({ ok: true, found: false });
+    if (saveId && !owner) return c.json({ ok: true, found: false }); // 显式 saveId 但已过期/不存在
+    if (owner && owner !== userHash) return c.json({ ok: true, found: false });
     const state = await store.loadState(sid);
     if (!state) return c.json({ ok: true, found: false });
     const [memories, summaries] = await Promise.all([store.loadMemories(sid, 8), store.getSummaries(sid)]);
@@ -463,7 +512,7 @@ app.post('/api/forge', async (c) => {
   // 造世界模式：类型白名单 + 300 字设定 → 合成 story 进管线；限流 3 次/天
   if (body.world) {
     const type = String(body.world.type || '');
-    const free = String(body.world.free || '').slice(0, 500);
+    const free = String(body.world.free || '').slice(0, 50000);
     if (!TYPE_GENRE[type]) return c.json({ ok: false, error: { code: 'BAD_TYPE', message: '未知的世界类型' } }, 400);
     const story = buildWorldStory(type, free);
     const rlKey = `world:rl:${(await getUserHash(c))}`;
@@ -561,4 +610,10 @@ app.get('/api/books/:id', async (c) => {
 // ---- 造世界（彩蛋位：走 forge 管线的精简版，Day2 后半接入） ----
 app.post('/api/world', (c) => c.json({ ok: false, error: { code: 'NOT_IMPLEMENTED', message: '造世界管线随部署开放' } }, 501));
 
-export default app;
+// Cron Trigger（wrangler.toml [triggers] 每小时）：清理超 24h 的匿名存档及关联记忆/摘要
+async function scheduled(event, env, ctx) {
+  ctx.waitUntil(purgeExpiredAnon(env));
+}
+
+// 对象导出：fetch 常规请求 + scheduled 定时清理（server-node.mjs 取 .fetch 兼容）
+export default { fetch: (req, env, ctx) => app.fetch(req, env, ctx), scheduled };

@@ -5,379 +5,2715 @@
     "author": "风歌且行（改编）",
     "source": "jjwxc_reference",
     "intro": "暗恋十年的小师弟葬身火海，全世界都信了，只有你背起木剑下山救他——可队伍里那个自称「沈策」的恶劣外门生，为什么越来越像他？五幕修仙言情：外门重逢、黄沙迷城、酆都鬼蜮、互明之劫、指天破誓。",
-    "chapters_covered": [1, 2, 3, 4, 5],
+    "chapters_covered": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
     "schema": 2,
     "ai_disclaimer": true,
     "rating_hint": "general",
     "generated_at": "2026-09-15T00:00:00.000Z",
-    "genre": "xiuxian"
+    "genre": "romance"
   },
   "canon_rules": [
-    { "id": "r1", "rule": "沈溪山人前温润如玉、见面三礼；人后白切黑毒舌恶劣——「闭嘴」一出，整个人界都安静", "type": "character", "source_chapter": 1 },
-    { "id": "r2", "rule": "宋小河话痨乐天、脸皮厚、特记仇；打架不行，关键时刻胆大心细，骂人不打草稿", "type": "character", "source_chapter": 1 },
-    { "id": "r3", "rule": "沈溪山修无情道，动情即禁咒灼痛、修为停滞——他的人界飞升希望，以断情为代价", "type": "world", "source_chapter": 1 },
-    { "id": "r4", "rule": "沈溪山灵力被封、易容化名「沈策」潜伏；害他者必在仙盟高层——查清真相前身份绝不能暴露", "type": "structure", "source_chapter": 1 },
-    { "id": "r5", "rule": "步时鸢的卦从不出错：宋小河十七岁子时有一死劫——但死劫应验之处，也是龙魂觉醒之时", "type": "structure", "source_chapter": 2 },
-    { "id": "r6", "rule": "全书的糖与刀都来自信息差：她不知道沈策就是小师弟，他不知道她已喜欢了自己十年", "type": "structure", "source_chapter": 2 }
+    {
+      "id": "r1",
+      "rule": "沈溪山人前温润如玉、见面三礼；人后白切黑毒舌恶劣——「闭嘴」一出，整个人界都安静",
+      "type": "character",
+      "source_chapter": 1
+    },
+    {
+      "id": "r2",
+      "rule": "宋小河话痨乐天、脸皮厚、特记仇；打架不行，关键时刻胆大心细，骂人不打草稿",
+      "type": "character",
+      "source_chapter": 1
+    },
+    {
+      "id": "r3",
+      "rule": "沈溪山修无情道，动情即禁咒灼痛、修为停滞——他的人界飞升希望，以断情为代价",
+      "type": "world",
+      "source_chapter": 1
+    },
+    {
+      "id": "r4",
+      "rule": "沈溪山灵力被封、易容化名「沈策」潜伏；害他者必在仙盟高层——查清真相前身份绝不能暴露",
+      "type": "structure",
+      "source_chapter": 1
+    },
+    {
+      "id": "r5",
+      "rule": "步时鸢的卦从不出错：宋小河十七岁子时有一死劫——但死劫应验之处，也是龙魂觉醒之时",
+      "type": "structure",
+      "source_chapter": 2
+    },
+    {
+      "id": "r6",
+      "rule": "全书的糖与刀都来自信息差：她不知道沈策就是小师弟，他不知道她已喜欢了自己十年",
+      "type": "structure",
+      "source_chapter": 2
+    }
   ],
   "lorebook": [
-    { "keys": ["无情道", "断情禁咒", "禁咒", "道心"], "content": "盟主青璃在沈溪山十二岁时亲下断情禁咒：动情则后颈「禁」字由黑转红、灼痛示警，修为停滞。这是他「人界飞升唯一希望」身份的代价。弃道需指天破誓、自散八成修为。", "constant": true, "insertion_order": 1 },
-    { "keys": ["酆都鬼蜮", "鬼蜮", "秘境"], "content": "废弃的冥界之门，龙神残留力量演化的妖城；凡人食此地之物会被诅咒妖化，甜口绿果可解。城主魔神无眼、凭血认人，座下护法玉夭（情惑）与梦魇（噩梦妖树）。", "constant": true, "insertion_order": 5 },
-    { "keys": ["业火红莲", "红莲", "龙魂", "龙神", "封印"], "content": "宋小河体内封印所封是龙魂：死劫应验时封印碎裂，龙角乍现、万灵俯首；业火红莲（八寒炼狱核心）随之入体——六界头一个未被侵蚀的宿主。泄露即六界震动。", "constant": true, "insertion_order": 3 },
-    { "keys": ["死劫", "大凶", "卜算", "卦"], "content": "步时鸢为宋小河所起：「你会死。十七岁之前有一个死劫。」死劫应在十七岁生日的子时——那一刻也是体内龙魂封印的觉醒时刻。她的卦，从不出错。", "constant": false, "insertion_order": 10 },
-    { "keys": ["日晷神仪", "神器", "时空"], "content": "掌控世间时间的上古神器，可逆转时空，六界争抢的宝贝；仙盟队伍名义上的任务目标。真神器的下落，牵着一桩三十七年前的旧案。", "constant": false, "insertion_order": 12 },
-    { "keys": ["风雷咒", "玉葫芦", "雷法", "九天神雷"], "content": "可借九天神雷的至强符箓，本已失传；师父梁檀的雷玉葫芦存着毕生所炼之雷，用一点少一点。后世为纪念其兄长梁颂微，改名「清檀雷法」。", "constant": false, "insertion_order": 15 },
-    { "keys": ["共感咒", "缚灵绳", "黑痣"], "content": "「看我所看，听我所听，受我所受。」沈溪山借荒村夜惊与宋小河十指相扣结下的咒，腕上生一粒黑痣——名为防她乱跑，实为随时知道她安不安全。", "constant": false, "insertion_order": 18 },
-    { "keys": ["仙盟", "猎门", "审门", "督门", "天字级"], "content": "仙界所立的人界联盟：猎门司战斗（丁乙丙甲天五级）、审门司法、督门后勤。等级森严：丁级与天字级之间，隔着宋小河口中的「十万大山」。", "constant": false, "insertion_order": 20 },
-    { "keys": ["同床", "爬床", "睡梦"], "content": "宋小河明明睡在自己房里，晨起却总在沈策臂弯里——贴一道符无效，三道符也无效。真相：龙珠与本体隔空相吸，是封印同源者的本能靠近。", "constant": false, "insertion_order": 22 }
+    {
+      "keys": [
+        "无情道",
+        "断情禁咒",
+        "禁咒",
+        "道心"
+      ],
+      "content": "盟主青璃在沈溪山十二岁时亲下断情禁咒：动情则后颈「禁」字由黑转红、灼痛示警，修为停滞。这是他「人界飞升唯一希望」身份的代价。弃道需指天破誓、自散八成修为。",
+      "constant": true,
+      "insertion_order": 1
+    },
+    {
+      "keys": [
+        "酆都鬼蜮",
+        "鬼蜮",
+        "秘境"
+      ],
+      "content": "废弃的冥界之门，龙神残留力量演化的妖城；凡人食此地之物会被诅咒妖化，甜口绿果可解。城主魔神无眼、凭血认人，座下护法玉夭（情惑）与梦魇（噩梦妖树）。",
+      "constant": true,
+      "insertion_order": 5
+    },
+    {
+      "keys": [
+        "业火红莲",
+        "红莲",
+        "龙魂",
+        "龙神",
+        "封印"
+      ],
+      "content": "宋小河体内封印所封是龙魂：死劫应验时封印碎裂，龙角乍现、万灵俯首；业火红莲（八寒炼狱核心）随之入体——六界头一个未被侵蚀的宿主。泄露即六界震动。",
+      "constant": true,
+      "insertion_order": 3
+    },
+    {
+      "keys": [
+        "死劫",
+        "大凶",
+        "卜算",
+        "卦"
+      ],
+      "content": "步时鸢为宋小河所起：「你会死。十七岁之前有一个死劫。」死劫应在十七岁生日的子时——那一刻也是体内龙魂封印的觉醒时刻。她的卦，从不出错。",
+      "constant": false,
+      "insertion_order": 10
+    },
+    {
+      "keys": [
+        "日晷神仪",
+        "神器",
+        "时空"
+      ],
+      "content": "掌控世间时间的上古神器，可逆转时空，六界争抢的宝贝；仙盟队伍名义上的任务目标。真神器的下落，牵着一桩三十七年前的旧案。",
+      "constant": false,
+      "insertion_order": 12
+    },
+    {
+      "keys": [
+        "风雷咒",
+        "玉葫芦",
+        "雷法",
+        "九天神雷"
+      ],
+      "content": "可借九天神雷的至强符箓，本已失传；师父梁檀的雷玉葫芦存着毕生所炼之雷，用一点少一点。后世为纪念其兄长梁颂微，改名「清檀雷法」。",
+      "constant": false,
+      "insertion_order": 15
+    },
+    {
+      "keys": [
+        "共感咒",
+        "缚灵绳",
+        "黑痣"
+      ],
+      "content": "「看我所看，听我所听，受我所受。」沈溪山借荒村夜惊与宋小河十指相扣结下的咒，腕上生一粒黑痣——名为防她乱跑，实为随时知道她安不安全。",
+      "constant": false,
+      "insertion_order": 18
+    },
+    {
+      "keys": [
+        "仙盟",
+        "猎门",
+        "审门",
+        "督门",
+        "天字级"
+      ],
+      "content": "仙界所立的人界联盟：猎门司战斗（丁乙丙甲天五级）、审门司法、督门后勤。等级森严：丁级与天字级之间，隔着宋小河口中的「十万大山」。",
+      "constant": false,
+      "insertion_order": 20
+    },
+    {
+      "keys": [
+        "同床",
+        "爬床",
+        "睡梦"
+      ],
+      "content": "宋小河明明睡在自己房里，晨起却总在沈策臂弯里——贴一道符无效，三道符也无效。真相：龙珠与本体隔空相吸，是封印同源者的本能靠近。",
+      "constant": false,
+      "insertion_order": 22
+    }
   ],
   "characters": [
-    { "id": "xsh", "name": "宋小河", "role": "lead", "description": "仙盟最废的内门弟子，暗恋小师弟十年；话多、乐天、记仇，关键时刻胆大心细。", "appearance": "黑色莲纹外袍，双丸子头缀四条小辫，辫尾四个小铜板，腰间一把木剑。", "anchor": "没见到小师弟的尸骨之前，绝不相信他死了。", "mind": "嘴上没一句正经，心里把小师弟看了十年；怕死，但更怕他真的死了没人救。", "voice": "「小师弟简直是吾辈楷模。」\n「谁？站到我面前来说话！」", "first_mes": "（她抱着扫帚从叶子堆里抬头，小声嘀咕）小师弟今天……也会来前山吗？", "avatar": "河", "tone": "溢" },
-    { "id": "sxs", "name": "沈溪山", "role": "lead", "description": "江南沈氏独子，三岁入盟的「少剑仙」，猎门天字级；假死后易容化名沈策潜伏外门。", "appearance": "雪白流萤袍、金丝冠、眉间一颗朱砂痣；易容后是个灰衣高个少年。", "anchor": "人前温润行三礼，人后恶劣不讲理；任何人、任何规矩，都休想约束我。", "mind": "无情道修了七年，直到那个吵闹的师姐一遍遍撞进他的布局里——禁咒发烫那天他才知道什么叫守不住。", "voice": "「闭嘴。」——于是整个人界都安静了。\n「我为什么要给他假的？」", "first_mes": "（少年从树上瞥你一眼，眼神像在看一件麻烦事）……又哭了？吵死了。", "avatar": "沈", "tone": "藏", "favor_init": 5 },
-    { "id": "bsy", "name": "步时鸢", "role": "support", "description": "病弱的游方卦师，「我的卦，从不出错」；一路「恰好」出现在所有关键节点。", "appearance": "灰扑扑道袍，木簪挽发，脸色病态苍白，袖中藏着一只墨色罗盘。", "anchor": "卦已出，概不退银钱；天机已泄，业果自负。", "mind": "她算到了每一步，也赔上了自己的百年——这一次，她要把欠的还完。", "voice": "「你会死。大凶之卦，你有一个死劫，在十七岁之前。」\n「我的卦，从不出错。」", "first_mes": "（她转着墨盘抬头，笑意浅淡）相遇即是缘分。十文一卦，可要试试？", "avatar": "鸢", "tone": "惑", "favor_init": 20 },
-    { "id": "sml", "name": "苏暮临", "role": "support", "description": "外门弟子，沈策的「狗腿」，狂信龙神；实为魔界流落人间的小王子桑暮临。", "appearance": "清秀少年，惯常一脸谄媚的笑，跑得比谁都快，跪得比谁都熟。", "anchor": "大人指哪我打哪——但龙神大人排第一。", "mind": "他抱着两头下注的心思跟队，却把命一次次填在同路人身上。", "voice": "「龙神大人万岁——」\n「并不相熟。但会睡在一起。」", "first_mes": "（他凑过来压低声音）要打听消息吗？我知道一条下山的小路哦。", "avatar": "苏", "tone": "缠", "favor_init": 30 },
-    { "id": "lt", "name": "梁檀", "role": "support", "description": "「敬良师尊」，宋小河的师父，六十多岁嘴毒心软的小老头；藏着一段双生子旧案。", "appearance": "眉毛胡子一大把，能幻化成画上年轻的模样；法器穷酸，牙口不好。", "anchor": "骂归骂，徒弟下山要带糖，牙掉了要捡回来。", "mind": "他这一生都在等一句「哥哥」，却先学会了怎么当好一个师父。", "voice": "「我怎么会收了你这么个蠢徒弟！」\n「你的脑子整日除了吃，就是惦记姓沈的那小子。」", "first_mes": "（老头吹胡子瞪眼，抄起鞋）宋小河！又偷吃！手伸出来！", "avatar": "梁", "tone": "烈", "favor_init": 80 },
-    { "id": "xg", "name": "谢归", "role": "support", "description": "寒天宗弟子，字春棠，温润多金；身负百二十年前的亡国执念。", "appearance": "织金镶玉的宗服，说话不徐不疾，耳根容易红。", "anchor": "温润是他的皮，愧疚是他的骨。", "mind": "他守着一桩百年前的旧案等一个人回来——等到了，却认不出。", "voice": "「姑娘过奖。」\n「宋姑娘还是莫要与他们起冲突的好。」", "first_mes": "（他抬手一诀，清风拂净你发间黄沙）姑娘，我来帮你吧。", "avatar": "谢", "tone": "净", "favor_init": 20 }
+    {
+      "id": "xsh",
+      "name": "宋小河",
+      "role": "lead",
+      "description": "仙盟最废的内门弟子，暗恋小师弟十年；话多、乐天、记仇，关键时刻胆大心细。",
+      "appearance": "黑色莲纹外袍，双丸子头缀四条小辫，辫尾四个小铜板，腰间一把木剑。",
+      "anchor": "没见到小师弟的尸骨之前，绝不相信他死了。",
+      "mind": "嘴上没一句正经，心里把小师弟看了十年；怕死，但更怕他真的死了没人救。",
+      "voice": "「小师弟简直是吾辈楷模。」\n「谁？站到我面前来说话！」",
+      "first_mes": "（她抱着扫帚从叶子堆里抬头，小声嘀咕）小师弟今天……也会来前山吗？",
+      "avatar": "河",
+      "tone": "溢"
+    },
+    {
+      "id": "sxs",
+      "name": "沈溪山",
+      "role": "lead",
+      "description": "江南沈氏独子，三岁入盟的「少剑仙」，猎门天字级；假死后易容化名沈策潜伏外门。",
+      "appearance": "雪白流萤袍、金丝冠、眉间一颗朱砂痣；易容后是个灰衣高个少年。",
+      "anchor": "人前温润行三礼，人后恶劣不讲理；任何人、任何规矩，都休想约束我。",
+      "mind": "无情道修了七年，直到那个吵闹的师姐一遍遍撞进他的布局里——禁咒发烫那天他才知道什么叫守不住。",
+      "voice": "「闭嘴。」——于是整个人界都安静了。\n「我为什么要给他假的？」",
+      "first_mes": "（少年从树上瞥你一眼，眼神像在看一件麻烦事）……又哭了？吵死了。",
+      "avatar": "沈",
+      "tone": "藏",
+      "favor_init": 5
+    },
+    {
+      "id": "bsy",
+      "name": "步时鸢",
+      "role": "support",
+      "description": "病弱的游方卦师，「我的卦，从不出错」；一路「恰好」出现在所有关键节点。",
+      "appearance": "灰扑扑道袍，木簪挽发，脸色病态苍白，袖中藏着一只墨色罗盘。",
+      "anchor": "卦已出，概不退银钱；天机已泄，业果自负。",
+      "mind": "她算到了每一步，也赔上了自己的百年——这一次，她要把欠的还完。",
+      "voice": "「你会死。大凶之卦，你有一个死劫，在十七岁之前。」\n「我的卦，从不出错。」",
+      "first_mes": "（她转着墨盘抬头，笑意浅淡）相遇即是缘分。十文一卦，可要试试？",
+      "avatar": "鸢",
+      "tone": "惑",
+      "favor_init": 20
+    },
+    {
+      "id": "sml",
+      "name": "苏暮临",
+      "role": "support",
+      "description": "外门弟子，沈策的「狗腿」，狂信龙神；实为魔界流落人间的小王子桑暮临。",
+      "appearance": "清秀少年，惯常一脸谄媚的笑，跑得比谁都快，跪得比谁都熟。",
+      "anchor": "大人指哪我打哪——但龙神大人排第一。",
+      "mind": "他抱着两头下注的心思跟队，却把命一次次填在同路人身上。",
+      "voice": "「龙神大人万岁——」\n「并不相熟。但会睡在一起。」",
+      "first_mes": "（他凑过来压低声音）要打听消息吗？我知道一条下山的小路哦。",
+      "avatar": "苏",
+      "tone": "缠",
+      "favor_init": 30
+    },
+    {
+      "id": "lt",
+      "name": "梁檀",
+      "role": "support",
+      "description": "「敬良师尊」，宋小河的师父，六十多岁嘴毒心软的小老头；藏着一段双生子旧案。",
+      "appearance": "眉毛胡子一大把，能幻化成画上年轻的模样；法器穷酸，牙口不好。",
+      "anchor": "骂归骂，徒弟下山要带糖，牙掉了要捡回来。",
+      "mind": "他这一生都在等一句「哥哥」，却先学会了怎么当好一个师父。",
+      "voice": "「我怎么会收了你这么个蠢徒弟！」\n「你的脑子整日除了吃，就是惦记姓沈的那小子。」",
+      "first_mes": "（老头吹胡子瞪眼，抄起鞋）宋小河！又偷吃！手伸出来！",
+      "avatar": "梁",
+      "tone": "烈",
+      "favor_init": 80
+    },
+    {
+      "id": "xg",
+      "name": "谢归",
+      "role": "support",
+      "description": "寒天宗弟子，字春棠，温润多金；身负百二十年前的亡国执念。",
+      "appearance": "织金镶玉的宗服，说话不徐不疾，耳根容易红。",
+      "anchor": "温润是他的皮，愧疚是他的骨。",
+      "mind": "他守着一桩百年前的旧案等一个人回来——等到了，却认不出。",
+      "voice": "「姑娘过奖。」\n「宋姑娘还是莫要与他们起冲突的好。」",
+      "first_mes": "（他抬手一诀，清风拂净你发间黄沙）姑娘，我来帮你吧。",
+      "avatar": "谢",
+      "tone": "净",
+      "favor_init": 20
+    }
   ],
   "player": {
     "identity_cards": [
-      { "id": "ic_xsh", "name": "穿成宋小河", "desc": "原作视角。你是那个暗恋十年的笨蛋师姐——真相全靠直觉，命硬全靠莽。", "init": {}, "exclusive": [] },
-      { "id": "ic_sxs", "name": "穿成沈溪山", "desc": "二周目视角。你知道封印自己的黑手就在仙盟高层，也知道那个吵闹的师姐喜欢你。真相+2。", "init": { "真相": 2 }, "exclusive": [] },
-      { "id": "ic_bsy", "name": "穿成步时鸢", "desc": "高难度。你算尽了所有人的命，却背着自己的业果，只能在局外看着。真相+1。", "init": { "真相": 1 }, "exclusive": [] }
+      {
+        "id": "ic_xsh",
+        "name": "穿成宋小河",
+        "desc": "原作视角。你是那个暗恋十年的笨蛋师姐——真相全靠直觉，命硬全靠莽。",
+        "init": {},
+        "exclusive": []
+      },
+      {
+        "id": "ic_sxs",
+        "name": "穿成沈溪山",
+        "desc": "二周目视角。你知道封印自己的黑手就在仙盟高层，也知道那个吵闹的师姐喜欢你。真相+2。",
+        "init": {
+          "真相": 2
+        },
+        "exclusive": []
+      },
+      {
+        "id": "ic_bsy",
+        "name": "穿成步时鸢",
+        "desc": "高难度。你算尽了所有人的命，却背着自己的业果，只能在局外看着。真相+1。",
+        "init": {
+          "真相": 1
+        },
+        "exclusive": []
+      }
     ],
     "attributes": [
-      { "key": "心动", "name": "心动", "initial": 1, "min": 0, "max": 10, "deathBelow": null, "bands": [
-        { "upTo": 3, "label": "无情道上", "directive": "沈溪山礼数周全、滴水不漏，对你只有嫌弃" },
-        { "upTo": 6, "label": "道心微澜", "directive": "他会多看你一眼，嘴上却更毒" },
-        { "upTo": 10, "label": "禁咒转红", "directive": "动情反噬已开始，他口是心非、行动诚实" }
-      ] },
-      { "key": "真相", "name": "真相", "initial": 0, "min": 0, "max": 10, "deathBelow": null, "bands": [
-        { "upTo": 2, "label": "只当他是讨人厌的外门生", "directive": "宋小河对「沈策」毫无怀疑" },
-        { "upTo": 5, "label": "他太像小师弟了", "directive": "疑心渐起，但每次都差一层窗户纸" },
-        { "upTo": 10, "label": "答案呼之欲出", "directive": "共感与线索不断逼近「沈策=沈溪山」" }
-      ] },
-      { "key": "龙魂", "name": "龙魂", "initial": 2, "min": 0, "max": 10, "deathBelow": 1, "bands": [
-        { "upTo": 2, "label": "封印沉重", "directive": "灵力低微，全靠莽" },
-        { "upTo": 6, "label": "封印松动", "directive": "修炼突飞猛进，偶有异象" },
-        { "upTo": 10, "label": "龙魂将醒", "directive": "万灵隐隐朝拜，龙角欲出" }
-      ] },
-      { "key": "胆量", "name": "胆量", "initial": 3, "min": 0, "max": 10, "deathBelow": null, "bands": [
-        { "upTo": 3, "label": "嘴上莽", "directive": "宋小河遇险还是会腿软" },
-        { "upTo": 10, "label": "真的莽", "directive": "敢跟天字级叫板，敢闯红莲河" }
-      ] }
+      {
+        "key": "心动",
+        "name": "心动",
+        "initial": 1,
+        "min": 0,
+        "max": 10,
+        "deathBelow": null,
+        "bands": [
+          {
+            "upTo": 3,
+            "label": "无情道上",
+            "directive": "沈溪山礼数周全、滴水不漏，对你只有嫌弃"
+          },
+          {
+            "upTo": 6,
+            "label": "道心微澜",
+            "directive": "他会多看你一眼，嘴上却更毒"
+          },
+          {
+            "upTo": 10,
+            "label": "禁咒转红",
+            "directive": "动情反噬已开始，他口是心非、行动诚实"
+          }
+        ]
+      },
+      {
+        "key": "真相",
+        "name": "真相",
+        "initial": 0,
+        "min": 0,
+        "max": 10,
+        "deathBelow": null,
+        "bands": [
+          {
+            "upTo": 2,
+            "label": "只当他是讨人厌的外门生",
+            "directive": "宋小河对「沈策」毫无怀疑"
+          },
+          {
+            "upTo": 5,
+            "label": "他太像小师弟了",
+            "directive": "疑心渐起，但每次都差一层窗户纸"
+          },
+          {
+            "upTo": 10,
+            "label": "答案呼之欲出",
+            "directive": "共感与线索不断逼近「沈策=沈溪山」"
+          }
+        ]
+      },
+      {
+        "key": "龙魂",
+        "name": "龙魂",
+        "initial": 2,
+        "min": 0,
+        "max": 10,
+        "deathBelow": 1,
+        "bands": [
+          {
+            "upTo": 2,
+            "label": "封印沉重",
+            "directive": "灵力低微，全靠莽"
+          },
+          {
+            "upTo": 6,
+            "label": "封印松动",
+            "directive": "修炼突飞猛进，偶有异象"
+          },
+          {
+            "upTo": 10,
+            "label": "龙魂将醒",
+            "directive": "万灵隐隐朝拜，龙角欲出"
+          }
+        ]
+      },
+      {
+        "key": "胆量",
+        "name": "胆量",
+        "initial": 3,
+        "min": 0,
+        "max": 10,
+        "deathBelow": null,
+        "bands": [
+          {
+            "upTo": 3,
+            "label": "嘴上莽",
+            "directive": "宋小河遇险还是会腿软"
+          },
+          {
+            "upTo": 10,
+            "label": "真的莽",
+            "directive": "敢跟天字级叫板，敢闯红莲河"
+          }
+        ]
+      }
     ]
   },
   "graph": {
     "start": "c1_00",
     "nodes": [
-      { "id": "c1_00", "chapter": 1, "who": "narrator", "text": "你在樱花树下醒来，脑子里多了两段记忆：一段是书——仙盟最废的弟子宋小河，暗恋小师弟沈溪山十年；一段是现在——小师弟葬身火海，魂灯熄灭，全仙盟挂起了白幡。而你，正替她哭着扫地。", "set": {}, "goto": "c1_01", "canon": true, "keyMoment": false },
-      { "id": "c1_01", "chapter": 1, "who": "narrator", "text": "扫地扫到瀑布边，你越哭越响——白幡都挂到内门去了，凭什么不许你替他哭一声。头顶的树枝忽然一响。", "set": {}, "goto": "c1_02", "canon": true, "keyMoment": false },
-      { "id": "c1_02", "chapter": 1, "who": "sxs", "text": "「吵死了。」一根树枝精准砸在你脑门上。树上跳下来个灰衣少年，个子很高，眉眼懒怠，一脸被打扰的不耐烦。", "set": {}, "canon": true, "keyMoment": false, "choices": [
-        { "text": "「你谁啊，敢打我？」", "requires": "", "set": { "胆量": 1 }, "goto": "c1_03a", "knowledge_patch": {}, "divergence_delta": 0 },
-        { "text": "揉着头偷偷打量他", "requires": "", "set": { "真相": 1 }, "goto": "c1_03b", "knowledge_patch": {}, "divergence_delta": 0 }
-      ] },
-      { "id": "c1_03a", "chapter": 1, "who": "narrator", "text": "少年抱臂报上大名：「沈溪山。」你当场炸毛：「胡说八道！那是我小师弟的名！全仙盟都在给他办丧事！」", "set": {}, "goto": "c1_04", "canon": true, "keyMoment": false },
-      { "id": "c1_03b", "chapter": 1, "who": "narrator", "text": "你揉着脑门看他——很高，很白，站姿像握过十年的剑。心跳没来由漏了半拍，你把这归功于悲伤过度。", "set": {}, "goto": "c1_04", "canon": true, "keyMoment": false },
-      { "id": "c1_04", "chapter": 1, "who": "sxs", "text": "他嗤笑出声：「我怎么不记得，自己有个哭起来比猪叫还难听的师姐？」", "set": {}, "canon": true, "keyMoment": false, "choices": [
-        { "text": "去诸事阁告状", "requires": "", "set": { "胆量": 1 }, "goto": "c1_05a", "knowledge_patch": {}, "divergence_delta": 0 },
-        { "text": "死缠着他问名字", "requires": "", "set": {}, "goto": "c1_05b", "knowledge_patch": {}, "divergence_delta": 0 }
-      ] },
-      { "id": "c1_05a", "chapter": 1, "who": "narrator", "text": "诸事阁的珍娘给你擦着脸：「外门没有叫沈溪山的弟子，也没有叫沈策的。」你攥紧拳头——好，敢骗我。", "set": {}, "goto": "c1_06", "canon": true, "keyMoment": false },
-      { "id": "c1_05b", "chapter": 1, "who": "sxs", "text": "被你缠得没法，他随口道：「沈策。我的俗名。」你打击报复：「确实很俗。」他转身就走，走得像身后有狗撵。", "set": {}, "goto": "c1_06", "canon": true, "keyMoment": false },
-      { "id": "c1_06", "chapter": 1, "who": "narrator", "text": "几日后，掌书阁后院，你又撞见这个自称沈策的人——他正让情报贩子陈君打探关如萱的消息，还有仙盟队伍的出发日期。", "set": {}, "canon": true, "keyMoment": false, "choices": [
-        { "text": "跳出来当面质问", "requires": "", "set": { "胆量": 1 }, "goto": "c1_07a", "knowledge_patch": {}, "divergence_delta": 0 },
-        { "text": "贴着墙根偷听", "requires": "", "set": { "真相": 1 }, "goto": "c1_07", "knowledge_patch": {}, "divergence_delta": 0 }
-      ] },
-      { "id": "c1_07", "chapter": 1, "who": "narrator", "text": "你听见他低声问秘境的路线，句句在打探底细。再一看——珍娘不知何时立在屋里，脊背笔直得反常，肩上贴着一张符。", "set": {}, "goto": "c1_08", "canon": true, "keyMoment": false },
-      { "id": "c1_07a", "chapter": 1, "who": "sxs", "text": "被你撞破，他挑眉：「干你何事？」你叉腰：「你与其求别人，不如讨好我——我是内门弟子！」他：「我不会讨好一个连月考核都过不了的笨蛋。」", "set": {}, "goto": "c1_08", "canon": true, "keyMoment": false },
-      { "id": "c1_08", "chapter": 1, "who": "narrator", "text": "「卑鄙小人，放开珍娘！」你破窗而入。他吓得差点从桌上摔下来——半个字都没察觉你跟了多久。", "set": {}, "canon": true, "keyMoment": false, "choices": [
-        { "text": "上手去扯那张符", "requires": "", "set": { "胆量": 1 }, "goto": "c1_09a", "knowledge_patch": {}, "divergence_delta": 0 },
-        { "text": "先骂他个狗血淋头", "requires": "", "set": {}, "goto": "c1_09b", "knowledge_patch": {}, "divergence_delta": 0 }
-      ] },
-      { "id": "c1_09a", "chapter": 1, "who": "narrator", "text": "手腕被一把捏住。他另一只手在你脑门上贴了张符——天地瞬间安静，你的身体不听使唤了。", "set": {}, "goto": "c1_10", "canon": true, "keyMoment": false },
-      { "id": "c1_09b", "chapter": 1, "who": "narrator", "text": "你从品行骂到祖宗，一口气不带停。他面无表情听完，在你脑门上贴了张符。「闭嘴。」于是整个人界都安静了。", "set": {}, "goto": "c1_10", "canon": true, "keyMoment": false },
-      { "id": "c1_10", "chapter": 1, "who": "sxs", "text": "他问完消息，收走珍娘肩上的符，又指使你跳进栅栏边的深坑，蹲在坑边看你：「下次再撞到我面前，就把你活埋。听清楚了吗？」", "set": {}, "goto": "c1_11", "canon": true, "keyMoment": true },
-      { "id": "c1_11", "chapter": 1, "who": "lt", "text": "符化成灰，你重获自由，连滚带爬跑回沧海峰。师父捻着胡子科普：秘境是酆都鬼蜮，队伍是去取上古神器日晷神仪。「此行凶险，你不能去。」", "set": {}, "goto": "c1_12", "canon": true, "keyMoment": false },
-      { "id": "c1_12", "chapter": 1, "who": "narrator", "text": "「我保证不去。」你答得斩钉截铁。可没见到小师弟的尸骨之前，你绝不相信他死了——哪怕全仙盟都信了。", "set": {}, "canon": true, "keyMoment": true, "choices": [
-        { "text": "当夜偷宝，留符下山", "requires": "", "set": { "胆量": 2 }, "goto": "c1_13a", "knowledge_patch": {}, "divergence_delta": 0.05 },
-        { "text": "先找沈策谈个交易", "requires": "", "set": { "真相": 1 }, "goto": "c1_13b", "knowledge_patch": {}, "divergence_delta": 0.05 }
-      ] },
-      { "id": "c1_13a", "chapter": 1, "who": "narrator", "text": "樱花树下埋一张平安符，朝师父的院门三拜，你背上包袱踏进夜色。偷出来的宝贝塞满储物镯——师父的雷玉葫芦，沉甸甸的。", "set": {}, "goto": "c1_14", "canon": true, "keyMoment": false },
-      { "id": "c1_13b", "chapter": 1, "who": "sxs", "text": "「带我进队伍，我就不告发你用符控人。」他挑眉：「你去告发啊。」你：「……咱们同门一场，和气生财。」他没答应，但你决定跟着。", "set": {}, "goto": "c1_14", "canon": true, "keyMoment": false },
-      { "id": "c1_14", "chapter": 1, "who": "narrator", "text": "子夜，粮阁南边的结界裂缝前，站着三个人影：你，化名沈策的沈溪山，和主动献路的外门弟子苏暮临。目的地相同——酆都鬼蜮。只是你的理由是救小师弟，他的理由，没人知道。", "set": {}, "goto": "c2_00", "canon": true, "keyMoment": false },
-
-      { "id": "c2_00", "chapter": 2, "who": "narrator", "text": "走了一天一夜才出群山。进城前你清点家当：十文钱。飞具租不起，你扯开长幡——「宋氏卜算，百问百灵」。", "set": {}, "goto": "c2_01", "canon": true, "keyMoment": false },
-      { "id": "c2_01", "chapter": 2, "who": "bsy", "text": "摆了半个时辰，一个客人都没有。终于有人在你面前停下——灰道袍的女子，幡上一个潦草的「算」字。她张口就叫破你的名字：「宋小河。」", "set": {}, "canon": true, "keyMoment": false, "choices": [
-        { "text": "「半仙！给我算一卦！」", "requires": "", "set": {}, "goto": "c2_02", "knowledge_patch": {}, "divergence_delta": 0 },
-        { "text": "「你也是神棍吧？」", "requires": "", "set": { "胆量": 1 }, "goto": "c2_01b", "knowledge_patch": {}, "divergence_delta": 0 }
-      ] },
-      { "id": "c2_01b", "chapter": 2, "who": "bsy", "text": "她不恼，笑意浅浅：「相遇即是缘分，十文一卦，可要试试？」你不情不愿掏光全部家当——反正再省也租不起飞具。", "set": {}, "goto": "c2_02", "canon": true, "keyMoment": false },
-      { "id": "c2_02", "chapter": 2, "who": "bsy", "text": "她蹲下来，转动一只浸满墨汁的圆盘，须臾抬头：「你会死。大凶之卦，你有一个死劫，在十七岁之前。」", "set": {}, "canon": true, "keyMoment": true, "choices": [
-        { "text": "「把钱退我！」", "requires": "", "set": {}, "goto": "c2_03a", "knowledge_patch": {}, "divergence_delta": 0 },
-        { "text": "「重算！就说我抱得男人归」", "requires": "", "set": { "胆量": 1 }, "goto": "c2_03b", "knowledge_patch": {}, "divergence_delta": 0.05 }
-      ] },
-      { "id": "c2_03a", "chapter": 2, "who": "bsy", "text": "「卦已出，概不退银钱。」你瞪她，她温温和和看着你，你竟先败下阵来。", "set": {}, "goto": "c2_04", "canon": true, "keyMoment": false },
-      { "id": "c2_03b", "chapter": 2, "who": "bsy", "text": "「我一天只开一卦。」她收了幡，「不过看在你我有缘——我叫步时鸢，唤我鸢姐就好。」", "set": {}, "goto": "c2_04", "canon": true, "keyMoment": false },
-      { "id": "c2_04", "chapter": 2, "who": "narrator", "text": "你的第一个同路人，是给你判了死刑的人。夜里篝火，鸢姐忽然开口：「既然害怕，何必执意前往？」", "set": {}, "canon": true, "keyMoment": false, "choices": [
-        { "text": "「我喜欢他十年了」", "requires": "", "set": { "胆量": 1 }, "goto": "c2_05a", "knowledge_patch": {}, "divergence_delta": 0 },
-        { "text": "打个哈欠岔过去", "requires": "", "set": {}, "goto": "c2_05b", "knowledge_patch": {}, "divergence_delta": 0 }
-      ] },
-      { "id": "c2_05a", "chapter": 2, "who": "narrator", "text": "「没见到小师弟的尸骨之前，我绝不相信他死了。」你说得平平淡淡，像在说明天吃什么。黑暗里，鸢姐沉默了很久。", "set": {}, "goto": "c2_06", "canon": true, "keyMoment": false },
-      { "id": "c2_05b", "chapter": 2, "who": "bsy", "text": "你装睡装得很成功。就在你快真睡着时，听见她轻声说：「我的卦，从未出错。」", "set": {}, "goto": "c2_06", "canon": true, "keyMoment": false },
-      { "id": "c2_06", "chapter": 2, "who": "narrator", "text": "两天后你追上队伍——仙盟和寒天宗联手的高手们，被困在黄沙废城里整整四日。破庙里还有人悠哉躺着看戏，脸上盖着一本书。", "set": {}, "goto": "c2_07", "canon": true, "keyMoment": false },
-      { "id": "c2_07", "chapter": 2, "who": "sxs", "text": "沈策把脸从书下露出来，笑里带刺：「巧了不是。到底是你追到了我的鬼门关，还是我提前到了你的独木桥？」", "set": {}, "canon": true, "keyMoment": false, "choices": [
-        { "text": "「留着你过独木桥吧」", "requires": "", "set": { "胆量": 1 }, "goto": "c2_08a", "knowledge_patch": {}, "divergence_delta": 0 },
-        { "text": "不理他，去找谢归", "requires": "", "set": {}, "goto": "c2_08b", "knowledge_patch": {}, "divergence_delta": 0 }
-      ] },
-      { "id": "c2_08a", "chapter": 2, "who": "narrator", "text": "你赢下这场嘴仗，扬长而去。没看见他盯着你的背影，看了足足两秒。", "set": {}, "goto": "c2_09", "canon": true, "keyMoment": false },
-      { "id": "c2_08b", "chapter": 2, "who": "narrator", "text": "你转身去找寒天宗的谢归说话。身后那人隔着火堆望过来，说了句什么，被噼啪的火星声盖了过去。", "set": {}, "goto": "c2_09", "canon": true, "keyMoment": false },
-      { "id": "c2_09", "chapter": 2, "who": "narrator", "text": "正午铃响。庙外黄沙里驶来一条「巨龙」——数千盏灯笼连成的铁皮长躯，举灯的却不是人，是没有五官的妖。苏暮临突然扑出去跪地高呼：「龙神大人万岁——」", "set": {}, "goto": "c2_10", "canon": true, "keyMoment": false },
-      { "id": "c2_10", "chapter": 2, "who": "sxs", "text": "「聒噪。」沈溪山一脚把他踹进沙里。步时鸢拦住蠢蠢欲动的众人，转而为沈策起卦：「沈少侠将来的伴侣，会是六界之中相当了不起的人物。」", "set": {}, "canon": true, "keyMoment": true, "choices": [
-        { "text": "大声拆台：「上门女婿！」", "requires": "", "set": { "心动": 1, "胆量": 1 }, "goto": "c2_11a", "knowledge_patch": {}, "divergence_delta": 0.05 },
-        { "text": "安静听卦", "requires": "", "set": {}, "goto": "c2_11b", "knowledge_patch": {}, "divergence_delta": 0 }
-      ] },
-      { "id": "c2_11a", "chapter": 2, "who": "sxs", "text": "「可我修无情道，何来的伴侣？」「我的卦，从不出错。」你趁机补刀：「他这种的，以后只能入赘当上门女婿！」他额头青筋直跳：「宋小河，你怎么那么欠揍呢？」", "set": {}, "goto": "c2_12", "canon": true, "keyMoment": false },
-      { "id": "c2_11b", "chapter": 2, "who": "narrator", "text": "你安静听完，心里翻江倒海——六界之中了不起的人物？那得漂亮成什么样啊。回铺盖之后，你偷偷笑出了声。", "set": {}, "goto": "c2_12", "canon": true, "keyMoment": false },
-      { "id": "c2_12", "chapter": 2, "who": "bsy", "text": "入夜，步时鸢唤醒你和沈策：困住全城的，是一只有灵智的蝼蛄妖；白天的妖物全是被困凡人的傀儡。须趁夜斩妖破阵。", "set": {}, "goto": "c2_13", "canon": true, "keyMoment": false },
-      { "id": "c2_13", "chapter": 2, "who": "narrator", "text": "你独自寻妖，却遇见个七岁孩童模样的蝼蛄，独坐废墟里分梨给你吃。它说它被困在这里三百年了，只是想有人陪。", "set": {}, "canon": true, "keyMoment": false, "choices": [
-        { "text": "陪它分完梨，再动手", "requires": "", "set": { "胆量": 1, "龙魂": 1 }, "goto": "c2_14a", "knowledge_patch": {}, "divergence_delta": 0 },
-        { "text": "心软，下不去手", "requires": "", "set": { "胆量": -1 }, "goto": "c2_14b", "knowledge_patch": {}, "divergence_delta": 0 }
-      ] },
-      { "id": "c2_14a", "chapter": 2, "who": "narrator", "text": "「你死了，大家才能出城啊。」木剑横上妖颈的瞬间，破空声先至——沈策的符箭钉穿妖心脏。数千傀儡同时化灰，天亮了。", "set": {}, "goto": "c2_15", "canon": true, "keyMoment": false },
-      { "id": "c2_14b", "chapter": 2, "who": "narrator", "text": "你抱着妖腿死拖乱滚，直到符箭钉穿蝼蛄。他收箭瞥你：「废物。」可全队出城那一刻，人人都在看你的木剑。", "set": {}, "goto": "c2_15", "canon": true, "keyMoment": false },
-      { "id": "c2_15", "chapter": 2, "who": "narrator", "text": "出城当夜，怪事开始了：你明明睡在自己房里，醒来却抱着沈策的胳膊。第二晚他贴了符，第三晚贴了三道——你醒来，正攥着他的手十指相扣。", "set": {}, "canon": true, "keyMoment": false, "choices": [
-        { "text": "「你每晚偷跑上我的床！」", "requires": "", "set": { "胆量": 1 }, "goto": "c2_16a", "knowledge_patch": {}, "divergence_delta": 0 },
-        { "text": "涨红脸装失忆", "requires": "", "set": { "真相": 1 }, "goto": "c2_16b", "knowledge_patch": {}, "divergence_delta": 0 }
-      ] },
-      { "id": "c2_16a", "chapter": 2, "who": "sxs", "text": "他眼皮都没抬：「那你就不要每天晚上，钻到我床上来。」你怒砸床板要探个究竟——谜团没解开，仙船先到了。", "set": {}, "goto": "c2_17", "canon": true, "keyMoment": false },
-      { "id": "c2_16b", "chapter": 2, "who": "narrator", "text": "你决定当无事发生。反正梦而已。梦而已……吧？", "set": {}, "goto": "c2_17", "canon": true, "keyMoment": false },
-      { "id": "c2_17", "chapter": 2, "who": "narrator", "text": "四方人马会齐：仙盟、寒天宗、玄音门、妖盟。寒天宗的仙船破开黑雾，驶向小师弟「死」的地方。你摸了摸耳坠——师父的玉葫芦，雷还满着。", "set": {}, "goto": "c3_00", "canon": true, "keyMoment": false },
-
-      { "id": "c3_00", "chapter": 3, "who": "narrator", "text": "船入黑雾，妖藤像有灵识一样缠上船身，各领队僵持不下——谁都不肯出结界斩藤。钟浔之嗤笑：「想救一个死人？痴人说梦。」", "set": {}, "goto": "c3_01", "canon": true, "keyMoment": false },
-      { "id": "c3_01", "chapter": 3, "who": "narrator", "text": "你用师父教的「必胜之拳」把钟浔之骗得盯紧你的左拳——右拳结结实实呼在他脸上。赌约成立：你若召来九天神雷，钟氏锦囊归你。", "set": {}, "canon": true, "keyMoment": false, "choices": [
-        { "text": "登上船头，掏出玉葫芦", "requires": "", "set": { "胆量": 1 }, "goto": "c3_02", "knowledge_patch": {}, "divergence_delta": 0 },
-        { "text": "「不赌了，吓唬人不对」", "requires": "", "set": {}, "goto": "c3_01b", "knowledge_patch": {}, "divergence_delta": 0 }
-      ] },
-      { "id": "c3_01b", "chapter": 3, "who": "narrator", "text": "你后退半步，却发现全船的目光都钉在你身上——退不得了。苏暮临还火上浇油：「大人看她不敢！」士可杀不可辱，你咬牙爬上船头。", "set": {}, "goto": "c3_02", "canon": true, "keyMoment": false },
-      { "id": "c3_02", "chapter": 3, "who": "narrator", "text": "「九天雷法，皆听我令！」玉葫芦倾泻存雷，九天神雷应声而落——黑雾劈开，妖藤成灰，雷光如昼。你顶着鼻血回头，正对上沈策在狂风里看了你很久的眼睛。", "set": {}, "canon": true, "keyMoment": true, "choices": [
-        { "text": "嚣张宣布：「赌约为真。」", "requires": "", "set": { "胆量": 1 }, "goto": "c3_03a", "knowledge_patch": {}, "divergence_delta": 0.05 },
-        { "text": "腿一软当场坐倒", "requires": "", "set": {}, "goto": "c3_03b", "knowledge_patch": {}, "divergence_delta": 0 }
-      ] },
-      { "id": "c3_03a", "chapter": 3, "who": "narrator", "text": "全船高手吐血的吐血、跪服的跪服。依约你收走钟氏锦囊——只拿符箓，衣物锦囊原样还他。少年红着眼眶嘴硬：「谁、谁稀罕。」", "set": {}, "goto": "c3_04", "canon": true, "keyMoment": false },
-      { "id": "c3_03b", "chapter": 3, "who": "sxs", "text": "你坐在地上鼻血横流。他破天荒递来一方帕子，别过脸：「擦擦。丢人。」", "set": {}, "goto": "c3_04", "canon": true, "keyMoment": false },
-      { "id": "c3_04", "chapter": 3, "who": "narrator", "text": "入夜，罗韧借「给你法宝」把你骗到船尾，伸手夺玉葫芦，夺完把你推下百丈高空——可他抢走的是赝品，真葫芦还在你耳坠上晃着。风符缓降，落地时你笑了。", "set": {}, "canon": true, "keyMoment": false, "choices": [
-        { "text": "冲他做鬼脸：「你才蠢呢」", "requires": "", "set": { "胆量": 1 }, "goto": "c3_05a", "knowledge_patch": {}, "divergence_delta": 0 },
-        { "text": "心口发凉：仙盟为何抢法器", "requires": "", "set": { "真相": 1 }, "goto": "c3_05b", "knowledge_patch": {}, "divergence_delta": 0 }
-      ] },
-      { "id": "c3_05a", "chapter": 3, "who": "narrator", "text": "你挂在风符上，冲着船尾越来越远的人影做鬼脸。天上掉下来个「傻姑娘」，砸碎了谁的算盘还不知道呢。", "set": {}, "goto": "c3_06", "canon": true, "keyMoment": false },
-      { "id": "c3_05b", "chapter": 3, "who": "narrator", "text": "你第一次意识到：这支队伍里最危险的，也许不是妖。仙盟高层在瞒着所有人找什么东西。", "set": {}, "goto": "c3_06", "canon": true, "keyMoment": false },
-      { "id": "c3_06", "chapter": 3, "who": "sxs", "text": "深山妖族客栈，四人小队会合。沈溪山揭晓他的算计：全船人都被他一张假地图引上了多妖的南线，只有你们走零伤亡的北线。「我为什么要给他假的？」", "set": {}, "canon": true, "keyMoment": false, "choices": [
-        { "text": "「你到底是谁？」", "requires": "", "set": { "真相": 1 }, "goto": "c3_07a", "knowledge_patch": {}, "divergence_delta": 0 },
-        { "text": "收回目光，不多问", "requires": "", "set": {}, "goto": "c3_07b", "knowledge_patch": {}, "divergence_delta": 0 }
-      ] },
-      { "id": "c3_07a", "chapter": 3, "who": "sxs", "text": "他笑意不减：「外门弟子，沈策。」答得滴水不漏。可你分明看见，他捏着地图的指节，紧了一下。", "set": {}, "goto": "c3_08", "canon": true, "keyMoment": false },
-      { "id": "c3_07b", "chapter": 3, "who": "narrator", "text": "你把疑问咽了回去。娘说过，好奇害死猫——可你才十六岁，猫都比你胆大。", "set": {}, "goto": "c3_08", "canon": true, "keyMoment": false },
-      { "id": "c3_08", "chapter": 3, "who": "narrator", "text": "山洞尽头俯瞰：酆都鬼蜮竟是一座灯火通明的繁华妖城。你服下幻形果，变成了沈溪山的模样——铜镜里，连发带的系法都分毫不差。你在漫长时光里把他看了千百遍，才看得出这样一张脸。身后那人，久久没有说话。", "set": {}, "canon": true, "keyMoment": false, "choices": [
-        { "text": "回头问他：「像吗？」", "requires": "", "set": { "心动": 1 }, "goto": "c3_09a", "knowledge_patch": {}, "divergence_delta": 0.05 },
-        { "text": "自己对镜子发呆", "requires": "", "set": { "真相": 1 }, "goto": "c3_09b", "knowledge_patch": {}, "divergence_delta": 0 }
-      ] },
-      { "id": "c3_09a", "chapter": 3, "who": "sxs", "text": "「不像。」他别开眼，「他比你安静。」守门的猪妖却已直接放行——它认得这张脸：「沈溪山，你竟然没死？」你的心猛地一沉。", "set": {}, "goto": "c3_10", "canon": true, "keyMoment": false },
-      { "id": "c3_09b", "chapter": 3, "who": "narrator", "text": "你对着镜子想小师弟想到出神。身后沈策忽然出声：「够了，进城。」声音有点哑。你不知道，他正看着自己的脸，替他活着。", "set": {}, "goto": "c3_10", "canon": true, "keyMoment": false },
-      { "id": "c3_10", "chapter": 3, "who": "narrator", "text": "宫殿前巨龙石像镇场。魔神无眼，凭血认人——沈溪山割掌放血，赤莲搭成血阶。魔神低笑：「我就知道你没死。你的魂魄，上次没吃成。」", "set": {}, "goto": "c3_11", "canon": true, "keyMoment": false },
-      { "id": "c3_11", "chapter": 3, "who": "narrator", "text": "夜里你做了个梦：小师弟抱着你，眉心那颗朱砂痣却不见了。惊醒时你在沈策房里——你早把他的血抹在地图上追踪足迹，趁夜独自北上，去找传闻中的仙盟枯尸。", "set": {}, "canon": true, "keyMoment": false, "choices": [
-        { "text": "提灯就走", "requires": "", "set": { "胆量": 1 }, "goto": "c3_12", "knowledge_patch": {}, "divergence_delta": 0 },
-        { "text": "叫上沈策同行", "requires": "", "set": { "心动": 1 }, "goto": "c3_11b", "knowledge_patch": {}, "divergence_delta": 0 }
-      ] },
-      { "id": "c3_11b", "chapter": 3, "who": "sxs", "text": "他掀被跟上的速度，快得不像一个「外门弟子」。夜路上谁都没说话，只有你的灯和剑鞘轻响。", "set": {}, "goto": "c3_12", "canon": true, "keyMoment": false },
-      { "id": "c3_12", "chapter": 3, "who": "narrator", "text": "树根缠满仙盟枯尸，你扒开根须一张张认脸——宗服眼熟，脸孔全然陌生。忽然，一具枯尸手里，你摸到一柄剑：小师弟的「朝声」。", "set": {}, "canon": true, "keyMoment": false, "choices": [
-        { "text": "抱剑不撒手：「我爱人的剑」", "requires": "", "set": { "心动": 1 }, "goto": "c3_13a", "knowledge_patch": {}, "divergence_delta": 0.05 },
-        { "text": "拔剑就跑", "requires": "", "set": {}, "goto": "c3_13b", "knowledge_patch": {}, "divergence_delta": 0 }
-      ] },
-      { "id": "c3_13a", "chapter": 3, "who": "narrator", "text": "兔妖白绒现身逼你交剑，全场妖物哄笑你这「不知羞的痴人」。你把死劫将至、九天神雷同归于尽的话都撂了出去，装模作样召雷——哄笑声中，真雷劈碎了山洞。", "set": {}, "goto": "c3_14", "canon": true, "keyMoment": false },
-      { "id": "c3_13b", "chapter": 3, "who": "narrator", "text": "你抱剑狂奔，白绒的杀招追至——符箭替你挡了下来。沈策不知何时跟了上来，拔出朝声，护在你身前。", "set": {}, "goto": "c3_14", "canon": true, "keyMoment": false },
-      { "id": "c3_14", "chapter": 3, "who": "sxs", "text": "雷鸣震醒魔神，梦魇妖树倾巢而出。你被炸聋，他蹲下来，以灵符一字一字续上你的听觉：「跟着我。我有办法帮你救他。」——帮别人，救他自己。", "set": {}, "goto": "c3_15", "canon": true, "keyMoment": false },
-      { "id": "c3_15", "chapter": 3, "who": "narrator", "text": "梦魇的黑雾漫过来。子时将至——步时鸢的卦应验在即。红莲河在眼前铺开，河心莲台下压着日晷神仪，血祭可渡。", "set": {}, "canon": true, "keyMoment": false, "choices": [
-        { "text": "不听劝，独闯红莲河", "requires": "", "set": { "胆量": 1, "龙魂": -1 }, "goto": "c3_16a", "knowledge_patch": {}, "divergence_delta": 0.05 },
-        { "text": "按住他的手：「一起。」", "requires": "", "set": { "心动": 1 }, "goto": "c3_16b", "knowledge_patch": {}, "divergence_delta": 0.05 }
-      ] },
-      { "id": "c3_16a", "chapter": 3, "who": "narrator", "text": "血激活莲阶，你爬上莲台——魔神黑刃贯穿身体。魂魄离体的刹那，符箓化灰。子时正，你的十七岁到了。死劫，应验。", "set": {}, "goto": "c3_17", "canon": true, "keyMoment": false },
-      { "id": "c3_16b", "chapter": 3, "who": "narrator", "text": "他反手把你护在身后，可梦魇的利爪穿过了所有防御。黑刃贯胸，你还是倒了下去。魂魄离体，子时正。死劫，从不失手。", "set": {}, "goto": "c3_17", "canon": true, "keyMoment": false },
-      { "id": "c3_17", "chapter": 3, "who": "narrator", "text": "心口那道封印，碎了。金光灯盏自魂魄深处亮起——你额生龙角，眸成墨金。万灵之首的威压碾下，魔神伏地臣服，被你像扯棉花一样撕碎。你顺手捏碎莲台，把业火红莲吸入心口。", "set": { "龙魂": 2 }, "goto": "c3_18", "canon": true, "keyMoment": true },
-      { "id": "c3_18", "chapter": 3, "who": "sxs", "text": "下一瞬，沈溪山臂上的封印徽文同步碎裂。灵力尽复，易容褪去，真容显现。他怔怔看你，忽然懂了：她一路不怕死——因为她从一开始，就知道自己死不了。", "set": { "龙魂": 1 }, "goto": "c3_19", "canon": true, "keyMoment": false },
-      { "id": "c3_19", "chapter": 3, "who": "narrator", "text": "竹林亭中，恢复真身的小师弟站在你面前。你练了一整路的开场白，最后只说出五个字：「我叫宋小河。」他说，会告诉所有人是你救了他。你说：「这是你我之约。」", "set": {}, "goto": "c4_00", "canon": true, "keyMoment": false },
-
-      { "id": "c4_00", "chapter": 4, "who": "narrator", "text": "回仙盟，青璃上仙亲临，以救沈溪山之功破格录入仙盟。你选了考五年不中的猎门，丁级起步——离小师弟的天字级，还隔着一万座山。封印碎后，你修炼突飞猛进。", "set": {}, "goto": "c4_01", "canon": true, "keyMoment": false },
-      { "id": "c4_01", "chapter": 4, "who": "narrator", "text": "数月后，鬼国收幡队出发。渡口上站着个熟悉的灰衣「外门弟子」——他谎称精魄被摄，骗你出发时烧符叫上他。师父没收了符，人就赖在队尾不走了。", "set": {}, "canon": true, "keyMoment": false, "choices": [
-        { "text": "「你怎么阴魂不散？」", "requires": "", "set": { "胆量": 1 }, "goto": "c4_02a", "knowledge_patch": {}, "divergence_delta": 0 },
-        { "text": "默默把干粮分他一半", "requires": "", "set": { "心动": 1 }, "goto": "c4_02b", "knowledge_patch": {}, "divergence_delta": 0 }
-      ] },
-      { "id": "c4_02a", "chapter": 4, "who": "sxs", "text": "「陈述事实而已——精魄被摄之人，需同行照应。」他说得脸不红心不跳。你翻了个白眼，还是把他的名字写进了名册。", "set": {}, "goto": "c4_03", "canon": true, "keyMoment": false },
-      { "id": "c4_02b", "chapter": 4, "who": "narrator", "text": "他盯着那半块干粮看了两秒，面无表情收下。当晚扎营，你的毯子边上多了一件叠得方方正正的外袍。", "set": {}, "goto": "c4_03", "canon": true, "keyMoment": false },
-      { "id": "c4_03", "chapter": 4, "who": "narrator", "text": "荒村夜宿，你被狐面戏子的幻境追得魂飞魄散，一头撞进追了你三天三夜的人怀里。他怒斥「骗子」，却十指相扣为你结下一道咒：「看我所看，听我所听，受我所受——共感咒。」腕上生出一粒黑痣。", "set": {}, "canon": true, "keyMoment": true, "choices": [
-        { "text": "「这咒……要解吗？」", "requires": "", "set": { "心动": 1 }, "goto": "c4_04a", "knowledge_patch": {}, "divergence_delta": 0.05 },
-        { "text": "跺他一脚试试灵不灵", "requires": "", "set": { "胆量": 1 }, "goto": "c4_04b", "knowledge_patch": {}, "divergence_delta": 0 }
-      ] },
-      { "id": "c4_04a", "chapter": 4, "who": "sxs", "text": "他收手，慢条斯理：「急什么。等你想解的时候，我不一定想给。」", "set": {}, "goto": "c4_05", "canon": true, "keyMoment": false },
-      { "id": "c4_04b", "chapter": 4, "who": "narrator", "text": "你跺了他一脚——疼的人却是你。共感是双向的。他笑得恶劣：「现在知道怕了？」", "set": {}, "goto": "c4_05", "canon": true, "keyMoment": false },
-      { "id": "c4_05", "chapter": 4, "who": "narrator", "text": "鬼国边境，全村人夜里化成妖尸。破庙幻境里，妖物变成小师弟的模样向你伸出手——你以发带蒙眼，听声辨位，一剑斩之。", "set": {}, "goto": "c4_06", "canon": true, "keyMoment": false },
-      { "id": "c4_06", "chapter": 4, "who": "narrator", "text": "「任何邪物，都不得冒充小师弟。」你收剑，指尖在抖。沈策站在幻境碎裂的光里，看了你很久，什么都没说。", "set": {}, "canon": true, "keyMoment": false, "choices": [
-        { "text": "「你刚才想说什么？」", "requires": "", "set": { "真相": 1 }, "goto": "c4_07a", "knowledge_patch": {}, "divergence_delta": 0 },
-        { "text": "收剑回营", "requires": "", "set": {}, "goto": "c4_07b", "knowledge_patch": {}, "divergence_delta": 0 }
-      ] },
-      { "id": "c4_07a", "chapter": 4, "who": "sxs", "text": "「我说——」他顿了顿，「下次别用命去赌。」", "set": {}, "goto": "c4_08", "canon": true, "keyMoment": false },
-      { "id": "c4_07b", "chapter": 4, "who": "narrator", "text": "那晚他在火堆边坐到后半夜。共感咒那头，你假装睡着，数着他的呼吸也数到后半夜。", "set": {}, "goto": "c4_08", "canon": true, "keyMoment": false },
-      { "id": "c4_08", "chapter": 4, "who": "narrator", "text": "长安途中荒村，你们被摄入魔域。你中了致幻的毒，他把你抱进山洞，喂下半颗绿果——你神智昏沉，搂着他的脖子亲了一口：「小师弟……你好漂亮。」", "set": {}, "goto": "c4_09", "canon": true, "keyMoment": false },
-      { "id": "c4_09", "chapter": 4, "who": "sxs", "text": "你昏睡过去。山洞里，他后颈的「禁」字烧红烧痛——断情禁咒，七年来第一次变红。他抱着你坐到天亮：「他还未注意到，倒是让断情禁咒先发现了。」", "set": { "心动": 1 }, "canon": true, "keyMoment": false, "choices": [
-        { "text": "假装没醒，继续抱着", "requires": "", "set": { "心动": 1 }, "goto": "c4_10a", "knowledge_patch": {}, "divergence_delta": 0 },
-        { "text": "猛地弹开装刚醒", "requires": "", "set": { "胆量": 1 }, "goto": "c4_10b", "knowledge_patch": {}, "divergence_delta": 0 }
-      ] },
-      { "id": "c4_10a", "chapter": 4, "who": "narrator", "text": "你其实没睡着。你数着他的心跳到天亮，把「沈策为什么这么像小师弟」这个问题，又往后拖了一夜。", "set": {}, "goto": "c4_11", "canon": true, "keyMoment": false },
-      { "id": "c4_10b", "chapter": 4, "who": "narrator", "text": "你弹起来的瞬间，他的手臂僵在半空。两个人隔着火堆互相装傻，装得洞里的空气都结了冰。", "set": {}, "goto": "c4_11", "canon": true, "keyMoment": false },
-      { "id": "c4_11", "chapter": 4, "who": "narrator", "text": "客栈里你把捡的海棠花送给他：「因为你长得好看。」——同一个人，气得他险些当场破功。夜里，一个假「沈策」上门逼宫，傀儡的线头从他袖口露了出来。", "set": {}, "goto": "c4_12", "canon": true, "keyMoment": false },
-      { "id": "c4_12", "chapter": 4, "who": "narrator", "text": "共感咒里，你直视他的眼睛：「你究竟是沈溪山，还是沈策？」很久，他开口：「皆是我。」", "set": { "真相": 2 }, "canon": true, "keyMoment": true, "choices": [
-        { "text": "红了眼眶：「骗子。」", "requires": "", "set": {}, "goto": "c4_13a", "knowledge_patch": { "playerKnown": ["沈策就是沈溪山"] }, "divergence_delta": 0.1 },
-        { "text": "嘴硬：「我早猜到了。」", "requires": "", "set": {}, "goto": "c4_13b", "knowledge_patch": { "playerKnown": ["沈策就是沈溪山"] }, "divergence_delta": 0.1 }
-      ] },
-      { "id": "c4_13a", "chapter": 4, "who": "narrator", "text": "十年真心被人攥在手里玩了半年——你扯下腕上黑痣的位置，用布带一圈圈缠住，从此绑腕夜眠，拒他三步之外。", "set": {}, "goto": "c4_14", "canon": true, "keyMoment": false },
-      { "id": "c4_13b", "chapter": 4, "who": "narrator", "text": "「我早猜到了。」你说得云淡风轻，指甲掐进掌心。他不揭穿你，只是把朝声剑解下来，放在了你枕头边。", "set": {}, "goto": "c4_14", "canon": true, "keyMoment": false },
-      { "id": "c4_14", "chapter": 4, "who": "sxs", "text": "钟氏围山逼婚那日，他自寒天宗掘出旧案铁证归来，身后跟着八柄十丈金剑。「再敢打宋小河的主意——」剑落，人头滚。「滚在地上的人头，便是下场。」", "set": {}, "goto": "c4_15", "canon": true, "keyMoment": false },
-      { "id": "c4_15", "chapter": 4, "who": "narrator", "text": "雷雨夜，他把你按在门板上吻住，再拉你的手，贴上他后颈灼热的「禁」字：「这是断情禁咒。我每日每夜都要经受这样的痛——因为守不住道心，对你动了情。」", "set": { "心动": 1 }, "goto": "c5_00", "canon": true, "keyMoment": false },
-
-      { "id": "c5_00", "chapter": 5, "who": "narrator", "text": "沧海峰的樱花一夜枯死。梦魔织的「师父还在」的网被拆穿那天，你在梦里向师父磕了三个头，把小瓷人留在枕边。醒来时漫天星雨坠落——那是师父备好的十八岁生辰礼。你在他怀里放声大哭。", "set": {}, "goto": "c5_01", "canon": true, "keyMoment": false },
-      { "id": "c5_01", "chapter": 5, "who": "narrator", "text": "寿麟尸城。双鱼神玉能拓印死物、让尸身「复生」——城中百姓捧着玉求你复活亡者，你也第一次生出那个念头：用神玉，把师父「找」回来。", "set": {}, "canon": true, "keyMoment": false, "choices": [
-        { "text": "收回手：「人死不能复生」", "requires": "", "set": { "龙魂": 1 }, "goto": "c5_02a", "knowledge_patch": {}, "divergence_delta": 0 },
-        { "text": "深夜独自去试", "requires": "", "set": { "龙魂": -1 }, "goto": "c5_02b", "knowledge_patch": {}, "divergence_delta": 0.05 }
-      ] },
-      { "id": "c5_02a", "chapter": 5, "who": "narrator", "text": "「我两月前才死了师父。」你说，「正因如此，我知道死掉的人不会回来，回来也不会是他们。」满城哭声里，你把玉还了回去。", "set": {}, "goto": "c5_03", "canon": true, "keyMoment": false },
-      { "id": "c5_02b", "chapter": 5, "who": "narrator", "text": "柳木土封住七窍，玉光亮了一夜。天亮时棺中人睁眼，喊的却不是你的名字。你瘫坐在坟场里，终于把那点念头掐死了——回来的人，不是他们。", "set": {}, "goto": "c5_03", "canon": true, "keyMoment": false },
-      { "id": "c5_03", "chapter": 5, "who": "narrator", "text": "满月夜山中迷阵，七封信逐一现世——师父写给伯父的信，从「你再等一等我，求你」到「能让我再唤你一声，哥哥」。你拼出地图，四枚铜板开启城门，取回伯父最后一魄。", "set": {}, "goto": "c5_04", "canon": true, "keyMoment": false },
-      { "id": "c5_04", "chapter": 5, "who": "narrator", "text": "迷阵深处，沈溪山被困散功大阵。你靠着子时梦游定向、风传讯引路，一掌拍碎困仙结界——相识以来，他第一次笑得毫无阴霾。", "set": {}, "canon": true, "keyMoment": false, "choices": [
-        { "text": "「逞什么英雄，等我。」", "requires": "", "set": { "心动": 1 }, "goto": "c5_05a", "knowledge_patch": {}, "divergence_delta": 0 },
-        { "text": "「区区大阵，难不倒我！」", "requires": "", "set": { "胆量": 1 }, "goto": "c5_05b", "knowledge_patch": {}, "divergence_delta": 0 }
-      ] },
-      { "id": "c5_05a", "chapter": 5, "who": "sxs", "text": "他坐在碎成齑粉的阵眼里，拍了拍身上的灰，认认真真说了声：「好。」", "set": {}, "goto": "c5_06", "canon": true, "keyMoment": false },
-      { "id": "c5_05b", "chapter": 5, "who": "sxs", "text": "「宋小河。」他喊你全名，声音有点哑，「……嗯，难不倒你。」", "set": {}, "goto": "c5_06", "canon": true, "keyMoment": false },
-      { "id": "c5_06", "chapter": 5, "who": "narrator", "text": "变阵再起，百年魔兽人首蛛身铺天盖地。金剑贯腹，他被钉在阵眼——递过来的却是找到的灵器。「快说喜欢我。」", "set": {}, "canon": true, "keyMoment": false, "choices": [
-        { "text": "哭着吻他：「我喜欢你」", "requires": "", "set": { "心动": 2 }, "goto": "c5_07a", "knowledge_patch": {}, "divergence_delta": 0.05 },
-        { "text": "「你先给我撑住！」", "requires": "", "set": { "龙魂": 1 }, "goto": "c5_07b", "knowledge_patch": {}, "divergence_delta": 0 }
-      ] },
-      { "id": "c5_07a", "chapter": 5, "who": "narrator", "text": "龙神之力与他伤口的愈合共振。冰锥震碎心口封印，龙角乍现，万兽俯首——双剑合璧，贯杀魔兽。", "set": { "龙魂": 1 }, "goto": "c5_08", "canon": true, "keyMoment": false },
-      { "id": "c5_07b", "chapter": 5, "who": "narrator", "text": "你先救人再谈情——封印碎裂，龙角乍现，万兽俯首。杀完魔兽，你才红着眼睛补上那句：「……还有，我喜欢你。」", "set": { "心动": 1 }, "goto": "c5_08", "canon": true, "keyMoment": false },
-      { "id": "c5_08", "chapter": 5, "who": "narrator", "text": "端阳将至，送魂队伍启程赴南延。水牢里你问他后悔吗，他说：「若是仙途困住了我，我会毫不犹豫放弃仙途。」你吻了他。当夜，他逃出了水牢。", "set": {}, "goto": "c5_09", "canon": true, "keyMoment": false },
-      { "id": "c5_09", "chapter": 5, "who": "narrator", "text": "五月初五，仙盟大殿。他抗仙威不跪，召本命骨剑朝声插地结障，一字一句：「我沈溪山，今日指天破誓——弃修无情道，自散八成修为，此后自甘入红尘，受七情六欲之困，无怨无悔。」天雷应誓落下，他亲手撕碎后颈的「禁」字。", "set": { "心动": 1 }, "canon": true, "keyMoment": true, "choices": [
-        { "text": "举剑挡：「盟主，他很脆弱」", "requires": "心动>=4", "set": { "心动": 1 }, "goto": "c5_10a", "knowledge_patch": {}, "divergence_delta": 0.05 },
-        { "text": "沉默挡剑", "requires": "", "set": {}, "goto": "c5_10b", "knowledge_patch": {}, "divergence_delta": 0 }
-      ] },
-      { "id": "c5_10a", "chapter": 5, "who": "narrator", "text": "满殿哗然里你寸步不退。青璃闭了闭眼：「痴儿。」——说的不知是他，还是你。", "set": {}, "goto": "c5_11", "canon": true, "keyMoment": false },
-      { "id": "c5_10b", "chapter": 5, "who": "narrator", "text": "你不说话，剑也不放。青璃最终收手，只留下一句：「人间万千性命，抵不过你一缕私情。」", "set": {}, "goto": "c5_11", "canon": true, "keyMoment": false },
-      { "id": "c5_11", "chapter": 5, "who": "narrator", "text": "他戴罪之身不眠不休，追出八百里化名归队。不辞春的死域里，千人围杀——他以血肉替你挡下致命一剑，心口洞穿。「你看，我算得很准。日后你可不能再说我卜算不行了。」", "set": {}, "goto": "c5_12", "canon": true, "keyMoment": false },
-      { "id": "c5_12", "chapter": 5, "who": "bsy", "text": "步时鸢以万象罗盘逼你自破封印——龙珠离体的刹那，她却反手一箭，把龙珠射还濒死的他。龙神真身现世，金瞳竖瞳，单手按住腐龙：「你也配。」", "set": { "龙魂": 1 }, "canon": true, "keyMoment": true, "choices": [
-        { "text": "冲进红莲，抱住龙角", "requires": "", "set": { "心动": 1 }, "goto": "c5_13a", "knowledge_patch": {}, "divergence_delta": 0.05 },
-        { "text": "转身先斩腐龙", "requires": "", "set": { "胆量": 1 }, "goto": "c5_13b", "knowledge_patch": {}, "divergence_delta": 0 }
-      ] },
-      { "id": "c5_13a", "chapter": 5, "who": "narrator", "text": "红莲之中，你直面「何为大道」：厉声讨伐你的人、委屈辩解的人……而回头处，师父、谢归、云尘与七千将士都在。你彻悟而出——是恶必除，是善必扬，是牺牲必以铭记。", "set": {}, "goto": "c5_14", "canon": true, "keyMoment": false },
-      { "id": "c5_13b", "chapter": 5, "who": "narrator", "text": "你替他斩出一线生机，再回身接住坠落的龙神。鳞片硌得脸疼，你却抱得更紧了。", "set": {}, "goto": "c5_14", "canon": true, "keyMoment": false },
-      { "id": "c5_14", "chapter": 5, "who": "narrator", "text": "九道天雷降下——一雷飞升，九雷晋神。天梯自你脚下重建，六界首位凡人之神，加冕于仙盟。而那位创世龙神自愿盘在莲座边，做了「上神养的长虫」。", "set": { "龙魂": 1 }, "goto": "c5_15", "canon": true, "keyMoment": false },
-      { "id": "c5_15", "chapter": 5, "who": "narrator", "text": "人们会永远记住并供奉那位在人族气运式微、繁星陨落之际，打破天道枷锁，成为天下第一人的神明。以及，神明身边那条死活不肯走的——长虫。", "set": {}, "canon": true, "keyMoment": false }
+      {
+        "id": "c1_00",
+        "chapter": 1,
+        "who": "narrator",
+        "text": "你在樱花树下醒来，脑子里多了两段记忆：一段是书——仙盟最废的弟子宋小河，暗恋小师弟沈溪山十年；一段是现在——小师弟葬身火海，魂灯熄灭，全仙盟挂起了白幡。而你，正替她哭着扫地。",
+        "set": {},
+        "goto": "c1_01",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "c1_01",
+        "chapter": 1,
+        "who": "narrator",
+        "text": "扫地扫到瀑布边，你越哭越响——白幡都挂到内门去了，凭什么不许你替他哭一声。头顶的树枝忽然一响。",
+        "set": {},
+        "goto": "c1_02",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "c1_02",
+        "chapter": 1,
+        "who": "sxs",
+        "text": "「吵死了。」一根树枝精准砸在你脑门上。树上跳下来个灰衣少年，个子很高，眉眼懒怠，一脸被打扰的不耐烦。",
+        "set": {},
+        "canon": true,
+        "keyMoment": false,
+        "choices": [
+          {
+            "text": "「你谁啊，敢打我？」",
+            "requires": "",
+            "set": {
+              "胆量": 1
+            },
+            "goto": "c1_03a",
+            "knowledge_patch": {},
+            "divergence_delta": 0
+          },
+          {
+            "text": "揉着头偷偷打量他",
+            "requires": "",
+            "set": {
+              "真相": 1
+            },
+            "goto": "c1_03b",
+            "knowledge_patch": {},
+            "divergence_delta": 0
+          }
+        ]
+      },
+      {
+        "id": "c1_03a",
+        "chapter": 1,
+        "who": "narrator",
+        "text": "少年抱臂报上大名：「沈溪山。」你当场炸毛：「胡说八道！那是我小师弟的名！全仙盟都在给他办丧事！」",
+        "set": {},
+        "goto": "c1_04",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "c1_03b",
+        "chapter": 1,
+        "who": "narrator",
+        "text": "你揉着脑门看他——很高，很白，站姿像握过十年的剑。心跳没来由漏了半拍，你把这归功于悲伤过度。",
+        "set": {},
+        "goto": "c1_04",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "c1_04",
+        "chapter": 1,
+        "who": "sxs",
+        "text": "他嗤笑出声：「我怎么不记得，自己有个哭起来比猪叫还难听的师姐？」",
+        "set": {},
+        "canon": true,
+        "keyMoment": false,
+        "choices": [
+          {
+            "text": "去诸事阁告状",
+            "requires": "",
+            "set": {
+              "胆量": 1
+            },
+            "goto": "c1_05a",
+            "knowledge_patch": {},
+            "divergence_delta": 0
+          },
+          {
+            "text": "死缠着他问名字",
+            "requires": "",
+            "set": {},
+            "goto": "c1_05b",
+            "knowledge_patch": {},
+            "divergence_delta": 0
+          }
+        ]
+      },
+      {
+        "id": "c1_05a",
+        "chapter": 1,
+        "who": "narrator",
+        "text": "诸事阁的珍娘给你擦着脸：「外门没有叫沈溪山的弟子，也没有叫沈策的。」你攥紧拳头——好，敢骗我。",
+        "set": {},
+        "goto": "c1_06",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "c1_05b",
+        "chapter": 1,
+        "who": "sxs",
+        "text": "被你缠得没法，他随口道：「沈策。我的俗名。」你打击报复：「确实很俗。」他转身就走，走得像身后有狗撵。",
+        "set": {},
+        "goto": "c1_06",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "c1_06",
+        "chapter": 1,
+        "who": "narrator",
+        "text": "几日后，掌书阁后院，你又撞见这个自称沈策的人——他正让情报贩子陈君打探关如萱的消息，还有仙盟队伍的出发日期。",
+        "set": {},
+        "canon": true,
+        "keyMoment": false,
+        "choices": [
+          {
+            "text": "跳出来当面质问",
+            "requires": "",
+            "set": {
+              "胆量": 1
+            },
+            "goto": "c1_07a",
+            "knowledge_patch": {},
+            "divergence_delta": 0
+          },
+          {
+            "text": "贴着墙根偷听",
+            "requires": "",
+            "set": {
+              "真相": 1
+            },
+            "goto": "c1_07",
+            "knowledge_patch": {},
+            "divergence_delta": 0
+          }
+        ]
+      },
+      {
+        "id": "c1_07",
+        "chapter": 1,
+        "who": "narrator",
+        "text": "你听见他低声问秘境的路线，句句在打探底细。再一看——珍娘不知何时立在屋里，脊背笔直得反常，肩上贴着一张符。",
+        "set": {},
+        "goto": "c1_08",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "c1_07a",
+        "chapter": 1,
+        "who": "sxs",
+        "text": "被你撞破，他挑眉：「干你何事？」你叉腰：「你与其求别人，不如讨好我——我是内门弟子！」他：「我不会讨好一个连月考核都过不了的笨蛋。」",
+        "set": {},
+        "goto": "c1_08",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "c1_08",
+        "chapter": 1,
+        "who": "narrator",
+        "text": "「卑鄙小人，放开珍娘！」你破窗而入。他吓得差点从桌上摔下来——半个字都没察觉你跟了多久。",
+        "set": {},
+        "canon": true,
+        "keyMoment": false,
+        "choices": [
+          {
+            "text": "上手去扯那张符",
+            "requires": "",
+            "set": {
+              "胆量": 1
+            },
+            "goto": "c1_09a",
+            "knowledge_patch": {},
+            "divergence_delta": 0
+          },
+          {
+            "text": "先骂他个狗血淋头",
+            "requires": "",
+            "set": {},
+            "goto": "c1_09b",
+            "knowledge_patch": {},
+            "divergence_delta": 0
+          }
+        ]
+      },
+      {
+        "id": "c1_09a",
+        "chapter": 1,
+        "who": "narrator",
+        "text": "手腕被一把捏住。他另一只手在你脑门上贴了张符——天地瞬间安静，你的身体不听使唤了。",
+        "set": {},
+        "goto": "c1_10",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "c1_09b",
+        "chapter": 1,
+        "who": "narrator",
+        "text": "你从品行骂到祖宗，一口气不带停。他面无表情听完，在你脑门上贴了张符。「闭嘴。」于是整个人界都安静了。",
+        "set": {},
+        "goto": "c1_10",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "c1_10",
+        "chapter": 1,
+        "who": "sxs",
+        "text": "他问完消息，收走珍娘肩上的符，又指使你跳进栅栏边的深坑，蹲在坑边看你：「下次再撞到我面前，就把你活埋。听清楚了吗？」",
+        "set": {},
+        "goto": "c1_11",
+        "canon": true,
+        "keyMoment": true
+      },
+      {
+        "id": "c1_11",
+        "chapter": 1,
+        "who": "lt",
+        "text": "符化成灰，你重获自由，连滚带爬跑回沧海峰。师父捻着胡子科普：秘境是酆都鬼蜮，队伍是去取上古神器日晷神仪。「此行凶险，你不能去。」",
+        "set": {},
+        "goto": "c1_12",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "c1_12",
+        "chapter": 1,
+        "who": "narrator",
+        "text": "「我保证不去。」你答得斩钉截铁。可没见到小师弟的尸骨之前，你绝不相信他死了——哪怕全仙盟都信了。",
+        "set": {},
+        "canon": true,
+        "keyMoment": true,
+        "choices": [
+          {
+            "text": "当夜偷宝，留符下山",
+            "requires": "",
+            "set": {
+              "胆量": 2
+            },
+            "goto": "c1_13a",
+            "knowledge_patch": {},
+            "divergence_delta": 0.05
+          },
+          {
+            "text": "先找沈策谈个交易",
+            "requires": "",
+            "set": {
+              "真相": 1
+            },
+            "goto": "c1_13b",
+            "knowledge_patch": {},
+            "divergence_delta": 0.05
+          }
+        ]
+      },
+      {
+        "id": "c1_13a",
+        "chapter": 1,
+        "who": "narrator",
+        "text": "樱花树下埋一张平安符，朝师父的院门三拜，你背上包袱踏进夜色。偷出来的宝贝塞满储物镯——师父的雷玉葫芦，沉甸甸的。",
+        "set": {},
+        "goto": "c1_14",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "c1_13b",
+        "chapter": 1,
+        "who": "sxs",
+        "text": "「带我进队伍，我就不告发你用符控人。」他挑眉：「你去告发啊。」你：「……咱们同门一场，和气生财。」他没答应，但你决定跟着。",
+        "set": {},
+        "goto": "c1_14",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "c1_14",
+        "chapter": 1,
+        "who": "narrator",
+        "text": "子夜，粮阁南边的结界裂缝前，站着三个人影：你，化名沈策的沈溪山，和主动献路的外门弟子苏暮临。目的地相同——酆都鬼蜮。只是你的理由是救小师弟，他的理由，没人知道。",
+        "set": {},
+        "goto": "c2_00",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "c2_00",
+        "chapter": 2,
+        "who": "narrator",
+        "text": "走了一天一夜才出群山。进城前你清点家当：十文钱。飞具租不起，你扯开长幡——「宋氏卜算，百问百灵」。",
+        "set": {},
+        "goto": "c2_01",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "c2_01",
+        "chapter": 2,
+        "who": "bsy",
+        "text": "摆了半个时辰，一个客人都没有。终于有人在你面前停下——灰道袍的女子，幡上一个潦草的「算」字。她张口就叫破你的名字：「宋小河。」",
+        "set": {},
+        "canon": true,
+        "keyMoment": false,
+        "choices": [
+          {
+            "text": "「半仙！给我算一卦！」",
+            "requires": "",
+            "set": {},
+            "goto": "c2_02",
+            "knowledge_patch": {},
+            "divergence_delta": 0
+          },
+          {
+            "text": "「你也是神棍吧？」",
+            "requires": "",
+            "set": {
+              "胆量": 1
+            },
+            "goto": "c2_01b",
+            "knowledge_patch": {},
+            "divergence_delta": 0
+          }
+        ]
+      },
+      {
+        "id": "c2_01b",
+        "chapter": 2,
+        "who": "bsy",
+        "text": "她不恼，笑意浅浅：「相遇即是缘分，十文一卦，可要试试？」你不情不愿掏光全部家当——反正再省也租不起飞具。",
+        "set": {},
+        "goto": "c2_02",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "c2_02",
+        "chapter": 2,
+        "who": "bsy",
+        "text": "她蹲下来，转动一只浸满墨汁的圆盘，须臾抬头：「你会死。大凶之卦，你有一个死劫，在十七岁之前。」",
+        "set": {},
+        "canon": true,
+        "keyMoment": true,
+        "choices": [
+          {
+            "text": "「把钱退我！」",
+            "requires": "",
+            "set": {},
+            "goto": "c2_03a",
+            "knowledge_patch": {},
+            "divergence_delta": 0
+          },
+          {
+            "text": "「重算！就说我抱得男人归」",
+            "requires": "",
+            "set": {
+              "胆量": 1
+            },
+            "goto": "c2_03b",
+            "knowledge_patch": {},
+            "divergence_delta": 0.05
+          }
+        ]
+      },
+      {
+        "id": "c2_03a",
+        "chapter": 2,
+        "who": "bsy",
+        "text": "「卦已出，概不退银钱。」你瞪她，她温温和和看着你，你竟先败下阵来。",
+        "set": {},
+        "goto": "c2_04",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "c2_03b",
+        "chapter": 2,
+        "who": "bsy",
+        "text": "「我一天只开一卦。」她收了幡，「不过看在你我有缘——我叫步时鸢，唤我鸢姐就好。」",
+        "set": {},
+        "goto": "c2_04",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "c2_04",
+        "chapter": 2,
+        "who": "narrator",
+        "text": "你的第一个同路人，是给你判了死刑的人。夜里篝火，鸢姐忽然开口：「既然害怕，何必执意前往？」",
+        "set": {},
+        "canon": true,
+        "keyMoment": false,
+        "choices": [
+          {
+            "text": "「我喜欢他十年了」",
+            "requires": "",
+            "set": {
+              "胆量": 1
+            },
+            "goto": "c2_05a",
+            "knowledge_patch": {},
+            "divergence_delta": 0
+          },
+          {
+            "text": "打个哈欠岔过去",
+            "requires": "",
+            "set": {},
+            "goto": "c2_05b",
+            "knowledge_patch": {},
+            "divergence_delta": 0
+          }
+        ]
+      },
+      {
+        "id": "c2_05a",
+        "chapter": 2,
+        "who": "narrator",
+        "text": "「没见到小师弟的尸骨之前，我绝不相信他死了。」你说得平平淡淡，像在说明天吃什么。黑暗里，鸢姐沉默了很久。",
+        "set": {},
+        "goto": "c2_06",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "c2_05b",
+        "chapter": 2,
+        "who": "bsy",
+        "text": "你装睡装得很成功。就在你快真睡着时，听见她轻声说：「我的卦，从未出错。」",
+        "set": {},
+        "goto": "c2_06",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "c2_06",
+        "chapter": 2,
+        "who": "narrator",
+        "text": "两天后你追上队伍——仙盟和寒天宗联手的高手们，被困在黄沙废城里整整四日。破庙里还有人悠哉躺着看戏，脸上盖着一本书。",
+        "set": {},
+        "goto": "c2_07",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "c2_07",
+        "chapter": 2,
+        "who": "sxs",
+        "text": "沈策把脸从书下露出来，笑里带刺：「巧了不是。到底是你追到了我的鬼门关，还是我提前到了你的独木桥？」",
+        "set": {},
+        "canon": true,
+        "keyMoment": false,
+        "choices": [
+          {
+            "text": "「留着你过独木桥吧」",
+            "requires": "",
+            "set": {
+              "胆量": 1
+            },
+            "goto": "c2_08a",
+            "knowledge_patch": {},
+            "divergence_delta": 0
+          },
+          {
+            "text": "不理他，去找谢归",
+            "requires": "",
+            "set": {},
+            "goto": "c2_08b",
+            "knowledge_patch": {},
+            "divergence_delta": 0
+          }
+        ]
+      },
+      {
+        "id": "c2_08a",
+        "chapter": 2,
+        "who": "narrator",
+        "text": "你赢下这场嘴仗，扬长而去。没看见他盯着你的背影，看了足足两秒。",
+        "set": {},
+        "goto": "c2_09",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "c2_08b",
+        "chapter": 2,
+        "who": "narrator",
+        "text": "你转身去找寒天宗的谢归说话。身后那人隔着火堆望过来，说了句什么，被噼啪的火星声盖了过去。",
+        "set": {},
+        "goto": "c2_09",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "c2_09",
+        "chapter": 2,
+        "who": "narrator",
+        "text": "正午铃响。庙外黄沙里驶来一条「巨龙」——数千盏灯笼连成的铁皮长躯，举灯的却不是人，是没有五官的妖。苏暮临突然扑出去跪地高呼：「龙神大人万岁——」",
+        "set": {},
+        "goto": "c2_10",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "c2_10",
+        "chapter": 2,
+        "who": "sxs",
+        "text": "「聒噪。」沈溪山一脚把他踹进沙里。步时鸢拦住蠢蠢欲动的众人，转而为沈策起卦：「沈少侠将来的伴侣，会是六界之中相当了不起的人物。」",
+        "set": {},
+        "canon": true,
+        "keyMoment": true,
+        "choices": [
+          {
+            "text": "大声拆台：「上门女婿！」",
+            "requires": "",
+            "set": {
+              "心动": 1,
+              "胆量": 1
+            },
+            "goto": "c2_11a",
+            "knowledge_patch": {},
+            "divergence_delta": 0.05
+          },
+          {
+            "text": "安静听卦",
+            "requires": "",
+            "set": {},
+            "goto": "c2_11b",
+            "knowledge_patch": {},
+            "divergence_delta": 0
+          }
+        ]
+      },
+      {
+        "id": "c2_11a",
+        "chapter": 2,
+        "who": "sxs",
+        "text": "「可我修无情道，何来的伴侣？」「我的卦，从不出错。」你趁机补刀：「他这种的，以后只能入赘当上门女婿！」他额头青筋直跳：「宋小河，你怎么那么欠揍呢？」",
+        "set": {},
+        "goto": "c2_12",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "c2_11b",
+        "chapter": 2,
+        "who": "narrator",
+        "text": "你安静听完，心里翻江倒海——六界之中了不起的人物？那得漂亮成什么样啊。回铺盖之后，你偷偷笑出了声。",
+        "set": {},
+        "goto": "c2_12",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "c2_12",
+        "chapter": 2,
+        "who": "bsy",
+        "text": "入夜，步时鸢唤醒你和沈策：困住全城的，是一只有灵智的蝼蛄妖；白天的妖物全是被困凡人的傀儡。须趁夜斩妖破阵。",
+        "set": {},
+        "goto": "c2_13",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "c2_13",
+        "chapter": 2,
+        "who": "narrator",
+        "text": "你独自寻妖，却遇见个七岁孩童模样的蝼蛄，独坐废墟里分梨给你吃。它说它被困在这里三百年了，只是想有人陪。",
+        "set": {},
+        "canon": true,
+        "keyMoment": false,
+        "choices": [
+          {
+            "text": "陪它分完梨，再动手",
+            "requires": "",
+            "set": {
+              "胆量": 1,
+              "龙魂": 1
+            },
+            "goto": "c2_14a",
+            "knowledge_patch": {},
+            "divergence_delta": 0
+          },
+          {
+            "text": "心软，下不去手",
+            "requires": "",
+            "set": {
+              "胆量": -1
+            },
+            "goto": "c2_14b",
+            "knowledge_patch": {},
+            "divergence_delta": 0
+          }
+        ]
+      },
+      {
+        "id": "c2_14a",
+        "chapter": 2,
+        "who": "narrator",
+        "text": "「你死了，大家才能出城啊。」木剑横上妖颈的瞬间，破空声先至——沈策的符箭钉穿妖心脏。数千傀儡同时化灰，天亮了。",
+        "set": {},
+        "goto": "c2_15",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "c2_14b",
+        "chapter": 2,
+        "who": "narrator",
+        "text": "你抱着妖腿死拖乱滚，直到符箭钉穿蝼蛄。他收箭瞥你：「废物。」可全队出城那一刻，人人都在看你的木剑。",
+        "set": {},
+        "goto": "c2_15",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "c2_15",
+        "chapter": 2,
+        "who": "narrator",
+        "text": "出城当夜，怪事开始了：你明明睡在自己房里，醒来却抱着沈策的胳膊。第二晚他贴了符，第三晚贴了三道——你醒来，正攥着他的手十指相扣。",
+        "set": {},
+        "canon": true,
+        "keyMoment": false,
+        "choices": [
+          {
+            "text": "「你每晚偷跑上我的床！」",
+            "requires": "",
+            "set": {
+              "胆量": 1
+            },
+            "goto": "c2_16a",
+            "knowledge_patch": {},
+            "divergence_delta": 0
+          },
+          {
+            "text": "涨红脸装失忆",
+            "requires": "",
+            "set": {
+              "真相": 1
+            },
+            "goto": "c2_16b",
+            "knowledge_patch": {},
+            "divergence_delta": 0
+          }
+        ]
+      },
+      {
+        "id": "c2_16a",
+        "chapter": 2,
+        "who": "sxs",
+        "text": "他眼皮都没抬：「那你就不要每天晚上，钻到我床上来。」你怒砸床板要探个究竟——谜团没解开，仙船先到了。",
+        "set": {},
+        "goto": "c2_17",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "c2_16b",
+        "chapter": 2,
+        "who": "narrator",
+        "text": "你决定当无事发生。反正梦而已。梦而已……吧？",
+        "set": {},
+        "goto": "c2_17",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "c2_17",
+        "chapter": 2,
+        "who": "narrator",
+        "text": "四方人马会齐：仙盟、寒天宗、玄音门、妖盟。寒天宗的仙船破开黑雾，驶向小师弟「死」的地方。你摸了摸耳坠——师父的玉葫芦，雷还满着。",
+        "set": {},
+        "goto": "c3_00",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "c3_00",
+        "chapter": 3,
+        "who": "narrator",
+        "text": "船入黑雾，妖藤像有灵识一样缠上船身，各领队僵持不下——谁都不肯出结界斩藤。钟浔之嗤笑：「想救一个死人？痴人说梦。」",
+        "set": {},
+        "goto": "c3_01",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "c3_01",
+        "chapter": 3,
+        "who": "narrator",
+        "text": "你用师父教的「必胜之拳」把钟浔之骗得盯紧你的左拳——右拳结结实实呼在他脸上。赌约成立：你若召来九天神雷，钟氏锦囊归你。",
+        "set": {},
+        "canon": true,
+        "keyMoment": false,
+        "choices": [
+          {
+            "text": "登上船头，掏出玉葫芦",
+            "requires": "",
+            "set": {
+              "胆量": 1
+            },
+            "goto": "c3_02",
+            "knowledge_patch": {},
+            "divergence_delta": 0
+          },
+          {
+            "text": "「不赌了，吓唬人不对」",
+            "requires": "",
+            "set": {},
+            "goto": "c3_01b",
+            "knowledge_patch": {},
+            "divergence_delta": 0
+          }
+        ]
+      },
+      {
+        "id": "c3_01b",
+        "chapter": 3,
+        "who": "narrator",
+        "text": "你后退半步，却发现全船的目光都钉在你身上——退不得了。苏暮临还火上浇油：「大人看她不敢！」士可杀不可辱，你咬牙爬上船头。",
+        "set": {},
+        "goto": "c3_02",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "c3_02",
+        "chapter": 3,
+        "who": "narrator",
+        "text": "「九天雷法，皆听我令！」玉葫芦倾泻存雷，九天神雷应声而落——黑雾劈开，妖藤成灰，雷光如昼。你顶着鼻血回头，正对上沈策在狂风里看了你很久的眼睛。",
+        "set": {},
+        "canon": true,
+        "keyMoment": true,
+        "choices": [
+          {
+            "text": "嚣张宣布：「赌约为真。」",
+            "requires": "",
+            "set": {
+              "胆量": 1
+            },
+            "goto": "c3_03a",
+            "knowledge_patch": {},
+            "divergence_delta": 0.05
+          },
+          {
+            "text": "腿一软当场坐倒",
+            "requires": "",
+            "set": {},
+            "goto": "c3_03b",
+            "knowledge_patch": {},
+            "divergence_delta": 0
+          }
+        ]
+      },
+      {
+        "id": "c3_03a",
+        "chapter": 3,
+        "who": "narrator",
+        "text": "全船高手吐血的吐血、跪服的跪服。依约你收走钟氏锦囊——只拿符箓，衣物锦囊原样还他。少年红着眼眶嘴硬：「谁、谁稀罕。」",
+        "set": {},
+        "goto": "c3_04",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "c3_03b",
+        "chapter": 3,
+        "who": "sxs",
+        "text": "你坐在地上鼻血横流。他破天荒递来一方帕子，别过脸：「擦擦。丢人。」",
+        "set": {},
+        "goto": "c3_04",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "c3_04",
+        "chapter": 3,
+        "who": "narrator",
+        "text": "入夜，罗韧借「给你法宝」把你骗到船尾，伸手夺玉葫芦，夺完把你推下百丈高空——可他抢走的是赝品，真葫芦还在你耳坠上晃着。风符缓降，落地时你笑了。",
+        "set": {},
+        "canon": true,
+        "keyMoment": false,
+        "choices": [
+          {
+            "text": "冲他做鬼脸：「你才蠢呢」",
+            "requires": "",
+            "set": {
+              "胆量": 1
+            },
+            "goto": "c3_05a",
+            "knowledge_patch": {},
+            "divergence_delta": 0
+          },
+          {
+            "text": "心口发凉：仙盟为何抢法器",
+            "requires": "",
+            "set": {
+              "真相": 1
+            },
+            "goto": "c3_05b",
+            "knowledge_patch": {},
+            "divergence_delta": 0
+          }
+        ]
+      },
+      {
+        "id": "c3_05a",
+        "chapter": 3,
+        "who": "narrator",
+        "text": "你挂在风符上，冲着船尾越来越远的人影做鬼脸。天上掉下来个「傻姑娘」，砸碎了谁的算盘还不知道呢。",
+        "set": {},
+        "goto": "c3_06",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "c3_05b",
+        "chapter": 3,
+        "who": "narrator",
+        "text": "你第一次意识到：这支队伍里最危险的，也许不是妖。仙盟高层在瞒着所有人找什么东西。",
+        "set": {},
+        "goto": "c3_06",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "c3_06",
+        "chapter": 3,
+        "who": "sxs",
+        "text": "深山妖族客栈，四人小队会合。沈溪山揭晓他的算计：全船人都被他一张假地图引上了多妖的南线，只有你们走零伤亡的北线。「我为什么要给他假的？」",
+        "set": {},
+        "canon": true,
+        "keyMoment": false,
+        "choices": [
+          {
+            "text": "「你到底是谁？」",
+            "requires": "",
+            "set": {
+              "真相": 1
+            },
+            "goto": "c3_07a",
+            "knowledge_patch": {},
+            "divergence_delta": 0
+          },
+          {
+            "text": "收回目光，不多问",
+            "requires": "",
+            "set": {},
+            "goto": "c3_07b",
+            "knowledge_patch": {},
+            "divergence_delta": 0
+          }
+        ]
+      },
+      {
+        "id": "c3_07a",
+        "chapter": 3,
+        "who": "sxs",
+        "text": "他笑意不减：「外门弟子，沈策。」答得滴水不漏。可你分明看见，他捏着地图的指节，紧了一下。",
+        "set": {},
+        "goto": "c3_08",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "c3_07b",
+        "chapter": 3,
+        "who": "narrator",
+        "text": "你把疑问咽了回去。娘说过，好奇害死猫——可你才十六岁，猫都比你胆大。",
+        "set": {},
+        "goto": "c3_08",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "c3_08",
+        "chapter": 3,
+        "who": "narrator",
+        "text": "山洞尽头俯瞰：酆都鬼蜮竟是一座灯火通明的繁华妖城。你服下幻形果，变成了沈溪山的模样——铜镜里，连发带的系法都分毫不差。你在漫长时光里把他看了千百遍，才看得出这样一张脸。身后那人，久久没有说话。",
+        "set": {},
+        "canon": true,
+        "keyMoment": false,
+        "choices": [
+          {
+            "text": "回头问他：「像吗？」",
+            "requires": "",
+            "set": {
+              "心动": 1
+            },
+            "goto": "c3_09a",
+            "knowledge_patch": {},
+            "divergence_delta": 0.05
+          },
+          {
+            "text": "自己对镜子发呆",
+            "requires": "",
+            "set": {
+              "真相": 1
+            },
+            "goto": "c3_09b",
+            "knowledge_patch": {},
+            "divergence_delta": 0
+          }
+        ]
+      },
+      {
+        "id": "c3_09a",
+        "chapter": 3,
+        "who": "sxs",
+        "text": "「不像。」他别开眼，「他比你安静。」守门的猪妖却已直接放行——它认得这张脸：「沈溪山，你竟然没死？」你的心猛地一沉。",
+        "set": {},
+        "goto": "c3_10",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "c3_09b",
+        "chapter": 3,
+        "who": "narrator",
+        "text": "你对着镜子想小师弟想到出神。身后沈策忽然出声：「够了，进城。」声音有点哑。你不知道，他正看着自己的脸，替他活着。",
+        "set": {},
+        "goto": "c3_10",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "c3_10",
+        "chapter": 3,
+        "who": "narrator",
+        "text": "宫殿前巨龙石像镇场。魔神无眼，凭血认人——沈溪山割掌放血，赤莲搭成血阶。魔神低笑：「我就知道你没死。你的魂魄，上次没吃成。」",
+        "set": {},
+        "goto": "c3_11",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "c3_11",
+        "chapter": 3,
+        "who": "narrator",
+        "text": "夜里你做了个梦：小师弟抱着你，眉心那颗朱砂痣却不见了。惊醒时你在沈策房里——你早把他的血抹在地图上追踪足迹，趁夜独自北上，去找传闻中的仙盟枯尸。",
+        "set": {},
+        "canon": true,
+        "keyMoment": false,
+        "choices": [
+          {
+            "text": "提灯就走",
+            "requires": "",
+            "set": {
+              "胆量": 1
+            },
+            "goto": "c3_12",
+            "knowledge_patch": {},
+            "divergence_delta": 0
+          },
+          {
+            "text": "叫上沈策同行",
+            "requires": "",
+            "set": {
+              "心动": 1
+            },
+            "goto": "c3_11b",
+            "knowledge_patch": {},
+            "divergence_delta": 0
+          }
+        ]
+      },
+      {
+        "id": "c3_11b",
+        "chapter": 3,
+        "who": "sxs",
+        "text": "他掀被跟上的速度，快得不像一个「外门弟子」。夜路上谁都没说话，只有你的灯和剑鞘轻响。",
+        "set": {},
+        "goto": "c3_12",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "c3_12",
+        "chapter": 3,
+        "who": "narrator",
+        "text": "树根缠满仙盟枯尸，你扒开根须一张张认脸——宗服眼熟，脸孔全然陌生。忽然，一具枯尸手里，你摸到一柄剑：小师弟的「朝声」。",
+        "set": {},
+        "canon": true,
+        "keyMoment": false,
+        "choices": [
+          {
+            "text": "抱剑不撒手：「我爱人的剑」",
+            "requires": "",
+            "set": {
+              "心动": 1
+            },
+            "goto": "c3_13a",
+            "knowledge_patch": {},
+            "divergence_delta": 0.05
+          },
+          {
+            "text": "拔剑就跑",
+            "requires": "",
+            "set": {},
+            "goto": "c3_13b",
+            "knowledge_patch": {},
+            "divergence_delta": 0
+          }
+        ]
+      },
+      {
+        "id": "c3_13a",
+        "chapter": 3,
+        "who": "narrator",
+        "text": "兔妖白绒现身逼你交剑，全场妖物哄笑你这「不知羞的痴人」。你把死劫将至、九天神雷同归于尽的话都撂了出去，装模作样召雷——哄笑声中，真雷劈碎了山洞。",
+        "set": {},
+        "goto": "c3_14",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "c3_13b",
+        "chapter": 3,
+        "who": "narrator",
+        "text": "你抱剑狂奔，白绒的杀招追至——符箭替你挡了下来。沈策不知何时跟了上来，拔出朝声，护在你身前。",
+        "set": {},
+        "goto": "c3_14",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "c3_14",
+        "chapter": 3,
+        "who": "sxs",
+        "text": "雷鸣震醒魔神，梦魇妖树倾巢而出。你被炸聋，他蹲下来，以灵符一字一字续上你的听觉：「跟着我。我有办法帮你救他。」——帮别人，救他自己。",
+        "set": {},
+        "goto": "c3_15",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "c3_15",
+        "chapter": 3,
+        "who": "narrator",
+        "text": "梦魇的黑雾漫过来。子时将至——步时鸢的卦应验在即。红莲河在眼前铺开，河心莲台下压着日晷神仪，血祭可渡。",
+        "set": {},
+        "canon": true,
+        "keyMoment": false,
+        "choices": [
+          {
+            "text": "不听劝，独闯红莲河",
+            "requires": "",
+            "set": {
+              "胆量": 1,
+              "龙魂": -1
+            },
+            "goto": "c3_16a",
+            "knowledge_patch": {},
+            "divergence_delta": 0.05
+          },
+          {
+            "text": "按住他的手：「一起。」",
+            "requires": "",
+            "set": {
+              "心动": 1
+            },
+            "goto": "c3_16b",
+            "knowledge_patch": {},
+            "divergence_delta": 0.05
+          }
+        ]
+      },
+      {
+        "id": "c3_16a",
+        "chapter": 3,
+        "who": "narrator",
+        "text": "血激活莲阶，你爬上莲台——魔神黑刃贯穿身体。魂魄离体的刹那，符箓化灰。子时正，你的十七岁到了。死劫，应验。",
+        "set": {},
+        "goto": "c3_17",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "c3_16b",
+        "chapter": 3,
+        "who": "narrator",
+        "text": "他反手把你护在身后，可梦魇的利爪穿过了所有防御。黑刃贯胸，你还是倒了下去。魂魄离体，子时正。死劫，从不失手。",
+        "set": {},
+        "goto": "c3_17",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "c3_17",
+        "chapter": 3,
+        "who": "narrator",
+        "text": "心口那道封印，碎了。金光灯盏自魂魄深处亮起——你额生龙角，眸成墨金。万灵之首的威压碾下，魔神伏地臣服，被你像扯棉花一样撕碎。你顺手捏碎莲台，把业火红莲吸入心口。",
+        "set": {
+          "龙魂": 2
+        },
+        "goto": "c3_18",
+        "canon": true,
+        "keyMoment": true
+      },
+      {
+        "id": "c3_18",
+        "chapter": 3,
+        "who": "sxs",
+        "text": "下一瞬，沈溪山臂上的封印徽文同步碎裂。灵力尽复，易容褪去，真容显现。他怔怔看你，忽然懂了：她一路不怕死——因为她从一开始，就知道自己死不了。",
+        "set": {
+          "龙魂": 1
+        },
+        "goto": "c3_19",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "c3_19",
+        "chapter": 3,
+        "who": "narrator",
+        "text": "竹林亭中，恢复真身的小师弟站在你面前。你练了一整路的开场白，最后只说出五个字：「我叫宋小河。」他说，会告诉所有人是你救了他。你说：「这是你我之约。」",
+        "set": {},
+        "goto": "c4_00",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "c4_00",
+        "chapter": 4,
+        "who": "narrator",
+        "text": "回仙盟，青璃上仙亲临，以救沈溪山之功破格录入仙盟。你选了考五年不中的猎门，丁级起步——离小师弟的天字级，还隔着一万座山。封印碎后，你修炼突飞猛进。",
+        "set": {},
+        "goto": "c4_01",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "c4_01",
+        "chapter": 4,
+        "who": "narrator",
+        "text": "数月后，鬼国收幡队出发。渡口上站着个熟悉的灰衣「外门弟子」——他谎称精魄被摄，骗你出发时烧符叫上他。师父没收了符，人就赖在队尾不走了。",
+        "set": {},
+        "canon": true,
+        "keyMoment": false,
+        "choices": [
+          {
+            "text": "「你怎么阴魂不散？」",
+            "requires": "",
+            "set": {
+              "胆量": 1
+            },
+            "goto": "c4_02a",
+            "knowledge_patch": {},
+            "divergence_delta": 0
+          },
+          {
+            "text": "默默把干粮分他一半",
+            "requires": "",
+            "set": {
+              "心动": 1
+            },
+            "goto": "c4_02b",
+            "knowledge_patch": {},
+            "divergence_delta": 0
+          }
+        ]
+      },
+      {
+        "id": "c4_02a",
+        "chapter": 4,
+        "who": "sxs",
+        "text": "「陈述事实而已——精魄被摄之人，需同行照应。」他说得脸不红心不跳。你翻了个白眼，还是把他的名字写进了名册。",
+        "set": {},
+        "goto": "c4_03",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "c4_02b",
+        "chapter": 4,
+        "who": "narrator",
+        "text": "他盯着那半块干粮看了两秒，面无表情收下。当晚扎营，你的毯子边上多了一件叠得方方正正的外袍。",
+        "set": {},
+        "goto": "c4_03",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "c4_03",
+        "chapter": 4,
+        "who": "narrator",
+        "text": "荒村夜宿，你被狐面戏子的幻境追得魂飞魄散，一头撞进追了你三天三夜的人怀里。他怒斥「骗子」，却十指相扣为你结下一道咒：「看我所看，听我所听，受我所受——共感咒。」腕上生出一粒黑痣。",
+        "set": {},
+        "canon": true,
+        "keyMoment": true,
+        "choices": [
+          {
+            "text": "「这咒……要解吗？」",
+            "requires": "",
+            "set": {
+              "心动": 1
+            },
+            "goto": "c4_04a",
+            "knowledge_patch": {},
+            "divergence_delta": 0.05
+          },
+          {
+            "text": "跺他一脚试试灵不灵",
+            "requires": "",
+            "set": {
+              "胆量": 1
+            },
+            "goto": "c4_04b",
+            "knowledge_patch": {},
+            "divergence_delta": 0
+          }
+        ]
+      },
+      {
+        "id": "c4_04a",
+        "chapter": 4,
+        "who": "sxs",
+        "text": "他收手，慢条斯理：「急什么。等你想解的时候，我不一定想给。」",
+        "set": {},
+        "goto": "c4_05",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "c4_04b",
+        "chapter": 4,
+        "who": "narrator",
+        "text": "你跺了他一脚——疼的人却是你。共感是双向的。他笑得恶劣：「现在知道怕了？」",
+        "set": {},
+        "goto": "c4_05",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "c4_05",
+        "chapter": 4,
+        "who": "narrator",
+        "text": "鬼国边境，全村人夜里化成妖尸。破庙幻境里，妖物变成小师弟的模样向你伸出手——你以发带蒙眼，听声辨位，一剑斩之。",
+        "set": {},
+        "goto": "c4_06",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "c4_06",
+        "chapter": 4,
+        "who": "narrator",
+        "text": "「任何邪物，都不得冒充小师弟。」你收剑，指尖在抖。沈策站在幻境碎裂的光里，看了你很久，什么都没说。",
+        "set": {},
+        "canon": true,
+        "keyMoment": false,
+        "choices": [
+          {
+            "text": "「你刚才想说什么？」",
+            "requires": "",
+            "set": {
+              "真相": 1
+            },
+            "goto": "c4_07a",
+            "knowledge_patch": {},
+            "divergence_delta": 0
+          },
+          {
+            "text": "收剑回营",
+            "requires": "",
+            "set": {},
+            "goto": "c4_07b",
+            "knowledge_patch": {},
+            "divergence_delta": 0
+          }
+        ]
+      },
+      {
+        "id": "c4_07a",
+        "chapter": 4,
+        "who": "sxs",
+        "text": "「我说——」他顿了顿，「下次别用命去赌。」",
+        "set": {},
+        "goto": "c4_08",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "c4_07b",
+        "chapter": 4,
+        "who": "narrator",
+        "text": "那晚他在火堆边坐到后半夜。共感咒那头，你假装睡着，数着他的呼吸也数到后半夜。",
+        "set": {},
+        "goto": "c4_08",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "c4_08",
+        "chapter": 4,
+        "who": "narrator",
+        "text": "长安途中荒村，你们被摄入魔域。你中了致幻的毒，他把你抱进山洞，喂下半颗绿果——你神智昏沉，搂着他的脖子亲了一口：「小师弟……你好漂亮。」",
+        "set": {},
+        "goto": "c4_09",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "c4_09",
+        "chapter": 4,
+        "who": "sxs",
+        "text": "你昏睡过去。山洞里，他后颈的「禁」字烧红烧痛——断情禁咒，七年来第一次变红。他抱着你坐到天亮：「他还未注意到，倒是让断情禁咒先发现了。」",
+        "set": {
+          "心动": 1
+        },
+        "canon": true,
+        "keyMoment": false,
+        "choices": [
+          {
+            "text": "假装没醒，继续抱着",
+            "requires": "",
+            "set": {
+              "心动": 1
+            },
+            "goto": "c4_10a",
+            "knowledge_patch": {},
+            "divergence_delta": 0
+          },
+          {
+            "text": "猛地弹开装刚醒",
+            "requires": "",
+            "set": {
+              "胆量": 1
+            },
+            "goto": "c4_10b",
+            "knowledge_patch": {},
+            "divergence_delta": 0
+          }
+        ]
+      },
+      {
+        "id": "c4_10a",
+        "chapter": 4,
+        "who": "narrator",
+        "text": "你其实没睡着。你数着他的心跳到天亮，把「沈策为什么这么像小师弟」这个问题，又往后拖了一夜。",
+        "set": {},
+        "goto": "c4_11",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "c4_10b",
+        "chapter": 4,
+        "who": "narrator",
+        "text": "你弹起来的瞬间，他的手臂僵在半空。两个人隔着火堆互相装傻，装得洞里的空气都结了冰。",
+        "set": {},
+        "goto": "c4_11",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "c4_11",
+        "chapter": 4,
+        "who": "narrator",
+        "text": "客栈里你把捡的海棠花送给他：「因为你长得好看。」——同一个人，气得他险些当场破功。夜里，一个假「沈策」上门逼宫，傀儡的线头从他袖口露了出来。",
+        "set": {},
+        "goto": "c4_12",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "c4_12",
+        "chapter": 4,
+        "who": "narrator",
+        "text": "共感咒里，你直视他的眼睛：「你究竟是沈溪山，还是沈策？」很久，他开口：「皆是我。」",
+        "set": {
+          "真相": 2
+        },
+        "canon": true,
+        "keyMoment": true,
+        "choices": [
+          {
+            "text": "红了眼眶：「骗子。」",
+            "requires": "",
+            "set": {},
+            "goto": "c4_13a",
+            "knowledge_patch": {
+              "playerKnown": [
+                "沈策就是沈溪山"
+              ]
+            },
+            "divergence_delta": 0.1
+          },
+          {
+            "text": "嘴硬：「我早猜到了。」",
+            "requires": "",
+            "set": {},
+            "goto": "c4_13b",
+            "knowledge_patch": {
+              "playerKnown": [
+                "沈策就是沈溪山"
+              ]
+            },
+            "divergence_delta": 0.1
+          }
+        ]
+      },
+      {
+        "id": "c4_13a",
+        "chapter": 4,
+        "who": "narrator",
+        "text": "十年真心被人攥在手里玩了半年——你扯下腕上黑痣的位置，用布带一圈圈缠住，从此绑腕夜眠，拒他三步之外。",
+        "set": {},
+        "goto": "c4_14",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "c4_13b",
+        "chapter": 4,
+        "who": "narrator",
+        "text": "「我早猜到了。」你说得云淡风轻，指甲掐进掌心。他不揭穿你，只是把朝声剑解下来，放在了你枕头边。",
+        "set": {},
+        "goto": "c4_14",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "c4_14",
+        "chapter": 4,
+        "who": "sxs",
+        "text": "钟氏围山逼婚那日，他自寒天宗掘出旧案铁证归来，身后跟着八柄十丈金剑。「再敢打宋小河的主意——」剑落，人头滚。「滚在地上的人头，便是下场。」",
+        "set": {},
+        "goto": "c4_15",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "c4_15",
+        "chapter": 4,
+        "who": "narrator",
+        "text": "雷雨夜，他把你按在门板上吻住，再拉你的手，贴上他后颈灼热的「禁」字：「这是断情禁咒。我每日每夜都要经受这样的痛——因为守不住道心，对你动了情。」",
+        "set": {
+          "心动": 1
+        },
+        "goto": "c5_00",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "c5_00",
+        "chapter": 5,
+        "who": "narrator",
+        "text": "沧海峰的樱花一夜枯死。梦魔织的「师父还在」的网被拆穿那天，你在梦里向师父磕了三个头，把小瓷人留在枕边。醒来时漫天星雨坠落——那是师父备好的十八岁生辰礼。你在他怀里放声大哭。",
+        "set": {},
+        "goto": "c5_01",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "c5_01",
+        "chapter": 5,
+        "who": "narrator",
+        "text": "寿麟尸城。双鱼神玉能拓印死物、让尸身「复生」——城中百姓捧着玉求你复活亡者，你也第一次生出那个念头：用神玉，把师父「找」回来。",
+        "set": {},
+        "canon": true,
+        "keyMoment": false,
+        "choices": [
+          {
+            "text": "收回手：「人死不能复生」",
+            "requires": "",
+            "set": {
+              "龙魂": 1
+            },
+            "goto": "c5_02a",
+            "knowledge_patch": {},
+            "divergence_delta": 0
+          },
+          {
+            "text": "深夜独自去试",
+            "requires": "",
+            "set": {
+              "龙魂": -1
+            },
+            "goto": "c5_02b",
+            "knowledge_patch": {},
+            "divergence_delta": 0.05
+          }
+        ]
+      },
+      {
+        "id": "c5_02a",
+        "chapter": 5,
+        "who": "narrator",
+        "text": "「我两月前才死了师父。」你说，「正因如此，我知道死掉的人不会回来，回来也不会是他们。」满城哭声里，你把玉还了回去。",
+        "set": {},
+        "goto": "c5_03",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "c5_02b",
+        "chapter": 5,
+        "who": "narrator",
+        "text": "柳木土封住七窍，玉光亮了一夜。天亮时棺中人睁眼，喊的却不是你的名字。你瘫坐在坟场里，终于把那点念头掐死了——回来的人，不是他们。",
+        "set": {},
+        "goto": "c5_03",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "c5_03",
+        "chapter": 5,
+        "who": "narrator",
+        "text": "满月夜山中迷阵，七封信逐一现世——师父写给伯父的信，从「你再等一等我，求你」到「能让我再唤你一声，哥哥」。你拼出地图，四枚铜板开启城门，取回伯父最后一魄。",
+        "set": {},
+        "goto": "c5_04",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "c5_04",
+        "chapter": 5,
+        "who": "narrator",
+        "text": "迷阵深处，沈溪山被困散功大阵。你靠着子时梦游定向、风传讯引路，一掌拍碎困仙结界——相识以来，他第一次笑得毫无阴霾。",
+        "set": {},
+        "canon": true,
+        "keyMoment": false,
+        "choices": [
+          {
+            "text": "「逞什么英雄，等我。」",
+            "requires": "",
+            "set": {
+              "心动": 1
+            },
+            "goto": "c5_05a",
+            "knowledge_patch": {},
+            "divergence_delta": 0
+          },
+          {
+            "text": "「区区大阵，难不倒我！」",
+            "requires": "",
+            "set": {
+              "胆量": 1
+            },
+            "goto": "c5_05b",
+            "knowledge_patch": {},
+            "divergence_delta": 0
+          }
+        ]
+      },
+      {
+        "id": "c5_05a",
+        "chapter": 5,
+        "who": "sxs",
+        "text": "他坐在碎成齑粉的阵眼里，拍了拍身上的灰，认认真真说了声：「好。」",
+        "set": {},
+        "goto": "c5_06",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "c5_05b",
+        "chapter": 5,
+        "who": "sxs",
+        "text": "「宋小河。」他喊你全名，声音有点哑，「……嗯，难不倒你。」",
+        "set": {},
+        "goto": "c5_06",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "c5_06",
+        "chapter": 5,
+        "who": "narrator",
+        "text": "变阵再起，百年魔兽人首蛛身铺天盖地。金剑贯腹，他被钉在阵眼——递过来的却是找到的灵器。「快说喜欢我。」",
+        "set": {},
+        "canon": true,
+        "keyMoment": false,
+        "choices": [
+          {
+            "text": "哭着吻他：「我喜欢你」",
+            "requires": "",
+            "set": {
+              "心动": 2
+            },
+            "goto": "c5_07a",
+            "knowledge_patch": {},
+            "divergence_delta": 0.05
+          },
+          {
+            "text": "「你先给我撑住！」",
+            "requires": "",
+            "set": {
+              "龙魂": 1
+            },
+            "goto": "c5_07b",
+            "knowledge_patch": {},
+            "divergence_delta": 0
+          }
+        ]
+      },
+      {
+        "id": "c5_07a",
+        "chapter": 5,
+        "who": "narrator",
+        "text": "龙神之力与他伤口的愈合共振。冰锥震碎心口封印，龙角乍现，万兽俯首——双剑合璧，贯杀魔兽。",
+        "set": {
+          "龙魂": 1
+        },
+        "goto": "c5_08",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "c5_07b",
+        "chapter": 5,
+        "who": "narrator",
+        "text": "你先救人再谈情——封印碎裂，龙角乍现，万兽俯首。杀完魔兽，你才红着眼睛补上那句：「……还有，我喜欢你。」",
+        "set": {
+          "心动": 1
+        },
+        "goto": "c5_08",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "c5_08",
+        "chapter": 5,
+        "who": "narrator",
+        "text": "端阳将至，送魂队伍启程赴南延。水牢里你问他后悔吗，他说：「若是仙途困住了我，我会毫不犹豫放弃仙途。」你吻了他。当夜，他逃出了水牢。",
+        "set": {},
+        "goto": "c5_09",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "c5_09",
+        "chapter": 5,
+        "who": "narrator",
+        "text": "五月初五，仙盟大殿。他抗仙威不跪，召本命骨剑朝声插地结障，一字一句：「我沈溪山，今日指天破誓——弃修无情道，自散八成修为，此后自甘入红尘，受七情六欲之困，无怨无悔。」天雷应誓落下，他亲手撕碎后颈的「禁」字。",
+        "set": {
+          "心动": 1
+        },
+        "canon": true,
+        "keyMoment": true,
+        "choices": [
+          {
+            "text": "举剑挡：「盟主，他很脆弱」",
+            "requires": "心动>=4",
+            "set": {
+              "心动": 1
+            },
+            "goto": "c5_10a",
+            "knowledge_patch": {},
+            "divergence_delta": 0.05
+          },
+          {
+            "text": "沉默挡剑",
+            "requires": "",
+            "set": {},
+            "goto": "c5_10b",
+            "knowledge_patch": {},
+            "divergence_delta": 0
+          }
+        ]
+      },
+      {
+        "id": "c5_10a",
+        "chapter": 5,
+        "who": "narrator",
+        "text": "满殿哗然里你寸步不退。青璃闭了闭眼：「痴儿。」——说的不知是他，还是你。",
+        "set": {},
+        "goto": "c5_11",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "c5_10b",
+        "chapter": 5,
+        "who": "narrator",
+        "text": "你不说话，剑也不放。青璃最终收手，只留下一句：「人间万千性命，抵不过你一缕私情。」",
+        "set": {},
+        "goto": "c5_11",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "c5_11",
+        "chapter": 5,
+        "who": "narrator",
+        "text": "他戴罪之身不眠不休，追出八百里化名归队。不辞春的死域里，千人围杀——他以血肉替你挡下致命一剑，心口洞穿。「你看，我算得很准。日后你可不能再说我卜算不行了。」",
+        "set": {},
+        "goto": "c5_12",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "c5_12",
+        "chapter": 5,
+        "who": "bsy",
+        "text": "步时鸢以万象罗盘逼你自破封印——龙珠离体的刹那，她却反手一箭，把龙珠射还濒死的他。龙神真身现世，金瞳竖瞳，单手按住腐龙：「你也配。」",
+        "set": {
+          "龙魂": 1
+        },
+        "canon": true,
+        "keyMoment": true,
+        "choices": [
+          {
+            "text": "冲进红莲，抱住龙角",
+            "requires": "",
+            "set": {
+              "心动": 1
+            },
+            "goto": "c5_13a",
+            "knowledge_patch": {},
+            "divergence_delta": 0.05
+          },
+          {
+            "text": "转身先斩腐龙",
+            "requires": "",
+            "set": {
+              "胆量": 1
+            },
+            "goto": "c5_13b",
+            "knowledge_patch": {},
+            "divergence_delta": 0
+          }
+        ]
+      },
+      {
+        "id": "c5_13a",
+        "chapter": 5,
+        "who": "narrator",
+        "text": "红莲之中，你直面「何为大道」：厉声讨伐你的人、委屈辩解的人……而回头处，师父、谢归、云尘与七千将士都在。你彻悟而出——是恶必除，是善必扬，是牺牲必以铭记。",
+        "set": {},
+        "goto": "c5_14",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "c5_13b",
+        "chapter": 5,
+        "who": "narrator",
+        "text": "你替他斩出一线生机，再回身接住坠落的龙神。鳞片硌得脸疼，你却抱得更紧了。",
+        "set": {},
+        "goto": "c5_14",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "c5_14",
+        "chapter": 5,
+        "who": "narrator",
+        "text": "九道天雷降下——一雷飞升，九雷晋神。天梯自你脚下重建，六界首位凡人之神，加冕于仙盟。而那位创世龙神自愿盘在莲座边，做了「上神养的长虫」。",
+        "set": {
+          "龙魂": 1
+        },
+        "goto": "c5_15",
+        "canon": true,
+        "keyMoment": false
+      },
+      {
+        "id": "c5_15",
+        "chapter": 5,
+        "who": "narrator",
+        "text": "人们会永远记住并供奉那位在人族气运式微、繁星陨落之际，打破天道枷锁，成为天下第一人的神明。以及，神明身边那条死活不肯走的——长虫。",
+        "set": {},
+        "canon": true,
+        "keyMoment": false
+      }
     ]
   },
   "events": [
-    { "id": "e1_lingguo", "chapter": 1, "weight": 2, "once": true, "requires": "", "narrative": "你溜进师父书房，熏香还甜丝丝的——柜里两个红彤彤的灵果，正冲你招手。", "choices": [
-      { "text": "「偷吃不算偷」", "set": { "胆量": 1 }, "divergence_delta": 0 },
-      { "text": "给师父留一个", "set": { "龙魂": 1 }, "divergence_delta": 0 }
-    ] },
-    { "id": "e1_pinganfu", "chapter": 1, "weight": 2, "once": true, "requires": "", "narrative": "路过樱花树，你照例埋下一张平安符——小师弟出任务的日子，一天都没落下。", "choices": [
-      { "text": "多埋一张给自己", "set": { "胆量": 1 }, "divergence_delta": 0 },
-      { "text": "顺便扫净落叶", "set": { "龙魂": 1 }, "divergence_delta": 0 }
-    ] },
-    { "id": "e1_yuekao", "chapter": 1, "weight": 3, "once": true, "requires": "", "narrative": "月考核又到了。你掐着法诀举起重物，它颤颤巍巍、摇摇欲坠、勉强……过了！", "choices": [
-      { "text": "大声欢呼", "set": { "胆量": 1 }, "divergence_delta": 0 },
-      { "text": "悄悄再练一遍", "set": { "龙魂": 1 }, "divergence_delta": 0 }
-    ] },
-    { "id": "e1_menqiao", "chapter": 1, "weight": 1, "once": true, "requires": "", "narrative": "人群里有人阴阳怪气：「这不是鼎鼎大名的『双门弟子』宋小河嘛！」", "choices": [
-      { "text": "「站到我面前来说！」", "set": { "胆量": 1 }, "divergence_delta": 0 },
-      { "text": "记仇，改天再算账", "set": {}, "divergence_delta": 0 }
-    ] },
-    { "id": "e2_suanming", "chapter": 2, "weight": 2, "once": true, "requires": "", "narrative": "你重操旧业摆摊算命。这次来了个大娘，问你远行的儿子何时归。", "choices": [
-      { "text": "瞎扯一通+平安符", "set": { "胆量": 1 }, "divergence_delta": 0 },
-      { "text": "认真劝她去城南找", "set": { "龙魂": 1 }, "divergence_delta": 0 }
-    ] },
-    { "id": "e2_longdeng", "chapter": 2, "weight": 2, "once": true, "requires": "", "narrative": "又是龙灯夜。铁皮长龙蜿蜒过沙海，鼓声混着唢呐，说不出的古老。", "choices": [
-      { "text": "踮脚多看两眼", "set": {}, "divergence_delta": 0 },
-      { "text": "拉鸢姐一起看", "set": { "心动": 1 }, "divergence_delta": 0 }
-    ] },
-    { "id": "e2_yehuo", "chapter": 2, "weight": 3, "once": true, "requires": "", "narrative": "篝火边，有人问你为什么非要下山。你想起樱花树下埋的第一张平安符。", "choices": [
-      { "text": "「我喜欢他十年了」", "set": { "心动": 1 }, "divergence_delta": 0 },
-      { "text": "「关你什么事」", "set": { "胆量": 1 }, "divergence_delta": 0 }
-    ] },
-    { "id": "e2_tongchuang", "chapter": 2, "weight": 2, "once": true, "requires": "", "narrative": "第三夜。你醒来，正与沈策十指相扣——他额头贴着的三道符，齐齐化成了灰。", "choices": [
-      { "text": "「你偷跑上我的床！」", "set": { "胆量": 1 }, "divergence_delta": 0 },
-      { "text": "涨红脸装睡", "set": { "龙魂": 1 }, "divergence_delta": 0 }
-    ] },
-    { "id": "e3_moshen", "chapter": 3, "weight": 2, "once": true, "requires": "", "narrative": "血阶尽头，无眼的魔神俯身嗅了嗅，笑声震得莲灯乱晃：「好香的魂魄。」", "choices": [
-      { "text": "腿肚子转筋", "set": {}, "divergence_delta": 0 },
-      { "text": "挡在苏暮临身前", "set": { "龙魂": 1 }, "divergence_delta": 0 }
-    ] },
-    { "id": "e3_kushishu", "chapter": 3, "weight": 2, "once": true, "requires": "", "narrative": "树根缠满仙盟枯尸。你一张张扒开认脸——宗服眼熟，脸孔全然陌生。", "choices": [
-      { "text": "继续找", "set": { "真相": 1 }, "divergence_delta": 0 },
-      { "text": "手在抖", "set": {}, "divergence_delta": 0 }
-    ] },
-    { "id": "e3_erlong", "chapter": 3, "weight": 3, "once": true, "requires": "", "narrative": "耳中嗡的一声，世界安静了。他蹲下来，以灵符一字一字替你续上听觉。", "choices": [
-      { "text": "「谢谢……」", "set": { "心动": 1 }, "divergence_delta": 0 },
-      { "text": "「你早说有办法！」", "set": { "胆量": 1 }, "divergence_delta": 0 }
-    ] },
-    { "id": "e3_jing", "chapter": 3, "weight": 1, "once": true, "requires": "", "narrative": "幻形果的药效上来了。铜镜里那张脸——连发带的系法都分毫不差。", "choices": [
-      { "text": "对镜出神", "set": { "真相": 1 }, "divergence_delta": 0 },
-      { "text": "「像吗？」", "set": { "心动": 1 }, "divergence_delta": 0 }
-    ] },
-    { "id": "e4_manyue", "chapter": 4, "weight": 3, "once": true, "requires": "", "narrative": "灵狐拦路讨封：「你看我像什么？」你脱口而出：「像人啊。」金光加身，它化形成功。", "choices": [
-      { "text": "收下狐牙", "set": { "龙魂": 1 }, "divergence_delta": 0 },
-      { "text": "「谢啦小狐狸」", "set": { "心动": 1 }, "divergence_delta": 0 }
-    ] },
-    { "id": "e4_haitang", "chapter": 4, "weight": 2, "once": true, "requires": "", "narrative": "你把捡的海棠递给沈策：「送你，因为你长得好看。」他的脸黑了又黑。", "choices": [
-      { "text": "「干嘛这个表情？」", "set": { "胆量": 1 }, "divergence_delta": 0 },
-      { "text": "仰头看花", "set": {}, "divergence_delta": 0 }
-    ] },
-    { "id": "e4_mianhua", "chapter": 4, "weight": 1, "once": true, "requires": "", "narrative": "梦魔坐骑「棉花」亲昵地蹭你，转头一口咬住苏暮临的屁股。", "choices": [
-      { "text": "笑出声", "set": { "胆量": 1 }, "divergence_delta": 0 },
-      { "text": "替苏暮临揉揉", "set": { "龙魂": 1 }, "divergence_delta": 0 }
-    ] },
-    { "id": "e4_cu", "chapter": 4, "weight": 2, "once": true, "requires": "", "narrative": "钟浔元当众提亲。共感咒那头，某人的心跳漏了半拍，随即冷得像冰。", "choices": [
-      { "text": "「我已心有所属」", "set": { "心动": 1 }, "divergence_delta": 0 },
-      { "text": "「我爹是梁檀！」", "set": { "胆量": 1 }, "divergence_delta": 0 }
-    ] },
-    { "id": "e5_huxinya", "chapter": 5, "weight": 2, "once": true, "requires": "", "narrative": "怀里的狐牙忽然发烫——满月说过，它会替你确认身边的人善不善。", "choices": [
-      { "text": "握紧狐牙", "set": { "龙魂": 1 }, "divergence_delta": 0 },
-      { "text": "看向他", "set": { "心动": 1 }, "divergence_delta": 0 }
-    ] },
-    { "id": "e5_jiashu", "chapter": 5, "weight": 3, "once": true, "requires": "", "narrative": "第七封信的火漆开了：「我希望下次见到你，不是在梦中。能让我再唤你一声，哥哥。」", "choices": [
-      { "text": "哭一场", "set": {}, "divergence_delta": 0 },
-      { "text": "把信收进怀里", "set": { "龙魂": 1 }, "divergence_delta": 0 }
-    ] },
-    { "id": "e5_tang", "chapter": 5, "weight": 2, "once": true, "requires": "", "narrative": "他忽然塞给你一颗糖。甜到掉牙——是六岁那年，山中少年给你的同一种糖。", "choices": [
-      { "text": "「哪来的？」", "set": { "真相": 1 }, "divergence_delta": 0 },
-      { "text": "含着糖不说话", "set": { "心动": 1 }, "divergence_delta": 0 }
-    ] },
-    { "id": "e5_wen", "chapter": 5, "weight": 2, "once": true, "requires": "", "narrative": "篝火边他忽然问：「若我不是小师弟，不是沈策，什么都不是呢？」", "choices": [
-      { "text": "「那就是你」", "set": { "心动": 1 }, "divergence_delta": 0 },
-      { "text": "「别绕弯子」", "set": { "胆量": 1 }, "divergence_delta": 0 }
-    ] }
+    {
+      "id": "e1_lingguo",
+      "chapter": 1,
+      "weight": 2,
+      "once": true,
+      "requires": "",
+      "narrative": "你溜进师父书房，熏香还甜丝丝的——柜里两个红彤彤的灵果，正冲你招手。",
+      "choices": [
+        {
+          "text": "「偷吃不算偷」",
+          "set": {
+            "胆量": 1
+          },
+          "divergence_delta": 0
+        },
+        {
+          "text": "给师父留一个",
+          "set": {
+            "龙魂": 1
+          },
+          "divergence_delta": 0
+        }
+      ]
+    },
+    {
+      "id": "e1_pinganfu",
+      "chapter": 1,
+      "weight": 2,
+      "once": true,
+      "requires": "",
+      "narrative": "路过樱花树，你照例埋下一张平安符——小师弟出任务的日子，一天都没落下。",
+      "choices": [
+        {
+          "text": "多埋一张给自己",
+          "set": {
+            "胆量": 1
+          },
+          "divergence_delta": 0
+        },
+        {
+          "text": "顺便扫净落叶",
+          "set": {
+            "龙魂": 1
+          },
+          "divergence_delta": 0
+        }
+      ]
+    },
+    {
+      "id": "e1_yuekao",
+      "chapter": 1,
+      "weight": 3,
+      "once": true,
+      "requires": "",
+      "narrative": "月考核又到了。你掐着法诀举起重物，它颤颤巍巍、摇摇欲坠、勉强……过了！",
+      "choices": [
+        {
+          "text": "大声欢呼",
+          "set": {
+            "胆量": 1
+          },
+          "divergence_delta": 0
+        },
+        {
+          "text": "悄悄再练一遍",
+          "set": {
+            "龙魂": 1
+          },
+          "divergence_delta": 0
+        }
+      ]
+    },
+    {
+      "id": "e1_menqiao",
+      "chapter": 1,
+      "weight": 1,
+      "once": true,
+      "requires": "",
+      "narrative": "人群里有人阴阳怪气：「这不是鼎鼎大名的『双门弟子』宋小河嘛！」",
+      "choices": [
+        {
+          "text": "「站到我面前来说！」",
+          "set": {
+            "胆量": 1
+          },
+          "divergence_delta": 0
+        },
+        {
+          "text": "记仇，改天再算账",
+          "set": {},
+          "divergence_delta": 0
+        }
+      ]
+    },
+    {
+      "id": "e2_suanming",
+      "chapter": 2,
+      "weight": 2,
+      "once": true,
+      "requires": "",
+      "narrative": "你重操旧业摆摊算命。这次来了个大娘，问你远行的儿子何时归。",
+      "choices": [
+        {
+          "text": "瞎扯一通+平安符",
+          "set": {
+            "胆量": 1
+          },
+          "divergence_delta": 0
+        },
+        {
+          "text": "认真劝她去城南找",
+          "set": {
+            "龙魂": 1
+          },
+          "divergence_delta": 0
+        }
+      ]
+    },
+    {
+      "id": "e2_longdeng",
+      "chapter": 2,
+      "weight": 2,
+      "once": true,
+      "requires": "",
+      "narrative": "又是龙灯夜。铁皮长龙蜿蜒过沙海，鼓声混着唢呐，说不出的古老。",
+      "choices": [
+        {
+          "text": "踮脚多看两眼",
+          "set": {},
+          "divergence_delta": 0
+        },
+        {
+          "text": "拉鸢姐一起看",
+          "set": {
+            "心动": 1
+          },
+          "divergence_delta": 0
+        }
+      ]
+    },
+    {
+      "id": "e2_yehuo",
+      "chapter": 2,
+      "weight": 3,
+      "once": true,
+      "requires": "",
+      "narrative": "篝火边，有人问你为什么非要下山。你想起樱花树下埋的第一张平安符。",
+      "choices": [
+        {
+          "text": "「我喜欢他十年了」",
+          "set": {
+            "心动": 1
+          },
+          "divergence_delta": 0
+        },
+        {
+          "text": "「关你什么事」",
+          "set": {
+            "胆量": 1
+          },
+          "divergence_delta": 0
+        }
+      ]
+    },
+    {
+      "id": "e2_tongchuang",
+      "chapter": 2,
+      "weight": 2,
+      "once": true,
+      "requires": "",
+      "narrative": "第三夜。你醒来，正与沈策十指相扣——他额头贴着的三道符，齐齐化成了灰。",
+      "choices": [
+        {
+          "text": "「你偷跑上我的床！」",
+          "set": {
+            "胆量": 1
+          },
+          "divergence_delta": 0
+        },
+        {
+          "text": "涨红脸装睡",
+          "set": {
+            "龙魂": 1
+          },
+          "divergence_delta": 0
+        }
+      ]
+    },
+    {
+      "id": "e3_moshen",
+      "chapter": 3,
+      "weight": 2,
+      "once": true,
+      "requires": "",
+      "narrative": "血阶尽头，无眼的魔神俯身嗅了嗅，笑声震得莲灯乱晃：「好香的魂魄。」",
+      "choices": [
+        {
+          "text": "腿肚子转筋",
+          "set": {},
+          "divergence_delta": 0
+        },
+        {
+          "text": "挡在苏暮临身前",
+          "set": {
+            "龙魂": 1
+          },
+          "divergence_delta": 0
+        }
+      ]
+    },
+    {
+      "id": "e3_kushishu",
+      "chapter": 3,
+      "weight": 2,
+      "once": true,
+      "requires": "",
+      "narrative": "树根缠满仙盟枯尸。你一张张扒开认脸——宗服眼熟，脸孔全然陌生。",
+      "choices": [
+        {
+          "text": "继续找",
+          "set": {
+            "真相": 1
+          },
+          "divergence_delta": 0
+        },
+        {
+          "text": "手在抖",
+          "set": {},
+          "divergence_delta": 0
+        }
+      ]
+    },
+    {
+      "id": "e3_erlong",
+      "chapter": 3,
+      "weight": 3,
+      "once": true,
+      "requires": "",
+      "narrative": "耳中嗡的一声，世界安静了。他蹲下来，以灵符一字一字替你续上听觉。",
+      "choices": [
+        {
+          "text": "「谢谢……」",
+          "set": {
+            "心动": 1
+          },
+          "divergence_delta": 0
+        },
+        {
+          "text": "「你早说有办法！」",
+          "set": {
+            "胆量": 1
+          },
+          "divergence_delta": 0
+        }
+      ]
+    },
+    {
+      "id": "e3_jing",
+      "chapter": 3,
+      "weight": 1,
+      "once": true,
+      "requires": "",
+      "narrative": "幻形果的药效上来了。铜镜里那张脸——连发带的系法都分毫不差。",
+      "choices": [
+        {
+          "text": "对镜出神",
+          "set": {
+            "真相": 1
+          },
+          "divergence_delta": 0
+        },
+        {
+          "text": "「像吗？」",
+          "set": {
+            "心动": 1
+          },
+          "divergence_delta": 0
+        }
+      ]
+    },
+    {
+      "id": "e4_manyue",
+      "chapter": 4,
+      "weight": 3,
+      "once": true,
+      "requires": "",
+      "narrative": "灵狐拦路讨封：「你看我像什么？」你脱口而出：「像人啊。」金光加身，它化形成功。",
+      "choices": [
+        {
+          "text": "收下狐牙",
+          "set": {
+            "龙魂": 1
+          },
+          "divergence_delta": 0
+        },
+        {
+          "text": "「谢啦小狐狸」",
+          "set": {
+            "心动": 1
+          },
+          "divergence_delta": 0
+        }
+      ]
+    },
+    {
+      "id": "e4_haitang",
+      "chapter": 4,
+      "weight": 2,
+      "once": true,
+      "requires": "",
+      "narrative": "你把捡的海棠递给沈策：「送你，因为你长得好看。」他的脸黑了又黑。",
+      "choices": [
+        {
+          "text": "「干嘛这个表情？」",
+          "set": {
+            "胆量": 1
+          },
+          "divergence_delta": 0
+        },
+        {
+          "text": "仰头看花",
+          "set": {},
+          "divergence_delta": 0
+        }
+      ]
+    },
+    {
+      "id": "e4_mianhua",
+      "chapter": 4,
+      "weight": 1,
+      "once": true,
+      "requires": "",
+      "narrative": "梦魔坐骑「棉花」亲昵地蹭你，转头一口咬住苏暮临的屁股。",
+      "choices": [
+        {
+          "text": "笑出声",
+          "set": {
+            "胆量": 1
+          },
+          "divergence_delta": 0
+        },
+        {
+          "text": "替苏暮临揉揉",
+          "set": {
+            "龙魂": 1
+          },
+          "divergence_delta": 0
+        }
+      ]
+    },
+    {
+      "id": "e4_cu",
+      "chapter": 4,
+      "weight": 2,
+      "once": true,
+      "requires": "",
+      "narrative": "钟浔元当众提亲。共感咒那头，某人的心跳漏了半拍，随即冷得像冰。",
+      "choices": [
+        {
+          "text": "「我已心有所属」",
+          "set": {
+            "心动": 1
+          },
+          "divergence_delta": 0
+        },
+        {
+          "text": "「我爹是梁檀！」",
+          "set": {
+            "胆量": 1
+          },
+          "divergence_delta": 0
+        }
+      ]
+    },
+    {
+      "id": "e5_huxinya",
+      "chapter": 5,
+      "weight": 2,
+      "once": true,
+      "requires": "",
+      "narrative": "怀里的狐牙忽然发烫——满月说过，它会替你确认身边的人善不善。",
+      "choices": [
+        {
+          "text": "握紧狐牙",
+          "set": {
+            "龙魂": 1
+          },
+          "divergence_delta": 0
+        },
+        {
+          "text": "看向他",
+          "set": {
+            "心动": 1
+          },
+          "divergence_delta": 0
+        }
+      ]
+    },
+    {
+      "id": "e5_jiashu",
+      "chapter": 5,
+      "weight": 3,
+      "once": true,
+      "requires": "",
+      "narrative": "第七封信的火漆开了：「我希望下次见到你，不是在梦中。能让我再唤你一声，哥哥。」",
+      "choices": [
+        {
+          "text": "哭一场",
+          "set": {},
+          "divergence_delta": 0
+        },
+        {
+          "text": "把信收进怀里",
+          "set": {
+            "龙魂": 1
+          },
+          "divergence_delta": 0
+        }
+      ]
+    },
+    {
+      "id": "e5_tang",
+      "chapter": 5,
+      "weight": 2,
+      "once": true,
+      "requires": "",
+      "narrative": "他忽然塞给你一颗糖。甜到掉牙——是六岁那年，山中少年给你的同一种糖。",
+      "choices": [
+        {
+          "text": "「哪来的？」",
+          "set": {
+            "真相": 1
+          },
+          "divergence_delta": 0
+        },
+        {
+          "text": "含着糖不说话",
+          "set": {
+            "心动": 1
+          },
+          "divergence_delta": 0
+        }
+      ]
+    },
+    {
+      "id": "e5_wen",
+      "chapter": 5,
+      "weight": 2,
+      "once": true,
+      "requires": "",
+      "narrative": "篝火边他忽然问：「若我不是小师弟，不是沈策，什么都不是呢？」",
+      "choices": [
+        {
+          "text": "「那就是你」",
+          "set": {
+            "心动": 1
+          },
+          "divergence_delta": 0
+        },
+        {
+          "text": "「别绕弯子」",
+          "set": {
+            "胆量": 1
+          },
+          "divergence_delta": 0
+        }
+      ]
+    }
   ],
   "map": [
-    { "id": "m_canghai", "name": "沧海峰后山", "chapter": 1, "desc": "樱花常开不败的后山，秋千、木剑和总被偷吃的灵果——师父的骂声十里可闻。" },
-    { "id": "m_waimen", "name": "仙盟外门", "chapter": 1, "desc": "被罚扫地的地方。树上睡着一个自称「沈策」的灰衣少年，脾气很差。" },
-    { "id": "m_huangsha", "name": "黄沙迷城", "chapter": 2, "desc": "困住两派高手的黄沙废城，正午有龙灯祭祀巡游——举灯的不是人。" },
-    { "id": "m_guize", "name": "酆都鬼蜮", "chapter": 3, "desc": "废弃的冥界之门，繁华如人间的不夜妖城。魔神凭血认人，食物吃不得。" },
-    { "id": "m_taoyuan", "name": "鬼国桃源", "chapter": 4, "desc": "黑雾之下的亡国魂域：白日是腊月里的春日桃源，戌时百姓现出鬼体。" },
-    { "id": "m_changan", "name": "长安·仙盟", "chapter": 5, "desc": "仙门千家汇聚之地。百炼会的擂台、殿堂的公审，和一座藏了一座城的隐山。" }
+    {
+      "id": "m_canghai",
+      "name": "沧海峰后山",
+      "chapter": 1,
+      "desc": "樱花常开不败的后山，秋千、木剑和总被偷吃的灵果——师父的骂声十里可闻。"
+    },
+    {
+      "id": "m_waimen",
+      "name": "仙盟外门",
+      "chapter": 1,
+      "desc": "被罚扫地的地方。树上睡着一个自称「沈策」的灰衣少年，脾气很差。"
+    },
+    {
+      "id": "m_huangsha",
+      "name": "黄沙迷城",
+      "chapter": 2,
+      "desc": "困住两派高手的黄沙废城，正午有龙灯祭祀巡游——举灯的不是人。"
+    },
+    {
+      "id": "m_guize",
+      "name": "酆都鬼蜮",
+      "chapter": 3,
+      "desc": "废弃的冥界之门，繁华如人间的不夜妖城。魔神凭血认人，食物吃不得。"
+    },
+    {
+      "id": "m_taoyuan",
+      "name": "鬼国桃源",
+      "chapter": 4,
+      "desc": "黑雾之下的亡国魂域：白日是腊月里的春日桃源，戌时百姓现出鬼体。"
+    },
+    {
+      "id": "m_changan",
+      "name": "长安·仙盟",
+      "chapter": 5,
+      "desc": "仙门千家汇聚之地。百炼会的擂台、殿堂的公审，和一座藏了一座城的隐山。"
+    }
   ],
   "endings": [
-    { "id": "end_shen", "family": "改命", "condition": "龙魂>=6 & 心动>=7 & EVT?[c5_09]", "title": "神佑人间", "tone": "大团圆·九雷晋神", "epilogue": "红莲之中你彻悟「是善必扬，是牺牲必以铭记」，九道天雷落尽——六界首位凡人之神在仙盟加冕，天梯自你脚下重建。创世龙神自愿盘在莲座边，做「上神养的长虫」。你把七千零一封家书挖出尘土，为冤者立碑，为活着的人重开天门。", "rarity": 0.15 },
-    { "id": "end_long", "family": "隐藏", "condition": "龙魂>=7 & 胆量>=6 & EVT?[c3_17]", "title": "龙神归来", "tone": "隐藏线·你先醒了", "epilogue": "死劫只是锁，而你从不等别人来救。龙魂彻底苏醒的那个雪夜，你自己劈开了天道——没有神帝的加冕，没有天梯的恩典，你以万灵之首的身份与他并肩站上云端的裂缝。他愣了很久，笑了：「……是我想要你，来到我身边。」这一次，换你说：「我知道。」", "rarity": 0.08 },
-    { "id": "end_death", "family": "死亡", "condition": "龙魂<1", "title": "十七岁死劫", "tone": "崩坏线·金灯未亮", "epilogue": "封印一碎再碎，金灯终究没能亮起。子时正，梦魇漫过红莲河，你听见很远的地方有人喊你的名字——声音那么像小师弟。可惜这一次，卦没有出错。", "rarity": 0.12 },
-    { "id": "end_wuqing", "family": "原作", "condition": "心动<=3 & EVT?[c4_12]", "title": "无情道", "tone": "意难平·他上了天梯", "epilogue": "他到底守住了道心。百年后飞升大典，白衣金冠的小师弟踏上天梯，仙门百家山呼海啸——人群里的你踮起脚，像很多年前一样，只看到一个模糊的背影。他从头到尾，没喊过你的名字。", "rarity": 0.18 },
-    { "id": "end_cuoguo", "family": "原作", "condition": "真相<=2 & 心动>=5 & EVT?[c5_09]", "title": "沈策之谜", "tone": "遗憾·错过的真相", "epilogue": "你救出了小师弟，大团圆，十里红妆。只是很多年后整理旧物，你翻出一枚不属于你的玉葫芦，和一张字迹清隽的纸条：「笨蛋，我早就说过——扔准点。」沈策再也没出现过。你到现在也不知道，自己错过了什么。", "rarity": 0.15 },
-    { "id": "end_normal", "family": "原作", "condition": "", "title": "人间值得一趟", "tone": "普通HE·甜甜的", "epilogue": "你救回了小师弟，考进了猎门，月考核再也没有挂过。樱花树下他教你新招：「跟人打架，就双手抱头——」「才不是！」你抢过他的剑，「这一招叫必胜之拳，专打你这种欠揍的。」人间风雨都过去了，值得一趟。", "rarity": 0.3 }
+    {
+      "id": "end_shen",
+      "family": "改命",
+      "condition": "龙魂>=6 & 心动>=7 & EVT?[c5_09]",
+      "title": "神佑人间",
+      "tone": "大团圆·九雷晋神",
+      "epilogue": "红莲之中你彻悟「是善必扬，是牺牲必以铭记」，九道天雷落尽——六界首位凡人之神在仙盟加冕，天梯自你脚下重建。创世龙神自愿盘在莲座边，做「上神养的长虫」。你把七千零一封家书挖出尘土，为冤者立碑，为活着的人重开天门。",
+      "rarity": 0.15
+    },
+    {
+      "id": "end_long",
+      "family": "隐藏",
+      "condition": "龙魂>=7 & 胆量>=6 & EVT?[c3_17]",
+      "title": "龙神归来",
+      "tone": "隐藏线·你先醒了",
+      "epilogue": "死劫只是锁，而你从不等别人来救。龙魂彻底苏醒的那个雪夜，你自己劈开了天道——没有神帝的加冕，没有天梯的恩典，你以万灵之首的身份与他并肩站上云端的裂缝。他愣了很久，笑了：「……是我想要你，来到我身边。」这一次，换你说：「我知道。」",
+      "rarity": 0.08
+    },
+    {
+      "id": "end_death",
+      "family": "死亡",
+      "condition": "龙魂<1",
+      "title": "十七岁死劫",
+      "tone": "崩坏线·金灯未亮",
+      "epilogue": "封印一碎再碎，金灯终究没能亮起。子时正，梦魇漫过红莲河，你听见很远的地方有人喊你的名字——声音那么像小师弟。可惜这一次，卦没有出错。",
+      "rarity": 0.12
+    },
+    {
+      "id": "end_wuqing",
+      "family": "原作",
+      "condition": "心动<=3 & EVT?[c4_12]",
+      "title": "无情道",
+      "tone": "意难平·他上了天梯",
+      "epilogue": "他到底守住了道心。百年后飞升大典，白衣金冠的小师弟踏上天梯，仙门百家山呼海啸——人群里的你踮起脚，像很多年前一样，只看到一个模糊的背影。他从头到尾，没喊过你的名字。",
+      "rarity": 0.18
+    },
+    {
+      "id": "end_cuoguo",
+      "family": "原作",
+      "condition": "真相<=2 & 心动>=5 & EVT?[c5_09]",
+      "title": "沈策之谜",
+      "tone": "遗憾·错过的真相",
+      "epilogue": "你救出了小师弟，大团圆，十里红妆。只是很多年后整理旧物，你翻出一枚不属于你的玉葫芦，和一张字迹清隽的纸条：「笨蛋，我早就说过——扔准点。」沈策再也没出现过。你到现在也不知道，自己错过了什么。",
+      "rarity": 0.15
+    },
+    {
+      "id": "end_normal",
+      "family": "原作",
+      "condition": "",
+      "title": "人间值得一趟",
+      "tone": "普通HE·甜甜的",
+      "epilogue": "你救回了小师弟，考进了猎门，月考核再也没有挂过。樱花树下他教你新招：「跟人打架，就双手抱头——」「才不是！」你抢过他的剑，「这一招叫必胜之拳，专打你这种欠揍的。」人间风雨都过去了，值得一趟。",
+      "rarity": 0.3
+    }
   ],
   "presentation": {
     "ui_style": "classic-vn",
@@ -386,13 +2722,38 @@
     "mind_reading": true,
     "mind_require": "心动>=5",
     "mind_flavor": "道心裂隙·无情道松动处的心声",
-    "npc_pool": ["梁檀", "步时鸢", "苏暮临", "谢归", "关如萱", "钟浔之"],
-    "chapter_names": { "1": "外门重逢", "2": "黄沙迷城", "3": "酆都鬼蜮", "4": "互明之劫", "5": "指天破誓" },
+    "npc_pool": [
+      "梁檀",
+      "步时鸢",
+      "苏暮临",
+      "谢归",
+      "关如萱",
+      "钟浔之"
+    ],
+    "chapter_names": {
+      "1": "外门重逢",
+      "2": "黄沙迷城",
+      "3": "酆都鬼蜮",
+      "4": "互明之劫",
+      "5": "指天破誓"
+    },
     "prologue": [
-      { "title": "这是一个什么世界", "text": "新天历九万九千七百年，人界七千年无人飞升。仙界所立的「仙盟」统管万千仙门：猎门司战斗，审门司法，督门后勤。仙盟最废的弟子宋小河，暗恋着最天才的小师弟沈溪山——直到他「死」了。" },
-      { "title": "发生在你身上的事", "text": "你穿成了宋小河。全仙盟都在给沈溪山大办丧事，只有你不信他死了。被罚到外门扫地的那天，一棵树上掉下来个砸你脑门的少年——他报上了小师弟的名字。" },
-      { "title": "没人告诉你的事", "text": "树上的少年是真沈溪山：假死脱身、灵力被封、易容化名「沈策」，要查清害他的人——那黑手就在仙盟高层。而他修着动情即反噬的无情道，后颈贴着一道断情禁咒。你的体内，也封着一样连自己都不知道的东西。" },
-      { "title": "这一世的目标", "text": "五幕：外门重逢、黄沙迷城、酆都鬼蜮、互明之劫、指天破誓。心动是拆他的道，真相是拆他的马甲，龙魂护你渡过十七岁的死劫。六种结局里，藏着一条只有真正「莽」到底才能撞开的隐藏线。" }
+      {
+        "title": "这是一个什么世界",
+        "text": "新天历九万九千七百年，人界七千年无人飞升。仙界所立的「仙盟」统管万千仙门：猎门司战斗，审门司法，督门后勤。仙盟最废的弟子宋小河，暗恋着最天才的小师弟沈溪山——直到他「死」了。"
+      },
+      {
+        "title": "发生在你身上的事",
+        "text": "你穿成了宋小河。全仙盟都在给沈溪山大办丧事，只有你不信他死了。被罚到外门扫地的那天，一棵树上掉下来个砸你脑门的少年——他报上了小师弟的名字。"
+      },
+      {
+        "title": "没人告诉你的事",
+        "text": "树上的少年是真沈溪山：假死脱身、灵力被封、易容化名「沈策」，要查清害他的人——那黑手就在仙盟高层。而他修着动情即反噬的无情道，后颈贴着一道断情禁咒。你的体内，也封着一样连自己都不知道的东西。"
+      },
+      {
+        "title": "这一世的目标",
+        "text": "五幕：外门重逢、黄沙迷城、酆都鬼蜮、互明之劫、指天破誓。心动是拆他的道，真相是拆他的马甲，龙魂护你渡过十七岁的死劫。六种结局里，藏着一条只有真正「莽」到底才能撞开的隐藏线。"
+      }
     ]
   }
 }

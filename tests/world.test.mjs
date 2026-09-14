@@ -24,9 +24,9 @@ test('造世界：buildWorldStory 合成（mode/genre/world_ 前缀/长度截断
   const s2 = buildWorldStory('悬疑', '');
   assert.equal(s2.genre, 'suspense');
   assert.equal(s2.introduction, '');
-  // free 服务端 500 字符截断
-  const s3 = buildWorldStory('修仙', 'a'.repeat(900));
-  assert.ok(s3.introduction.length <= 500);
+  // free 服务端 50000 字符上限（用户可长篇设定）
+  const s3 = buildWorldStory('修仙', 'a'.repeat(90000));
+  assert.ok(s3.introduction.length <= 50000);
   // 未知类型回落 default（服务端入口已用 TYPE_GENRE 白名单拦截，这里是兜底）
   assert.equal(buildWorldStory('科幻', '').genre, 'default');
   // work_id 唯一性

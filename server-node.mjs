@@ -85,12 +85,12 @@ const env = {
   LLM_BASE_URL: process.env.LLM_BASE_URL || '',
   LLM_MODEL: process.env.LLM_MODEL || '',
   LLM_MODEL_FALLBACK: process.env.LLM_MODEL_FALLBACK || '',
+  OAUTH_MOCK: process.env.OAUTH_MOCK || '',
 };
 
-// ---- 加载 Worker 版 Hono 应用并注入环境 ----
+// ---- 加载 Worker 版 Hono 应用并注入环境（worker/index.js 默认导出 { fetch, scheduled } 对象） ----
 const modPath = new URL('./worker/index.js', import.meta.url).href;
 const workerMod = await import(modPath);
-const app = workerMod.default;
 
 // ---- 启动时把 public/data 的书籍与语料播种进 FileKV（与线上 KV 种子对齐） ----
 // 覆盖 key 规约见技术文档 §8：book:{id} / story:{workId} / book:forge:{workId}
@@ -126,7 +126,10 @@ node.use('*', async (c, next) => {
   });
   await next();
 });
-node.route('/', app);
+// worker 只承担 API（/api /auth）；其余路径留给下方静态兜底——不能 all('*') 全接管（会 404 掉 CSS/JS）
+const workerHandler = (c) => workerMod.default.fetch(c.req.raw, c.env, c.executionCtx);
+node.use('/api/*', workerHandler);
+node.use('/auth/*', workerHandler);
 // pretty-URL：/chat → /chat.html（Workers Assets 原生行为，Node 需手动补全）
 node.use('*', async (c, next) => {
   const p = new URL(c.req.url).pathname;

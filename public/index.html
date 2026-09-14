@@ -5,12 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>穿书引擎 · 把故事穿进去玩</title>
 <link rel="stylesheet" href="./css/tokens.css">
-<link rel="stylesheet" href="./css/home.css?v=20260914c">
+<link rel="stylesheet" href="./css/home.css?v=20260915b">
 </head>
 <body>
 <div id="app">
   <div class="topbar">
     <span class="title">书架</span>
+    <button class="back" id="demo-btn" hidden>演示登录</button>
     <button class="back" id="login-btn">知乎登录</button>
   </div>
 
@@ -18,6 +19,7 @@
     <div class="kanshan">🦊</div>
     <div class="logo">穿<span>书</span>引擎</div>
     <p>读完意难平？穿进去玩。—— 确定性引擎管命运，AI 只把角色演活</p>
+    <button class="btn ghost" id="guide-btn">📖 新手指南</button>
   </div>
 
   <div class="section" id="played-section" hidden>
@@ -61,7 +63,21 @@
     <div class="eg-list" id="eg-list"></div>
   </div>
 </div>
+
+<!-- 新手指南浮层（常驻入口：hero 区按钮；首次访问自动弹出一次） -->
+<div class="overlay" id="guide-overlay" hidden>
+  <div class="guide-box">
+    <h2>四步穿进一本书</h2>
+    <div class="guide-steps">
+      <div class="guide-step"><b>① 选一本书</b><p>从精选书库挑一本，或在「全部故事」里任选——AI 现场把故事拆成可玩世界</p></div>
+      <div class="guide-step"><b>② 穿成一个身份</b><p>每本书有多种身份卡，不同身份视角、能力与开局条件都不同</p></div>
+      <div class="guide-step"><b>③ 自由行动 × 命运节点</b><p>输入框里可以做任何事（@角色可互动）；轮次用尽后，命运节点的抉择将写进结局</p></div>
+      <div class="guide-step"><b>④ 收集结局</b><p>原作 / 改命 / 死亡 / 隐藏——多结局等你解锁，完成一局记入「玩过的书」随时继续</p></div>
+    </div>
+    <button class="btn" id="guide-close">我知道了，开始探索</button>
+  </div>
+</div>
 <div id="toast-root"></div>
-<script type="module" src="./js/home.page.js?v=20260914c"></script>
+<script type="module" src="./js/home.page.js?v=20260915d"></script>
 </body>
 </html>

@@ -70,8 +70,8 @@ export function buildWorldStory(type, free) {
     world_type: type,
     title: `${type}世界`,
     author: 'AI 原创',
-    introduction: String(free || '').trim().slice(0, 500),
-    content: `类型：${type}。${String(free || '').trim().slice(0, 500)}`,
+    introduction: String(free || '').trim().slice(0, 50000),
+    content: `类型：${type}。${String(free || '').trim().slice(0, 50000)}`,
   };
 }
 

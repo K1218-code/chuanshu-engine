@@ -172,19 +172,96 @@ function renderPlayed() {
   $('entry-all').addEventListener('click', () => location.href = './stories.html');
 })();
 
-// 登录态（部署后由 Worker 提供 /api/me；本地静态托管无此服务时按钮改为提示）
+// 登录态闭环：双入口并存——「知乎登录」走真实授权；「演示登录」（mock 开启时显示）一键建立演示身份
 const loginBtn = $('login-btn');
-let loginReady = false;
+const demoBtn = $('demo-btn');
+let loggedIn = false;
+let oauthMock = false;
+
+function renderLogin(me) {
+  loggedIn = !!me;
+  loginBtn.replaceChildren();
+  if (me) {
+    if (me.avatarUrl) {
+      const img = document.createElement('img');
+      img.className = 'login-avatar';
+      img.src = me.avatarUrl;
+      img.alt = '';
+      img.referrerPolicy = 'no-referrer'; // 知乎 CDN 防防盗链拦截
+      loginBtn.append(img);
+    }
+    loginBtn.append(document.createTextNode(me.name || '知乎用户'));
+    loginBtn.title = '点击退出登录';
+    loginBtn.classList.add('logged-in');
+    demoBtn.hidden = true; // 登录后演示入口隐藏
+  } else {
+    loginBtn.textContent = '知乎登录';
+    loginBtn.title = '跳转知乎授权，登录后存档永久保留';
+    loginBtn.classList.remove('logged-in');
+    demoBtn.hidden = !oauthMock;
+    demoBtn.title = '演示模式：一键建立演示身份，存档永久保留';
+  }
+}
+
 loginBtn.addEventListener('click', () => {
-  if (loginReady) location.href = '/auth/zhihu/login';
-  else toast('知乎登录随部署开放（本地预览不支持）');
+  const isLocal = ['localhost', '127.0.0.1'].includes(location.hostname);
+  if (loggedIn) {
+    if (confirm('退出登录？\n登录期间的存档会永久保留，退出后将以游客身份继续（游客存档 24 小时后清除）。')) location.href = '/auth/logout';
+  } else if (isLocal) {
+    toast('本地预览不支持知乎授权——请在 chuanshu-engine.xyz 上登录，或用「演示登录」体验');
+  } else {
+    location.href = '/auth/zhihu/login';
+  }
 });
+
+demoBtn.addEventListener('click', () => { location.href = '/auth/demo/login'; });
+
+// OAuth 回跳反馈 + 清理 URL 参数
+(function handleOAuthReturn() {  const params = new URLSearchParams(location.search);
+  const oauth = params.get('oauth');
+  if (!oauth) return;
+  if (oauth === 'success') {
+    fetch('./api/me').then((r) => r.ok ? r.json() : null).then((me) => {
+      if (me?.name) {
+        renderLogin(me);
+        toast(me.mock ? '已进入演示身份——存档永久保留，完整功能可体验' : `知乎登录成功，欢迎 ${me.name}——存档已永久保留`);
+      }
+    }).catch(() => {});
+  } else if (oauth === 'logout') {
+    renderLogin(null);
+    toast('已退出登录。游客数据将在 24 小时后清除');
+  } else if (oauth === 'state_mismatch') {
+    toast('登录失败：安全校验未通过，请重试');
+  } else if (oauth === 'token_failed' || oauth === 'error') {
+    toast('登录失败：知乎授权未完成，请重试');
+  }
+  params.delete('oauth');
+  const qs = params.toString();
+  history.replaceState(null, '', location.pathname + (qs ? '?' + qs : ''));
+})();
+
 (async () => {
   try {
     const r = await fetch('./api/me');
-    if (!r.ok) return;
-    const me = await r.json();
-    loginReady = true;
-    if (me?.name) loginBtn.textContent = me.name;
-  } catch { /* 静态托管下无 /api/me，保持提示行为 */ }
+    const body = await r.json().catch(() => null);
+    oauthMock = !!body?.oauthMock;
+    renderLogin(r.ok && body?.ok ? body : null);
+  } catch { renderLogin(null); /* 静态托管下无 /api/me */ }
 })();
+
+// ---- 新手指南：常驻入口（hero 按钮）+ 首次访问自动弹出一次（状态留存于 localStorage） ----
+const GUIDE_SEEN_KEY = 'cs_guide_seen';
+const guideOverlay = $('guide-overlay');
+
+function openGuide() { guideOverlay.hidden = false; }
+function closeGuide(markSeen) {
+  guideOverlay.hidden = true;
+  if (markSeen) { try { localStorage.setItem(GUIDE_SEEN_KEY, '1'); } catch { /* 隐私模式静默 */ } }
+}
+
+$('guide-btn').addEventListener('click', () => openGuide());
+$('guide-close').addEventListener('click', () => closeGuide(true));
+guideOverlay.addEventListener('click', (e) => { if (e.target === guideOverlay) closeGuide(true); });
+
+// 首次访问（未看过指南）自动弹出一次
+try { if (!localStorage.getItem(GUIDE_SEEN_KEY)) setTimeout(openGuide, 600); } catch { /* 读不到就不自动弹 */ }

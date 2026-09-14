@@ -2,10 +2,16 @@ name = "chuanshu-engine"
 main = "worker/index.js"
 compatibility_date = "2026-09-01"
 
+# 每小时清理超 24h 的匿名用户存档（登录用户数据永久）
+[triggers]
+crons = ["0 * * * *"]
+
 [assets]
 directory = "./public"
 binding = "ASSETS"
-not_found_handling = "single-page-application"
+# 必须为 none：SPA fallback 会把浏览器导航请求（/auth/* 登录跳转等）直接吞成 index.html，
+# 导致 worker 的页面级 302（知乎登录/退出）失效；站内页面链接均带 .html 后缀，不依赖 SPA 兜底
+not_found_handling = "none"
 
 # KV 命名空间：部署前执行
 #   npx wrangler kv namespace create SESSION_KV
@@ -38,6 +44,8 @@ ZHIHU_OAUTH_REDIRECT_URI = "https://chuanshu-engine.xyz/auth/callback"
 LLM_BASE_URL = "https://api.openai-next.com/v1"
 LLM_MODEL = "deepseek-v4-flash"
 LLM_MODEL_FALLBACK = "qwen3-max"
+# 演示登录开关：true=点登录直接建立「演示用户」会话（真实知乎授权联调通过后改为 "false" 或删除此行）
+OAUTH_MOCK = "true"
 
 # Secrets（不写入本文件）：
 #   npx wrangler secret put ZHIHU_OAUTH_APP_KEY

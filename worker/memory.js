@@ -6,6 +6,7 @@
 
 const MEM_ROW_CAP = 64;   // 每个存档的记忆行数上限（超限淘汰低重要度旧行）
 const MEM_SYNC_CAP = 8;   // 单次 sync 允许追加的记忆条数
+const ANON_TTL_MS = 24 * 3600 * 1000; // 匿名用户数据保留 24h（每次 sync 滚动续期）；登录用户永久
 
 export function createMemoryStore(env) {
   if (env?.DB?.prepare) return d1Store(env.DB);
@@ -18,25 +19,32 @@ function d1Store(db) {
   return {
     engine: 'd1',
     async saveState(saveId, bookId, userHash, state, chapter) {
+      // 匿名用户：滚动续期 24h（自最后一次活动起算）；登录用户：expires_at=0 永久
+      const expiresAt = String(userHash).startsWith('anon:') ? Date.now() + ANON_TTL_MS : 0;
       await db.prepare(
-        `INSERT INTO saves (save_id, book_id, user_hash, state, chapter, updated_at)
-         VALUES (?, ?, ?, ?, ?, ?)
-         ON CONFLICT(save_id) DO UPDATE SET state=excluded.state, chapter=excluded.chapter, updated_at=excluded.updated_at`
-      ).bind(String(saveId), String(bookId), String(userHash), JSON.stringify(state), Number(chapter) || 1, Date.now()).run();
+        `INSERT INTO saves (save_id, book_id, user_hash, state, chapter, updated_at, expires_at)
+         VALUES (?, ?, ?, ?, ?, ?, ?)
+         ON CONFLICT(save_id) DO UPDATE SET state=excluded.state, chapter=excluded.chapter,
+           updated_at=excluded.updated_at, user_hash=excluded.user_hash, expires_at=excluded.expires_at`
+      ).bind(String(saveId), String(bookId), String(userHash), JSON.stringify(state), Number(chapter) || 1, Date.now(), expiresAt).run();
     },
     async loadState(saveId) {
       const row = await db.prepare(`SELECT state FROM saves WHERE save_id = ?`).bind(String(saveId)).first();
       if (!row?.state) return null;
       try { return JSON.parse(row.state); } catch { return null; }
     },
+    // 归属 + 过期元数据：过期匿名档视为不存在（owner=null），调用方按「无此存档」处理
     async getOwner(saveId) {
-      const row = await db.prepare(`SELECT user_hash FROM saves WHERE save_id = ?`).bind(String(saveId)).first();
-      return row?.user_hash || null;
+      const row = await db.prepare(`SELECT user_hash, expires_at FROM saves WHERE save_id = ?`).bind(String(saveId)).first();
+      if (!row?.user_hash) return null;
+      if (row.expires_at > 0 && row.expires_at < Date.now()) return null;
+      return row.user_hash;
     },
     async findLatestSave(userHash, bookId) {
       const row = await db.prepare(
-        `SELECT save_id FROM saves WHERE user_hash = ? AND book_id = ? ORDER BY updated_at DESC LIMIT 1`
-      ).bind(String(userHash), String(bookId)).first();
+        `SELECT save_id FROM saves WHERE user_hash = ? AND book_id = ? AND (expires_at = 0 OR expires_at > ?)
+         ORDER BY updated_at DESC LIMIT 1`
+      ).bind(String(userHash), String(bookId), Date.now()).first();
       return row?.save_id || null;
     },
     async addMemories(saveId, items, turn) {
@@ -87,13 +95,32 @@ async function pruneMemories(db, saveId) {
   ).bind(String(saveId), String(saveId), MEM_ROW_CAP).run();
 }
 
+// 登录迁移：匿名期间的存档划归登录账号（memories/summaries 以 save_id 关联，自动跟随）；同时转为永久
+async function migrateUserD1(db, fromHash, toHash) {
+  await db.prepare(`UPDATE saves SET user_hash = ?, expires_at = 0 WHERE user_hash = ?`)
+    .bind(String(toHash), String(fromHash)).run();
+}
+
+// 定时清理（Cron Trigger 每小时调）：删除已过期的匿名存档及其记忆/摘要
+export async function purgeExpiredAnon(env) {
+  if (!env?.DB?.prepare) return;
+  const now = Date.now();
+  await env.DB.prepare(`DELETE FROM memories WHERE save_id IN (SELECT save_id FROM saves WHERE expires_at > 0 AND expires_at < ?)`)
+    .bind(now).run();
+  await env.DB.prepare(`DELETE FROM summaries WHERE save_id IN (SELECT save_id FROM saves WHERE expires_at > 0 AND expires_at < ?)`)
+    .bind(now).run();
+  await env.DB.prepare(`DELETE FROM saves WHERE expires_at > 0 AND expires_at < ?`)
+    .bind(now).run();
+}
+
 // ---- SAVE_KV 降级实现（本地 Node FileKV / Workers KV 均可） ----
 // 每个存档三把钥匙：save:{id} / mem:{id} / summ:{id}，值为 JSON。
 function kvStore(kv) {
   const mem = {
     engine: 'kv',
     async saveState(saveId, bookId, userHash, state, chapter) {
-      await kv.put(`save:${saveId}`, JSON.stringify({ bookId, userHash, state, chapter, ts: Date.now() }));
+      const expiresAt = String(userHash).startsWith('anon:') ? Date.now() + ANON_TTL_MS : 0;
+      await kv.put(`save:${saveId}`, JSON.stringify({ bookId, userHash, state, chapter, ts: Date.now(), expiresAt }));
     },
     async loadState(saveId) {
       const raw = await kv.get(`save:${saveId}`);
@@ -103,7 +130,30 @@ function kvStore(kv) {
     async getOwner(saveId) {
       const raw = await kv.get(`save:${saveId}`);
       if (!raw) return null;
-      try { return JSON.parse(raw)?.userHash || null; } catch { return null; }
+      try {
+        const rec = JSON.parse(raw);
+        if (rec.expiresAt > 0 && rec.expiresAt < Date.now()) return null;
+        return rec.userHash || null;
+      } catch { return null; }
+    },
+    async migrateUser(fromHash, toHash) {
+      // KV 无二级索引：前缀遍历改归属（本地/降级路径数据量小可接受）
+      let cursor;
+      do {
+        const page = await kv.list({ prefix: 'save:', cursor });
+        for (const key of page.keys) {
+          const raw = await kv.get(key.name);
+          if (!raw) continue;
+          try {
+            const rec = JSON.parse(raw);
+            if (rec.userHash !== fromHash) continue;
+            rec.userHash = toHash;
+            rec.expiresAt = 0;
+            await kv.put(key.name, JSON.stringify(rec));
+          } catch { /* 跳过坏行 */ }
+        }
+        cursor = page.list_complete ? undefined : page.cursor;
+      } while (cursor);
     },
     async findLatestSave(userHash, bookId) {
       // KV 无二级索引：靠 list 前缀扫描（量小可接受）
@@ -116,7 +166,8 @@ function kvStore(kv) {
           if (!raw) continue;
           try {
             const rec = JSON.parse(raw);
-            if (rec.userHash === userHash && rec.bookId === bookId && rec.ts > bestTs) { best = key.name.slice(5); bestTs = rec.ts; }
+            const expired = rec.expiresAt > 0 && rec.expiresAt < Date.now();
+            if (!expired && rec.userHash === userHash && rec.bookId === bookId && rec.ts > bestTs) { best = key.name.slice(5); bestTs = rec.ts; }
           } catch { /* 跳过坏行 */ }
         }
         cursor = page.list_complete ? undefined : page.cursor;
